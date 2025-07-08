@@ -1,0 +1,104 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Sans-Serif;
+}
+.activity-main main {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  /*height: calc(100vh - 50px);*/
+  background-color:;
+}
+.activity-main main .container {
+  width: 100%;
+  height: 100%;
+}
+.activity-main main .container .fragment {
+  display: none;
+}
+.activity-main main .container .fragment.active {
+  display: block;
+}
+.activity-main footer {
+  width: 100%;
+  height: 50px;
+  max-width: 600px;
+  background-color:;
+  border-top: 1px solid #e8e8e8;
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 0);
+}
+.activity-main footer nav {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.activity-main footer nav .nav-btn {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.activity-main footer nav .icon-wrapper {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.activity-main footer nav .icon-wrapper .icon {
+  width: 100%;
+  height: 100%;
+}
+.activity-main footer nav .icon-wrapper .icon-solid {
+  display: none;
+}
+.activity-main footer nav .nav-btn.active .icon-wrapper .icon-regular {
+  display: none;
+}
+.activity-main footer nav .nav-btn.active .icon-wrapper .icon-solid {
+  display: block;
+}
+.fragment-home header {
+  width: 100%;
+}
+.fragment-home header nav {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+.fragment-home header nav .nav-menu div {
+  height: 3px;
+  border-radius: 100px;
+  background-color: black;
+  transition: 0.3s ease-in;
+}
+.fragment-home header nav .nav-menu .top-bar {
+  width: 15px;
+}
+.fragment-home header nav .nav-menu .middle-bar {
+  width: 35px;
+  margin: 6px 0;
+}
+.fragment-home header nav .nav-menu .bottom-bar {
+  width: 22px;
+}
+.fragment-home header nav .nav-menu.active .top-bar {
+  width: 22px;
+  transform: rotate(45deg) translateY(3px);
+  transform-origin: left center;
+}
+.fragment-home header nav .nav-menu.active .middle-bar {
+  transform: translateX(-100px);
+}
+.fragment-home header nav .nav-menu.active .bottom-bar {
+  width: 22px;
+  transform: rotate(-45deg) translateY(-3px);
+  transform-origin: left center;
+}
