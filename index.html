@@ -4,8 +4,57 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <style type="text/css" media="all"></style>
+    <title>United Cultural Club</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Sans-Serif;
+      }
+      .activity-main footer {
+        width: 100%;
+        height: 50px;
+        max-width: 600px;
+        background-color:;
+        border-top: 1px solid #e8e8e8;
+        position: fixed;
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%, 0);
+      }
+      .activity-main footer nav {
+        width: 100%;
+        height: 100%;
+        display: flex;
+      }
+      .activity-main footer nav .nav-btn {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .activity-main footer nav .icon-wrapper {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .activity-main footer nav .icon-wrapper .icon {
+        width: 100%;
+        height: 100%;
+      }
+      .activity-main footer nav .icon-wrapper .icon-solid {
+        display: none;
+      }
+      .activity-main footer nav .nav-btn.active .icon-wrapper .icon-regular {
+        display: none;
+      }
+      .activity-main footer nav .nav-btn.active .icon-wrapper .icon-solid {
+        display: block;
+      }
+    </style>
   </head>
   <body>
     <div class="activity-main">
