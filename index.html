@@ -130,6 +130,94 @@
         </nav>
       </footer>
     </div>
-    <script type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      let fragmentName = ["home", "search", "conversation", "profile"];
+      let navBtn = document.querySelectorAll(".activity-main footer nav .nav-btn");
+      let navBtnState = [{ isClicked: false }, { isClicked: false }, { isClicked: false }, { isClicked: false }];
+      navBtn.forEach((btn, index) => {
+        btn.addEventListener("click", e => {
+          if (!navBtnState[index].isClicked) {
+            if (navBtnState[0].isClicked) {
+              history.pushState({ fragment: `${fragmentName[index]}` }, "", `#${fragmentName[index]}`);
+            } else {
+              history.replaceState({ fragment: `${fragmentName[index]}` }, "", `#${fragmentName[index]}`);
+            }
+            window.dispatchEvent(new HashChangeEvent("hashchange"));
+          }
+        });
+      });
+
+      window.addEventListener("hashchange", e => {
+        let path = location.hash.replace("#", "");
+        let index = { home: 0, search: 1, conversation: 2, profile: 3 }[path] ?? 0;
+        switch (index) {
+          case 0:
+            let historyLength = history.length - 1;
+            if (historyLength > 0) {
+              for (let x = 0; x < historyLength; x++) {
+                history.back();
+              }
+            }
+            sessionStorage.setItem("fragment", `${fragmentName[index]}`);
+            break;
+          case 1:
+            sessionStorage.setItem("fragment", `${fragmentName[index]}`);
+            break;
+          case 2:
+            sessionStorage.setItem("fragment", `${fragmentName[index]}`);
+            break;
+          case 3:
+            sessionStorage.setItem("fragment", `${fragmentName[index]}`);
+            break;
+        }
+        navBtnState.forEach(navBtnState => {
+          navBtnState.isClicked = false;
+        });
+        navBtnState[index].isClicked = true;
+        loadFragment(index);
+      });
+
+      window.addEventListener("DOMContentLoaded", e => {
+        let fragment = sessionStorage.getItem("fragment") || fragmentName[0];
+        let index = { home: 0, search: 1, conversation: 2, profile: 3 }[fragment] ?? 0;
+        switch (index) {
+          case 0:
+            location.replace(`#${fragmentName[index]}`);
+            break;
+          case 1:
+            location.hash = `#${fragmentName[index]}`;
+            break;
+          case 2:
+            location.hash = `#${fragmentName[index]}`;
+            break;
+          case 3:
+            location.hash = `#${fragmentName[index]}`;
+            break;
+        }
+        window.dispatchEvent(new HashChangeEvent("hashchange"));
+      });
+      
+      //let fragments = document.querySelectorAll(".activity-main main .container .fragment");
+      function loadFragment(index) {
+        /*fragments.forEach(fragment => {
+          fragment.classList.remove("active");
+        });
+        fragments[index].classList.add("active");*/
+        navBtn.forEach(btn => {
+          btn.classList.remove("active");
+        });
+        navBtn[index].classList.add("active");
+        /*switch (index) {
+          case 0:
+            break;
+          case 1:
+            break;
+          case 2:
+            break;
+          case 3:
+            break;
+        }*/
+      }
+    </script>
   </body>
 </html>
