@@ -37,6 +37,8 @@
       .activity-main footer nav .icon-wrapper {
         width: 24px;
         height: 24px;
+        color: grey;
+        fill: grey;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -45,13 +47,15 @@
         width: 100%;
         height: 100%;
       }
-      .activity-main footer nav .icon-wrapper .icon-solid {
+      .activity-main footer nav .nav-btn .icon-wrapper .icon-solid {
         display: none;
       }
       .activity-main footer nav .nav-btn.active .icon-wrapper .icon-regular {
         display: none;
       }
       .activity-main footer nav .nav-btn.active .icon-wrapper .icon-solid {
+        color: #333;
+        fill: #333;
         display: block;
       }
     </style>
@@ -107,10 +111,10 @@
           <div class="nav-btn">
             <div class="icon-wrapper">
               <div class="icon icon-regular">
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24"><g><path d="M12 12a6 6 0 1 0-6-6 6.006 6.006 0 0 0 6 6Zm0-10a4 4 0 1 1-4 4 4 4 0 0 1 4-4ZM12 14a9.01 9.01 0 0 0-9 9 1 1 0 0 0 2 0 7 7 0 0 1 14 0 1 1 0 0 0 2 0 9.01 9.01 0 0 0-9-9Z"></path></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M12 12a6 6 0 1 0-6-6 6.006 6.006 0 0 0 6 6Zm0-10a4 4 0 1 1-4 4 4 4 0 0 1 4-4ZM12 14a9.01 9.01 0 0 0-9 9 1 1 0 0 0 2 0 7 7 0 0 1 14 0 1 1 0 0 0 2 0 9.01 9.01 0 0 0-9-9Z"></path></g></svg>
               </div>
               <div class="icon icon-solid">
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 512 512"><g><circle cx="256" cy="128" r="128" fill="#000000" opacity="1" data-original="#000000"></circle><path d="M256 298.667c-105.99.118-191.882 86.01-192 192C64 502.449 73.551 512 85.333 512h341.333c11.782 0 21.333-9.551 21.333-21.333-.117-105.99-86.009-191.883-191.999-192z"></path></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><circle cx="256" cy="128" r="128" opacity="1" data-original="#000000"></circle><path d="M256 298.667c-105.99.118-191.882 86.01-192 192C64 502.449 73.551 512 85.333 512h341.333c11.782 0 21.333-9.551 21.333-21.333-.117-105.99-86.009-191.883-191.999-192z"></path></g></svg>
               </div>
             </div>
           </div>
