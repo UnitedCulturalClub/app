@@ -205,12 +205,31 @@
         let index = { home: 0, search: 1, broadcast: 2, profile: 3 }[path] ?? 0;
         switch (index) {
           case 0:
-            let historyLength = history.length - 1;
+            /*let historyLength = history.length - 1;
             if (historyLength > 0) {
               for (let x = 0; x < historyLength; x++) {
                 history.back();
               };
-            };
+            };*/
+            const ref = document.referrer;
+            const safeToClear = ref === "" || ref.includes(location.hostname);
+
+            if (safeToClear) {
+              const goBackTill = () => {
+                if (history.state && history.state.appStart) {
+                  console.log("Reached beginning of app history");
+                  return;
+                } else {
+                  history.back();
+                  setTimeout(goBackTill, 100); // async wait for popstate
+                }
+              };
+
+              goBackTill();
+            } else {
+              console.log("Came from external site, skipping back loop");
+            }
+
             sessionStorage.setItem("fragment", `${fragmentName[index]}`);
             break;
           case 1:
@@ -236,6 +255,9 @@
         switch (index) {
           case 0:
             location.replace(`#${fragmentName[index]}`);
+            if (!history.state) {
+              history.replaceState({ appStart: true }, "");
+            }
             break;
           case 1:
             location.hash = `#${fragmentName[index]}`;
@@ -270,7 +292,7 @@
           case 3:
             break;
         }*/
-      };
+      }
     </script>
   </body>
 </html>
