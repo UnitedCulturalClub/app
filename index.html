@@ -206,11 +206,11 @@
         switch (index) {
           case 0:
             let historyLength = history.length - 1;
-            if (historyLength > 0) {
+            /*if (historyLength > 0) {
               for (let x = 0; x < historyLength; x++) {
                 history.back();
               }
-            }
+            }*/
             sessionStorage.setItem("fragment", `${fragmentName[index]}`);
             break;
           case 1:
