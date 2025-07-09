@@ -187,7 +187,6 @@
       let fragmentName = ["home", "search", "broadcast", "profile"];
       let navBtn = document.querySelectorAll(".activity-main footer nav .nav-btn");
       let navBtnState = [{ isClicked: false }, { isClicked: false }, { isClicked: false }, { isClicked: false }];
-      let navHistory = [];
       navBtn.forEach((btn, index) => {
         btn.addEventListener("click", e => {
           if (!navBtnState[index].isClicked) {
@@ -206,17 +205,15 @@
         let index = { home: 0, search: 1, broadcast: 2, profile: 3 }[path] ?? 0;
         switch (index) {
           case 0:
-            /*let historyLength = history.length - 1;
-            if (historyLength > 0) {
-              for (let x = 0; x < historyLength; x++) {
-                history.back();
-              };
-            };*/
-            let lastHomeIndex = navHistory.lastIndexOf("home");
-            let stepsBack = navHistory.length - 1 - lastHomeIndex;
-            if (stepsBack > 0) {
-              history.go(-stepsBack);
-              navHistory = navHistory.slice(0, lastHomeIndex + 1);
+            const ref = document.referrer;
+            const safeToClear = ref === "" || ref.includes(location.hostname);
+            if (safeToClear) {
+              let historyLength = history.length - 1;
+              if (historyLength > 0) {
+                for (let x = 0; x < historyLength; x++) {
+                  history.back();
+                }
+              }
             }
             sessionStorage.setItem("fragment", `${fragmentName[index]}`);
             break;
@@ -229,14 +226,6 @@
           case 3:
             sessionStorage.setItem("fragment", `${fragmentName[index]}`);
             break;
-        }
-        if (!navBtnState[index].isClicked) {
-            if (navBtnState[0].isClicked) {
-              if(index !== 0){
-                navHistory.push(fragmentName[index]);
-              }
-              
-            }
         }
         navBtnState.forEach(navBtnState => {
           navBtnState.isClicked = false;
@@ -262,8 +251,7 @@
             location.hash = `#${fragmentName[index]}`;
             break;
         }
-        //window.dispatchEvent(new HashChangeEvent("hashchange"));
-        loadFragment(index);
+        window.dispatchEvent(new HashChangeEvent("hashchange"));
       });
 
       //let fragments = document.querySelectorAll(".activity-main main .container .fragment");
