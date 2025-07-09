@@ -232,7 +232,10 @@
         }
         if (!navBtnState[index].isClicked) {
             if (navBtnState[0].isClicked) {
-              navHistory.push(fragmentName[index]);
+              if(index !== 0){
+                navHistory.push(fragmentName[index]);
+              }
+              
             }
         }
         navBtnState.forEach(navBtnState => {
