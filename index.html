@@ -187,12 +187,12 @@
       let fragmentName = ["home", "search", "broadcast", "profile"];
       let navBtn = document.querySelectorAll(".activity-main footer nav .nav-btn");
       let navBtnState = [{ isClicked: false }, { isClicked: false }, { isClicked: false }, { isClicked: false }];
+      let navHistory = [];
       navBtn.forEach((btn, index) => {
         btn.addEventListener("click", e => {
           if (!navBtnState[index].isClicked) {
             if (navBtnState[0].isClicked) {
               history.pushState({ fragment: `${fragmentName[index]}` }, "", `#${fragmentName[index]}`);
-              navHistory.push(fragmentName[index]);
             } else {
               history.replaceState({ fragment: `${fragmentName[index]}` }, "", `#${fragmentName[index]}`);
             }
@@ -200,7 +200,7 @@
           }
         });
       });
-      let navHistory = ["home"];
+
       window.addEventListener("hashchange", e => {
         let path = location.hash.replace("#", "");
         let index = { home: 0, search: 1, broadcast: 2, profile: 3 }[path] ?? 0;
@@ -212,12 +212,12 @@
                 history.back();
               };
             };*/
-            if(navHistory.length > 0){
-              for (let x = 0; x < navHistory.length; x++) {
-                history.back();
-              };
-            };
-            alert(navHistory.length)
+            let lastHomeIndex = navHistory.lastIndexOf("home");
+            let stepsBack = navHistory.length - 1 - lastHomeIndex;
+            if (stepsBack > 0) {
+              history.go(-stepsBack);
+              navHistory = navHistory.slice(0, lastHomeIndex + 1);
+            }
             sessionStorage.setItem("fragment", `${fragmentName[index]}`);
             break;
           case 1:
@@ -229,6 +229,11 @@
           case 3:
             sessionStorage.setItem("fragment", `${fragmentName[index]}`);
             break;
+        }
+        if (!navBtnState[index].isClicked) {
+            if (navBtnState[0].isClicked) {
+              navHistory.push(fragmentName[index]);
+            }
         }
         navBtnState.forEach(navBtnState => {
           navBtnState.isClicked = false;
@@ -254,7 +259,8 @@
             location.hash = `#${fragmentName[index]}`;
             break;
         }
-        window.dispatchEvent(new HashChangeEvent("hashchange"));
+        //window.dispatchEvent(new HashChangeEvent("hashchange"));
+        loadFragment(index);
       });
 
       //let fragments = document.querySelectorAll(".activity-main main .container .fragment");
@@ -277,7 +283,7 @@
           case 3:
             break;
         }*/
-      };
+      }
     </script>
   </body>
 </html>
