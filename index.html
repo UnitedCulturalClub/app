@@ -205,10 +205,13 @@
         let index = { home: 0, search: 1, broadcast: 2, profile: 3 }[path] ?? 0;
         switch (index) {
           case 0:
-            let historyLength = history.length - 1;
-            if (historyLength > 0) {
-              for (let x = 0; x < historyLength; x++) {
-                history.back();
+            let isInternalEntry = sessionStorage.getItem("isInternalEntry") === "true";
+            if (isInternalEntry) {
+              let historyLength = history.length - 1;
+              if (historyLength > 0) {
+                for (let x = 0; x < historyLength; x++) {
+                  history.back();
+                }
               }
             }
             sessionStorage.setItem("fragment", `${fragmentName[index]}`);
@@ -231,6 +234,7 @@
       });
 
       window.addEventListener("DOMContentLoaded", e => {
+        sessionStorage.setItem("isInternalEntry", "true");
         let fragment = sessionStorage.getItem("fragment") || fragmentName[0];
         let index = { home: 0, search: 1, broadcast: 2, profile: 3 }[fragment] ?? 0;
         switch (index) {
