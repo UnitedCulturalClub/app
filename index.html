@@ -201,35 +201,23 @@
       });
 
       window.addEventListener("hashchange", e => {
-        let path = location.hash.replace("#", "");
-        let index = { home: 0, search: 1, broadcast: 2, profile: 3 }[path] ?? 0;
+        const path = location.hash.replace("#", "");
+        const index = { home: 0, search: 1, broadcast: 2, profile: 3 }[path] ?? 0;
         switch (index) {
           case 0:
-            /*let historyLength = history.length - 1;
-            if (historyLength > 0) {
-              for (let x = 0; x < historyLength; x++) {
-                history.back();
-              };
-            };*/
             const ref = document.referrer;
             const safeToClear = ref === "" || ref.includes(location.hostname);
-
             if (safeToClear) {
               const goBackTill = () => {
                 if (history.state && history.state.appStart) {
-                  console.log("Reached beginning of app history");
                   return;
                 } else {
                   history.back();
-                  setTimeout(goBackTill, 100); // async wait for popstate
+                  setTimeout(goBackTill, 100);
                 }
               };
-
               goBackTill();
-            } else {
-              console.log("Came from external site, skipping back loop");
             }
-
             sessionStorage.setItem("fragment", `${fragmentName[index]}`);
             break;
           case 1:
@@ -250,8 +238,8 @@
       });
 
       window.addEventListener("DOMContentLoaded", e => {
-        let fragment = sessionStorage.getItem("fragment") || fragmentName[0];
-        let index = { home: 0, search: 1, broadcast: 2, profile: 3 }[fragment] ?? 0;
+        const fragment = sessionStorage.getItem("fragment") || fragmentName[0];
+        const index = { home: 0, search: 1, broadcast: 2, profile: 3 }[fragment] ?? 0;
         switch (index) {
           case 0:
             location.replace(`#${fragmentName[index]}`);
