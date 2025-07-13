@@ -4,19 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>United Cultural Club</title>
+    <title>Document</title>
     <style type="text/css" media="all">
+      :root {
+        --color: #000000;
+        --colorPrimary: #1e9bf0;
+        --colorForground: #000000;
+        --colorBackground: #ffffff;
+        --colorDevider: #e8e8e8;
+      }
       body {
         margin: 0;
         padding: 0;
         font-family: Sans-Serif;
+        background-color: var(--colorBackground);
       }
+      /*Main Fragment*/
+      .activity-main > main {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .activity-main > main > .container {
+        width: 100%;
+        height: 100vh;
+        padding-bottom: 65px;
+        box-sizing: border-box;
+      }
+      .activity-main > main > .container > .fragment {
+        display: none;
+      }
+      .activity-main > main > .container > .fragment.active {
+        display: block;
+      }
+      /*Main Footer*/
       .activity-main footer {
         width: 100%;
         height: 65px;
         max-width: 600px;
-        background-color:;
-        border-top: 1px solid #e8e8e8;
+        background-color: var(--colorBackground);
+        border-top: 1px solid var(--colorDevider);
         position: fixed;
         left: 50%;
         bottom: 0;
@@ -44,8 +71,8 @@
         align-items: center;
       }
       .activity-main footer nav .nav-btn.active .wrapper {
-        color: black;
-        fill: black;
+        color: var(--color);
+        fill: var(--color);
       }
       .activity-main footer nav .nav-btn .icon-wrapper {
         width: 24px;
@@ -68,7 +95,7 @@
         /*display: block;*/
       }
       .activity-main footer nav .nav-btn .title-wrapper {
-        color: black;
+        color: var(--color);
         font-size: 10px;
         margin-top: 3px;
         margin-bottom: 2px;
@@ -78,17 +105,130 @@
         width: 25px;
         height: 2px;
         border-radius: 100px;
-        background-color: #000;
+        background-color: var(--colorForground);
         visibility: hidden;
         /*display: none;*/
       }
       .activity-main footer nav .nav-btn.active .active-bar {
         visibility: visible;
       }
+      /*Fragment Home*/
+      .fragment-home {
+        width: 100%;
+        height: 100%;
+        overflow: scroll;
+        scroll-behavior: smooth;
+      }
+      .fragment-home header {
+        width: 100%;
+        height: 100px;
+        background-color: var(--colorBackground);
+        border-bottom: 1px solid var(--colorDevider);
+        position: sticky;
+        top: -50px;
+        user-select: none;
+      }
+      .fragment-home header > div {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .fragment-home header > div div {
+        width: 35px;
+        height: 35px;
+        fill: var(--color);
+      }
+      .fragment-home header nav {
+        width: 100%;
+        height: 50px;
+        display: flex;
+      }
+      .fragment-home header nav .tab-btn {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .fragment-home header nav .tab-btn span {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+        color: var(--color);
+        font-size: 14px;
+        font-weight: 420;
+      }
+      .fragment-home header nav .tab-btn.active span {
+        color: var(--color);
+      }
+      .fragment-home header nav .tab-btn.active span::after {
+        content: "";
+        width: 100%;
+        height: 4px;
+        border-radius: 100px;
+        background-color: var(--colorForground);
+        position: absolute;
+        bottom: 0;
+      }
+      .fragment-home main {
+        width: 100%;
+      }
+      .fragment-home main .container {
+        width: 100%;
+      }
+      .fragment-home main .container .fragment {
+        display: none;
+      }
+      .fragment-home main .container .fragment.active {
+        display: block;
+      }
+
+      @media only screen and (prefers-color-scheme: dark) {
+        :root {
+          --color: #ffffff;
+          --colorForground: #ffffff;
+          --colorBackground: #000000;
+          --colorDevider: #333333;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="activity-main">
+      <main>
+        <div class="container">
+          <div class="fragment fragment-home">
+            <header>
+              <div class="">
+                <div class="">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g><path d="M17.523 15.342a1 1 0 1 1-.001-1.999 1 1 0 0 1 .001 1.999m-11.046 0a1 1 0 1 1-.001-1.999 1 1 0 0 1 .001 1.999m11.404-6.02 1.997-3.459a.415.415 0 1 0-.72-.416L17.136 8.95C15.59 8.244 13.853 7.851 12 7.851s-3.59.393-5.137 1.098L4.841 5.447a.416.416 0 0 0-.72.415l1.997 3.46c-3.43 1.865-5.775 5.337-6.119 9.44h24c-.343-4.103-2.688-7.575-6.118-9.44"></path></g>
+                  </svg>
+                </div>
+              </div>
+              <nav>
+                <div class="tab-btn">
+                  <span>Collections</span>
+                </div>
+                <div class="tab-btn">
+                  <span>Expanses</span>
+                </div>
+              </nav>
+            </header>
+            <main>
+              <div class="container">
+                <div class="fragment">b</div>
+                <div class="fragment">h</div>
+              </div>
+            </main>
+          </div>
+          <div class="fragment">Search</div>
+          <div class="fragment">Broadcast</div>
+          <div class="fragment">Profile</div>
+        </div>
+      </main>
       <footer>
         <nav>
           <div class="nav-btn">
@@ -184,103 +324,168 @@
       </footer>
     </div>
     <script type="text/javascript" charset="utf-8">
-      let fragmentName = ["home", "search", "broadcast", "profile"];
+      const FragmentManeger = {
+        main: {
+          getFragment: ["home", "search", "broadcast", "profile"],
+          activeFragment: "home"
+        },
+        home: {
+          getFragment: ["collection", "expanse"],
+          activeFragment: "collection"
+        }
+      };
+      window.addEventListener("DOMContentLoaded", () => {
+        const fragments = FragmentManeger.main.getFragment;
+        const fragmentManeger = JSON.parse(sessionStorage.getItem("fragmentManeger")) || FragmentManeger;
+        const activeFragment = fragmentManeger.main.activeFragment;
+        const index = fragmentManeger.main.getFragment.indexOf(activeFragment);
+        if (index === 0) {
+          location.replace(`#${fragments[index]}`);
+          if (!history.state) {
+            history.replaceState({ appStart: true }, "");
+          }
+        }
+        loadFragment(index, true);
+      });
+
       let navBtn = document.querySelectorAll(".activity-main footer nav .nav-btn");
-      let navBtnState = [{ isClicked: false }, { isClicked: false }, { isClicked: false }, { isClicked: false }];
       navBtn.forEach((btn, index) => {
-        btn.addEventListener("click", e => {
-          if (!navBtnState[index].isClicked) {
-            if (navBtnState[0].isClicked) {
-              history.pushState({ fragment: `${fragmentName[index]}` }, "", `#${fragmentName[index]}`);
-            } else {
-              history.replaceState({ fragment: `${fragmentName[index]}` }, "", `#${fragmentName[index]}`);
+        btn.addEventListener("click", () => {
+          if (!btn.classList.contains("active")) {
+            const fragments = FragmentManeger.main.getFragment;
+            if (index === 0) {
+              onBackPressed();
             }
-            window.dispatchEvent(new HashChangeEvent("hashchange"));
+            if (navBtn[0].classList.contains("active")) {
+              history.pushState({ fragment: `${fragments[index]}` }, "", `#${fragments[index]}`);
+            } else {
+              history.replaceState({ fragment: `${fragments[index]}` }, "", `#${fragments[index]}`);
+            }
+            const fragmentManeger = JSON.parse(sessionStorage.getItem("fragmentManeger")) || FragmentManeger;
+            fragmentManeger.main.activeFragment = fragmentManeger.main.getFragment[index];
+            sessionStorage.setItem("fragmentManeger", JSON.stringify(fragmentManeger));
+            loadFragment(index, true);
+          } else {
+            loadFragment(index, false);
           }
         });
       });
 
-      window.addEventListener("hashchange", e => {
+      window.addEventListener("hashchange", () => {
+        const fragments = FragmentManeger.main.getFragment;
         const path = location.hash.replace("#", "");
-        const index = { home: 0, search: 1, broadcast: 2, profile: 3 }[path] ?? 0;
-        switch (index) {
-          case 0:
-            const ref = document.referrer;
-            const safeToClear = ref === "" || ref.includes(location.hostname);
-            if (safeToClear) {
-              const goBackTill = () => {
-                if (history.state && history.state.appStart) {
-                  return;
-                } else {
-                  history.back();
-                  setTimeout(goBackTill, 100);
-                }
-              };
-              goBackTill();
-            }
-            sessionStorage.setItem("fragment", `${fragmentName[index]}`);
-            break;
-          case 1:
-            sessionStorage.setItem("fragment", `${fragmentName[index]}`);
-            break;
-          case 2:
-            sessionStorage.setItem("fragment", `${fragmentName[index]}`);
-            break;
-          case 3:
-            sessionStorage.setItem("fragment", `${fragmentName[index]}`);
-            break;
+        const index = fragments.indexOf(path);
+        if (index === 0) {
+          onBackPressed();
         }
-        navBtnState.forEach(navBtnState => {
-          navBtnState.isClicked = false;
-        });
-        navBtnState[index].isClicked = true;
-        loadFragment(index);
+        const fragmentManeger = JSON.parse(sessionStorage.getItem("fragmentManeger")) || FragmentManeger;
+        fragmentManeger.main.activeFragment = fragmentManeger.main.getFragment[index];
+        sessionStorage.setItem("fragmentManeger", JSON.stringify(fragmentManeger));
+        loadFragment(index, true);
       });
 
-      window.addEventListener("DOMContentLoaded", e => {
-        const fragment = sessionStorage.getItem("fragment") || fragmentName[0];
-        const index = { home: 0, search: 1, broadcast: 2, profile: 3 }[fragment] ?? 0;
-        switch (index) {
-          case 0:
-            location.replace(`#${fragmentName[index]}`);
-            if (!history.state) {
-              history.replaceState({ appStart: true }, "");
+      function onBackPressed() {
+        const ref = document.referrer;
+        const safeToClear = ref === "" || ref.includes(location.hostname);
+        if (safeToClear) {
+          const goBackTill = () => {
+            if (history.state && history.state.appStart) {
+              return;
+            } else {
+              history.back();
+              setTimeout(goBackTill, 100);
             }
-            break;
-          case 1:
-            location.hash = `#${fragmentName[index]}`;
-            break;
-          case 2:
-            location.hash = `#${fragmentName[index]}`;
-            break;
-          case 3:
-            location.hash = `#${fragmentName[index]}`;
-            break;
+          };
+          goBackTill();
         }
-        window.dispatchEvent(new HashChangeEvent("hashchange"));
-      });
+      }
 
-      //let fragments = document.querySelectorAll(".activity-main main .container .fragment");
-      function loadFragment(index) {
-        /*fragments.forEach(fragment => {
+      function loadFragment(index, isFirstTime) {
+        const fragments = document.querySelectorAll(".activity-main main .container .fragment");
+        fragments.forEach(fragment => {
           fragment.classList.remove("active");
         });
-        fragments[index].classList.add("active");*/
+        fragments[index].classList.add("active");
         navBtn.forEach(btn => {
           btn.classList.remove("active");
         });
         navBtn[index].classList.add("active");
-        /*switch (index) {
+        switch (index) {
           case 0:
+            const fragmentManeger = JSON.parse(sessionStorage.getItem("fragmentManeger")) || FragmentManeger;
+            const activeFragment = fragmentManeger.home.activeFragment;
+            let index = fragmentManeger.home.getFragment.indexOf(activeFragment);
+            if (!isFirstTime) {
+              index = 0;
+              fragmentManeger.home.activeFragment = fragmentManeger.home.getFragment[index];
+              sessionStorage.setItem("fragmentManeger", JSON.stringify(fragmentManeger));
+              sessionStorage.removeItem("fragmentCollectionScrollTop");
+              sessionStorage.removeItem("fragmentExpanseScrollTop");
+            }
+            renderHome(index);
+            break;
+        }
+      }
+
+      let tabBtn = document.querySelectorAll(".fragment-home header nav .tab-btn");
+      tabBtn.forEach((btn, index) => {
+        btn.addEventListener("click", () => {
+          if (!btn.classList.contains("active")) {
+            const fragmentManeger = JSON.parse(sessionStorage.getItem("fragmentManeger")) || FragmentManeger;
+            fragmentManeger.home.activeFragment = fragmentManeger.home.getFragment[index];
+            sessionStorage.setItem("fragmentManeger", JSON.stringify(fragmentManeger));
+            renderHome(index);
+          } else {
+            switch (index) {
+              case 0:
+                sessionStorage.removeItem("fragmentCollectionScrollTop");
+                break;
+              case 1:
+                sessionStorage.removeItem("fragmentExpanseScrollTop");
+                break;
+            }
+            renderHome(index);
+          }
+        });
+      });
+
+      let fragmentHome = document.querySelector(".activity-main main .container .fragment-home");
+      function renderHome(index) {
+        let fragments = document.querySelectorAll(".fragment-home main .container .fragment");
+        fragments.forEach(fragment => {
+          fragment.classList.remove("active");
+        });
+        fragments[index].classList.add("active");
+        tabBtn.forEach(btn => {
+          btn.classList.remove("active");
+        });
+        tabBtn[index].classList.add("active");
+        let scrollTop;
+        switch (index) {
+          case 0:
+            scrollTop = sessionStorage.getItem("fragmentCollectionScrollTop") || 0;
+            fragmentHome.scrollTop = scrollTop;
             break;
           case 1:
+            scrollTop = sessionStorage.getItem("fragmentExpanseScrollTop") || 0;
+            fragmentHome.scrollTop = scrollTop;
             break;
-          case 2:
-            break;
-          case 3:
-            break;
-        }*/
+        }
       }
+
+      fragmentHome.addEventListener("scroll", e => {
+        const fragmentManeger = JSON.parse(sessionStorage.getItem("fragmentManeger")) || FragmentManeger;
+        const activeFragment = fragmentManeger.home.activeFragment;
+        const index = fragmentManeger.home.getFragment.indexOf(activeFragment);
+        switch (index) {
+          case 0:
+            sessionStorage.setItem("fragmentCollectionScrollTop", e.target.scrollTop);
+            break;
+          case 1:
+            sessionStorage.setItem("fragmentExpanseScrollTop", e.target.scrollTop);
+            break;
+        }
+      });
     </script>
   </body>
 </html>
