@@ -16,15 +16,7 @@
           --colorDevider: rgba(0, 0, 0, 0.1);
         }
       }
-      @media only screen and (prefers-color-scheme: dark) {
-        :root {
-          --color: rgba(255, 255, 255, 1);
-          --colorIcon: rgba(190, 190, 190, 1);
-          --colorForground: rgba(255, 255, 255, 1);
-          --colorBackground: rgba(42, 45, 54, 1);
-          --colorDevider: rgba(255, 255, 255, 0.1);
-        }
-      }
+      
       body {
         margin: 0;
         padding: 0;
@@ -105,6 +97,19 @@
       }
       .activity-main footer nav .nav-btn.active .active-bar {
         visibility: visible;
+      }
+      
+      @media only screen and (prefers-color-scheme: dark) {
+        :root {
+          --color: rgba(255, 255, 255, 1);
+          --colorIcon: rgba(190, 190, 190, 1);
+          --colorForground: rgba(255, 255, 255, 1);
+          --colorBackground: rgba(42, 45, 54, 1);
+          --colorDevider: rgba(255, 255, 255, 0.1);
+        }
+              .activity-main footer nav .nav-btn .active-bar {
+                background-color: red;
+              }
       }
     </style>
   </head>
