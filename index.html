@@ -5,7 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <style type="text/css" media="all"></style>
+    <style type="text/css" media="all">
+      /*Main Footer*/
+      .activity-main footer {
+        width: 100%;
+        height: 65px;
+        max-width: 600px;
+        background-color: var(--colorBackground);
+        border-top: 1px solid var(--colorDevider);
+        position: fixed;
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%, 0);
+        user-select: none;
+      }
+      .activity-main footer nav {
+        width: 100%;
+        height: 100%;
+        display: flex;
+      }
+      .activity-main footer nav .nav-btn {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .activity-main footer nav .nav-btn .wrapper {
+        color: var(--colorIcon);
+        fill: var(--colorIcon);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .activity-main footer nav .nav-btn.active .wrapper {
+        color: var(--color);
+        fill: var(--color);
+      }
+      .activity-main footer nav .nav-btn .icon-wrapper {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .activity-main footer nav .icon-wrapper .icon {
+        width: 100%;
+        height: 100%;
+      }
+      .activity-main footer nav .icon-wrapper .icon-solid {
+        display: none;
+      }
+      .activity-main footer nav .nav-btn.active .icon-regular {
+        /*display: none;*/
+      }
+      .activity-main footer nav .nav-btn.active .icon-solid {
+        /*display: block;*/
+      }
+      .activity-main footer nav .nav-btn .title-wrapper {
+        color: var(--color);
+        font-size: 10px;
+        margin-top: 3px;
+        margin-bottom: 2px;
+        /*display: none;*/
+      }
+      .activity-main footer nav .nav-btn .active-bar {
+        width: 25px;
+        height: 2px;
+        border-radius: 100px;
+        background-color: var(--colorForground);
+        visibility: hidden;
+        /*display: none;*/
+      }
+      .activity-main footer nav .nav-btn.active .active-bar {
+        visibility: visible;
+      }
+    </style>
   </head>
   <body>
     <div class="activity-main">
