@@ -405,7 +405,8 @@
       }
 
       function loadFragment(index, isFirstTime) {
-        const fragments = document.querySelectorAll(".activity-main main .container .fragment");
+        const fragments = document.querySelectorAll(".activity-main > main > .container > .fragment");
+        console.log(fragments)
         fragments.forEach(fragment => {
           fragment.classList.remove("active");
         });
@@ -431,7 +432,7 @@
         }
       }
 
-      let tabBtn = document.querySelectorAll(".fragment-home header nav .tab-btn");
+      let tabBtn = document.querySelectorAll(".fragment-home > header nav .tab-btn");
       tabBtn.forEach((btn, index) => {
         btn.addEventListener("click", () => {
           if (!btn.classList.contains("active")) {
