@@ -1,17 +1,40 @@
-
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Login</title>
+    <title>Document</title>
     <style type="text/css" media="all"></style>
   </head>
   <body>
-    <h1>Login</h1>
     <script type="text/javascript" charset="utf-8">
-      window.location.replace("../index.html");
+      function getNextParam() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("next") ? decodeURIComponent(params.get("next")) : "/";
+      }
+      window.ondblclick = () => {
+        const user = {
+          auth: {
+            isLoggedIn: true
+          },
+          account: {
+            email: "shubhajit3012@gmail.com"
+          },
+          device: {
+            info: ""
+          },
+          session: {
+            id: ""
+          }
+        }
+        localStorage.setItem("application.user", JSON.stringify(user))
+        console.log(localStorage)
+        if(!confirm()) return;
+        const next = getNextParam();
+        window.location.replace(next);
+      };
+      console.log(localStorage);
     </script>
   </body>
 </html>
