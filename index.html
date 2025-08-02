@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark light" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>OneClub</title>
+    <title>Document</title>
     <style type="text/css" media="all">
       @media only screen and (prefers-color-scheme: light) {
         :root {
@@ -351,13 +351,17 @@
         };
         getUser(user).then(user => {
           if (!user || !user.session.isValid) {
-            localStorage.removeItem("application.user");
-            window.location.reload();
+            //localStorage.removeItem("application.user");
+            //window.location.reload();
             return;
           }
         });
       } else {
-        window.location.href = "auth/login.html";
+        console.log(localStorage)
+        //localStorage.clear();
+        const next = encodeURIComponent(window.location.pathname);
+        window.location.replace(`auth/login.html?next=${next}`);
+        //window.location.href = "auth/login.html";
       }
       window.addEventListener("DOMContentLoaded", () => {
         const fragments = ["home", "search", "broadcast", "profile"];
@@ -437,13 +441,13 @@
             renderHome();
             break;
           case 1:
-            renderSearch();
+            //renderSearch();
             break;
           case 2:
-            renderBroadcast();
+            //renderBroadcast();
             break;
           case 3:
-            renderProfile();
+            //renderProfile();
             break;
         }
       }
