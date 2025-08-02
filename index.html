@@ -136,6 +136,7 @@
         position: sticky;
         top: -50px;
         user-select: none;
+        z-index: 100;
       }
       .fragment-home > header > div {
         width: 100%;
@@ -324,6 +325,40 @@
       </footer>
     </div>
     <script type="text/javascript" charset="utf-8">
+      const user = JSON.parse(localStorage.getItem("application.user"));
+      if (user && user.auth.isLoggedIn) {
+        const getUser = async user => {
+          const status = { success: false };
+          while (!status.success) {
+            try {
+              const res = await fetch("https://script.google.com/macros/s/AKfycbwEy3EAl_MQqzQ_iYuWdGk1a3AC3Dl-0_clayU3nG7MjiO85yQF_KD9INmJffq-ekxu/exec", {
+                method: "POST",
+                body: JSON.stringify({
+                  query: "CHECKUSER",
+                  contents: {
+                    query: "CHECK",
+                    user: user
+                  }
+                })
+              });
+              const data = await res.json();
+              status.success = true;
+              return data;
+            } catch (err) {
+              await new Promise(resolve => setTimeout(resolve, 3000));
+            }
+          }
+        };
+        getUser(user).then(user => {
+          if (!user || !user.session.isValid) {
+            localStorage.removeItem("application.user");
+            window.location.reload();
+            return;
+          }
+        });
+      } else {
+        window.open("login.html")
+      }
       window.addEventListener("DOMContentLoaded", () => {
         const fragments = ["home", "search", "broadcast", "profile"];
         const fragment = sessionStorage.getItem("fragment") || "home";
@@ -417,7 +452,7 @@
         switch (index) {
           case 0:
             const removeItem = ["home.fragment", "collection.scrollTop", "expanse.scrollTop"];
-            removeItem.forEach(item => sessionStorage.removeItem(item))
+            removeItem.forEach(item => sessionStorage.removeItem(item));
             break;
           case 1:
             break;
