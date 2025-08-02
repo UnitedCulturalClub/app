@@ -3,36 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="dark light" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <style type="text/css" media="all">
       @media only screen and (prefers-color-scheme: light) {
         :root {
-          --color: rgba(0, 0, 0, 1);
-          --colorIcon: rgba(0, 0, 0, 0.5);
-          --colorPrimary: rgba(30, 155, 240, 1);
-          --colorForground: rgba(0, 0, 0, 1);
-          --colorBackground: rgba(255, 255, 255, 1);
-          --colorDevider: rgba(0, 0, 0, 0.1);
+          --color-text-primary: rgba(0, 0, 0, 1);
+          --color-text-secondary: rgba(0, 0, 0, 0.5);
+          --color-background: rgba(255, 255, 255, 1);
+          --color-on-background: rgba(0, 0, 0, 1);
+          --color-devider: rgba(0, 0, 0, 0.1);
         }
       }
       @media only screen and (prefers-color-scheme: dark) {
         :root {
-          --color: rgba(255, 255, 255, 1);
-          --colorIcon: rgba(190, 190, 190, 1);
-          --colorForground: rgba(255, 255, 255, 1);
-          --colorBackground: rgba(42, 45, 54, 1);
-          --colorDevider: rgba(255, 255, 255, 0.1);
+          --color-text-primary: rgba(255, 255, 255, 1);
+          --color-text-secondary: rgba(190, 190, 190, 1);
+          --color-background: rgba(42, 45, 54, 1);
+          --color-on-background: rgba(255, 255, 255, 1);
+          --color-devider: rgba(255, 255, 255, 0.1);
         }
       }
       body {
         margin: 0;
         padding: 0;
         font-family: Sans-Serif;
-        background-color: var(--colorBackground);
+        background-color: var(--color-background);
       }
-      /*Main Fragment*/
       .activity-main > main {
         width: 100%;
         max-width: 600px;
@@ -50,151 +47,149 @@
       .activity-main > main > .container > .fragment.active {
         display: block;
       }
-      /*Main Footer*/
-      .activity-main footer {
+      .activity-main > footer {
         width: 100%;
         height: 65px;
         max-width: 600px;
-        background-color: var(--colorBackground);
-        border-top: 1px solid var(--colorDevider);
+        background-color: var(--color-background);
+        border-top: 1px solid var(--color-devider);
         position: fixed;
         left: 50%;
         bottom: 0;
         transform: translate(-50%, 0);
         user-select: none;
       }
-      .activity-main footer nav {
+      .activity-main > footer nav {
         width: 100%;
         height: 100%;
         display: flex;
       }
-      .activity-main footer nav .nav-btn {
+      .activity-main > footer nav .nav-btn {
         flex: 1;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      .activity-main footer nav .nav-btn .wrapper {
-        color: var(--colorIcon);
-        fill: var(--colorIcon);
+      .activity-main > footer nav .nav-btn .wrapper {
+        color: var(--color-text-secondary);
+        fill: var(--color-text-secondary);
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
       }
-      .activity-main footer nav .nav-btn.active .wrapper {
-        color: var(--color);
-        fill: var(--color);
+      .activity-main > footer nav .nav-btn.active .wrapper {
+        color: var(--color-text-primary);
+        fill: var(--color-text-primary);
       }
-      .activity-main footer nav .nav-btn .icon-wrapper {
+      .activity-main > footer nav .nav-btn .icon-wrapper {
         width: 24px;
         height: 24px;
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      .activity-main footer nav .icon-wrapper .icon {
+      .activity-main > footer nav .icon-wrapper .icon {
         width: 100%;
         height: 100%;
       }
-      .activity-main footer nav .icon-wrapper .icon-solid {
+      .activity-main > footer nav .icon-wrapper .icon-solid {
         display: none;
       }
-      .activity-main footer nav .nav-btn.active .icon-regular {
+      .activity-main > footer nav .nav-btn.active .icon-regular {
         /*display: none;*/
       }
-      .activity-main footer nav .nav-btn.active .icon-solid {
+      .activity-main > footer nav .nav-btn.active .icon-solid {
         /*display: block;*/
       }
-      .activity-main footer nav .nav-btn .title-wrapper {
-        color: var(--color);
+      .activity-main > footer nav .nav-btn .title-wrapper {
+        color: var(--color-text-primary);
         font-size: 10px;
         margin-top: 3px;
         margin-bottom: 2px;
         /*display: none;*/
       }
-      .activity-main footer nav .nav-btn .active-bar {
+      .activity-main > footer nav .nav-btn .active-bar {
         width: 25px;
         height: 2px;
         border-radius: 100px;
-        background-color: var(--colorForground);
+        background-color: var(--color-on-background);
         visibility: hidden;
         /*display: none;*/
       }
-      .activity-main footer nav .nav-btn.active .active-bar {
+      .activity-main > footer nav .nav-btn.active .active-bar {
         visibility: visible;
       }
-      /*Fragment Home*/
       .fragment-home {
         width: 100%;
         height: 100%;
         overflow: scroll;
         scroll-behavior: smooth;
       }
-      .fragment-home header {
+      .fragment-home > header {
         width: 100%;
         height: 100px;
-        background-color: var(--colorBackground);
-        border-bottom: 1px solid var(--colorDevider);
+        background-color: var(--color-background);
+        border-bottom: 1px solid var(--color-devider);
         position: sticky;
         top: -50px;
         user-select: none;
       }
-      .fragment-home header > div {
+      .fragment-home > header > div {
         width: 100%;
         height: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      .fragment-home header > div div {
+      .fragment-home > header > div div {
         width: 35px;
         height: 35px;
-        fill: var(--color);
+        fill: var(--color-text-primary);
       }
-      .fragment-home header nav {
+      .fragment-home > header nav {
         width: 100%;
         height: 50px;
         display: flex;
       }
-      .fragment-home header nav .tab-btn {
+      .fragment-home > header nav .tab-btn {
         flex: 1;
         height: 100%;
         display: flex;
         justify-content: center;
       }
-      .fragment-home header nav .tab-btn span {
+      .fragment-home > header nav .tab-btn span {
         height: 100%;
         display: flex;
         align-items: center;
         position: relative;
-        color: var(--color);
+        color: var(--color-text-primary);
         font-size: 14px;
         font-weight: 420;
       }
-      .fragment-home header nav .tab-btn.active span {
-        color: var(--color);
+      .fragment-home > header nav .tab-btn.active span {
+        color: var(--color-text-primary);
       }
-      .fragment-home header nav .tab-btn.active span::after {
+      .fragment-home > header nav .tab-btn.active span::after {
         content: "";
         width: 100%;
         height: 4px;
         border-radius: 100px;
-        background-color: var(--colorForground);
+        background-color: var(--color-on-background);
         position: absolute;
         bottom: 0;
       }
-      .fragment-home main {
+      .fragment-home > main {
         width: 100%;
       }
-      .fragment-home main .container {
+      .fragment-home > main > .container {
         width: 100%;
       }
-      .fragment-home main .container .fragment {
+      .fragment-home > main > .container > .fragment {
         display: none;
       }
-      .fragment-home main .container .fragment.active {
+      .fragment-home > main > .container > .fragment.active {
         display: block;
       }
     </style>
@@ -222,9 +217,9 @@
               </nav>
             </header>
             <main>
-              <div class="container">
-                <div class="fragment"></div>
-                <div class="fragment"></div>
+              <div class="container" style="background-color: #efefef; height: 150vh">
+                <div class="fragment">Collections</div>
+                <div class="fragment">Expanses</div>
               </div>
             </main>
           </div>
@@ -328,85 +323,76 @@
       </footer>
     </div>
     <script type="text/javascript" charset="utf-8">
-      const FragmentManeger = {
-        main: {
-          getFragment: ["home", "search", "broadcast", "profile"],
-          activeFragment: "home"
-        },
-        home: {
-          getFragment: ["collection", "expanse"],
-          activeFragment: "collection"
-        }
-      };
+      // DOMContentLoaded
       window.addEventListener("DOMContentLoaded", () => {
-        const fragments = FragmentManeger.main.getFragment;
-        const fragmentManeger = JSON.parse(sessionStorage.getItem("fragmentManeger")) || FragmentManeger;
-        const activeFragment = fragmentManeger.main.activeFragment;
-        const index = fragmentManeger.main.getFragment.indexOf(activeFragment);
-        if (index === 0) {
-          location.replace(`#${fragments[index]}`);
-          if (!history.state) {
-            history.replaceState({ appStart: true }, "");
-          }
+        const fragments = ["home", "search", "broadcast", "profile"];
+        const fragment = sessionStorage.getItem("fragment") || "home";
+        const index = fragments.indexOf(fragment);
+        switch (index) {
+          case 0:
+            location.replace(`#${fragments[index]}`);
+            if (!history.state) {
+              history.replaceState({ appStart: true }, "");
+            }
+            break;
         }
-        loadFragment(index, true);
+        onCreate(index);
       });
-
-      let navBtn = document.querySelectorAll(".activity-main footer nav .nav-btn");
+      // Nav Btn
+      const navBtn = document.querySelectorAll(".activity-main > footer nav .nav-btn");
       navBtn.forEach((btn, index) => {
         btn.addEventListener("click", () => {
           if (!btn.classList.contains("active")) {
-            const fragments = FragmentManeger.main.getFragment;
-            if (index === 0) {
-              onBackPressed();
-            }
+            const fragments = ["home", "search", "broadcast", "profile"];
             if (navBtn[0].classList.contains("active")) {
               history.pushState({ fragment: `${fragments[index]}` }, "", `#${fragments[index]}`);
             } else {
               history.replaceState({ fragment: `${fragments[index]}` }, "", `#${fragments[index]}`);
+              switch (index) {
+                case 0:
+                  onBackPressed();
+                  break;
+              }
             }
-            const fragmentManeger = JSON.parse(sessionStorage.getItem("fragmentManeger")) || FragmentManeger;
-            fragmentManeger.main.activeFragment = fragmentManeger.main.getFragment[index];
-            sessionStorage.setItem("fragmentManeger", JSON.stringify(fragmentManeger));
-            loadFragment(index, true);
+            sessionStorage.setItem("fragment", fragments[index]);
+            onCreate(index);
           } else {
-            loadFragment(index, false);
+            recreate(index);
           }
         });
       });
-
+      // Hash Change
       window.addEventListener("hashchange", () => {
-        const fragments = FragmentManeger.main.getFragment;
+        const fragments = ["home", "search", "broadcast", "profile"];
         const path = location.hash.replace("#", "");
         const index = fragments.indexOf(path);
-        if (index === 0) {
-          onBackPressed();
+        switch (index) {
+          case 0:
+            onBackPressed();
+            break;
         }
-        const fragmentManeger = JSON.parse(sessionStorage.getItem("fragmentManeger")) || FragmentManeger;
-        fragmentManeger.main.activeFragment = fragmentManeger.main.getFragment[index];
-        sessionStorage.setItem("fragmentManeger", JSON.stringify(fragmentManeger));
-        loadFragment(index, true);
+        sessionStorage.setItem("fragment", fragments[index]);
+        onCreate(index);
       });
-
+      // Back Pressed
       function onBackPressed() {
         const ref = document.referrer;
-        const safeToClear = ref === "" || ref.includes(location.hostname);
-        if (safeToClear) {
-          const goBackTill = () => {
+        const canGoBack = ref === "" || ref.includes(location.hostname);
+        if (canGoBack) {
+          const goBack = () => {
             if (history.state && history.state.appStart) {
               return;
             } else {
               history.back();
-              setTimeout(goBackTill, 100);
+              setTimeout(goBack, 100);
             }
           };
-          goBackTill();
+          goBack();
         }
       }
-
-      function loadFragment(index, isFirstTime) {
+      // OnCreate
+      function onCreate(index) {
         const fragments = document.querySelectorAll(".activity-main > main > .container > .fragment");
-        console.log(fragments)
         fragments.forEach(fragment => {
           fragment.classList.remove("active");
         });
@@ -417,46 +403,58 @@
         navBtn[index].classList.add("active");
         switch (index) {
           case 0:
-            const fragmentManeger = JSON.parse(sessionStorage.getItem("fragmentManeger")) || FragmentManeger;
-            const activeFragment = fragmentManeger.home.activeFragment;
-            let index = fragmentManeger.home.getFragment.indexOf(activeFragment);
-            if (!isFirstTime) {
-              index = 0;
-              fragmentManeger.home.activeFragment = fragmentManeger.home.getFragment[index];
-              sessionStorage.setItem("fragmentManeger", JSON.stringify(fragmentManeger));
-              sessionStorage.removeItem("fragmentCollectionScrollTop");
-              sessionStorage.removeItem("fragmentExpanseScrollTop");
-            }
-            renderHome(index);
+            renderHome();
+            break;
+          case 1:
+            renderSearch();
+            break;
+          case 2:
+            renderBroadcast();
+            break;
+          case 3:
+            renderProfile();
             break;
         }
       }
+      // Recreate
+      function recreate(index) {
+        switch (index) {
+          case 0:
+            break;
+          case 1:
+            break;
+          case 2:
+            break;
+          case 3:
+            break;
+        }
+        onCreate(index);
+      }
 
-      let tabBtn = document.querySelectorAll(".fragment-home > header nav .tab-btn");
+      // Fragment Home
+      function renderHome() {
+        const fragments = ["collection", "expanse"];
+        const fragment = sessionStorage.getItem("home.fragment") || "collection";
+        const index = fragments.indexOf(fragment);
+        loadFragment(index);
+      }
+      // Tab Btn
+      const tabBtn = document.querySelectorAll(".fragment-home > header nav .tab-btn");
       tabBtn.forEach((btn, index) => {
         btn.addEventListener("click", () => {
           if (!btn.classList.contains("active")) {
-            const fragmentManeger = JSON.parse(sessionStorage.getItem("fragmentManeger")) || FragmentManeger;
-            fragmentManeger.home.activeFragment = fragmentManeger.home.getFragment[index];
-            sessionStorage.setItem("fragmentManeger", JSON.stringify(fragmentManeger));
-            renderHome(index);
+            const fragments = ["collection", "expanse"];
+            sessionStorage.setItem("home.fragment", fragments[index]);
           } else {
-            switch (index) {
-              case 0:
-                sessionStorage.removeItem("fragmentCollectionScrollTop");
-                break;
-              case 1:
-                sessionStorage.removeItem("fragmentExpanseScrollTop");
-                break;
-            }
-            renderHome(index);
+            const scrollTop = ["collection.scrollTop", "expanse.scrollTop"];
+            sessionStorage.removeItem(scrollTop[index]);
           }
+          loadFragment(index);
         });
       });
-
-      let fragmentHome = document.querySelector(".activity-main main .container .fragment-home");
-      function renderHome(index) {
-        let fragments = document.querySelectorAll(".fragment-home main .container .fragment");
+      // Load Home
+      function loadFragment(index) {
+        const fragments = document.querySelectorAll(".fragment-home > main > .container > .fragment");
         fragments.forEach(fragment => {
           fragment.classList.remove("active");
         });
@@ -465,32 +463,16 @@
           btn.classList.remove("active");
         });
         tabBtn[index].classList.add("active");
-        let scrollTop;
+        const frgmntHome = document.querySelector(".fragment-home");
+        frgmntHome.addEventListener("scroll", e => sessionStorage.setItem(["collection.scrollTop", "expanse.scrollTop"][["collection", "expanse"].indexOf(sessionStorage.getItem("home.fragment") || "collection")], e.target.scrollTop));
+        frgmntHome.scrollTop = sessionStorage.getItem(["collection.scrollTop", "expanse.scrollTop"][index]) || 0;
         switch (index) {
           case 0:
-            scrollTop = sessionStorage.getItem("fragmentCollectionScrollTop") || 0;
-            fragmentHome.scrollTop = scrollTop;
             break;
           case 1:
-            scrollTop = sessionStorage.getItem("fragmentExpanseScrollTop") || 0;
-            fragmentHome.scrollTop = scrollTop;
             break;
         }
       }
-
-      fragmentHome.addEventListener("scroll", e => {
-        const fragmentManeger = JSON.parse(sessionStorage.getItem("fragmentManeger")) || FragmentManeger;
-        const activeFragment = fragmentManeger.home.activeFragment;
-        const index = fragmentManeger.home.getFragment.indexOf(activeFragment);
-        switch (index) {
-          case 0:
-            sessionStorage.setItem("fragmentCollectionScrollTop", e.target.scrollTop);
-            break;
-          case 1:
-            sessionStorage.setItem("fragmentExpanseScrollTop", e.target.scrollTop);
-            break;
-        }
-      });
     </script>
   </body>
 </html>
