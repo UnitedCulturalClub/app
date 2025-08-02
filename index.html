@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <style type="text/css" media="all">
@@ -323,7 +324,6 @@
       </footer>
     </div>
     <script type="text/javascript" charset="utf-8">
-      // DOMContentLoaded
       window.addEventListener("DOMContentLoaded", () => {
         const fragments = ["home", "search", "broadcast", "profile"];
         const fragment = sessionStorage.getItem("fragment") || "home";
@@ -338,7 +338,7 @@
         }
         onCreate(index);
       });
-      // Nav Btn
+
       const navBtn = document.querySelectorAll(".activity-main > footer nav .nav-btn");
       navBtn.forEach((btn, index) => {
         btn.addEventListener("click", () => {
@@ -361,7 +361,7 @@
           }
         });
       });
-      // Hash Change
+
       window.addEventListener("hashchange", () => {
         const fragments = ["home", "search", "broadcast", "profile"];
         const path = location.hash.replace("#", "");
@@ -374,7 +374,7 @@
         sessionStorage.setItem("fragment", fragments[index]);
         onCreate(index);
       });
-      // Back Pressed
+
       function onBackPressed() {
         const ref = document.referrer;
         const canGoBack = ref === "" || ref.includes(location.hostname);
@@ -390,16 +390,12 @@
           goBack();
         }
       }
-      // OnCreate
+
       function onCreate(index) {
         const fragments = document.querySelectorAll(".activity-main > main > .container > .fragment");
-        fragments.forEach(fragment => {
-          fragment.classList.remove("active");
-        });
+        fragments.forEach(fragment => fragment.classList.remove("active"));
         fragments[index].classList.add("active");
-        navBtn.forEach(btn => {
-          btn.classList.remove("active");
-        });
+        navBtn.forEach(btn => btn.classList.remove("active"));
         navBtn[index].classList.add("active");
         switch (index) {
           case 0:
@@ -416,10 +412,12 @@
             break;
         }
       }
-      // Recreate
+
       function recreate(index) {
         switch (index) {
           case 0:
+            const removeItem = ["home.fragment", "collection.scrollTop", "expanse.scrollTop"];
+            removeItem.forEach(item => sessionStorage.removeItem(item))
             break;
           case 1:
             break;
@@ -438,7 +436,7 @@
         const index = fragments.indexOf(fragment);
         loadFragment(index);
       }
-      // Tab Btn
+
       const tabBtn = document.querySelectorAll(".fragment-home > header nav .tab-btn");
       tabBtn.forEach((btn, index) => {
         btn.addEventListener("click", () => {
@@ -452,20 +450,16 @@
           loadFragment(index);
         });
       });
-      // Load Home
+
       function loadFragment(index) {
+        const fragmentHome = document.querySelector(".fragment-home");
+        fragmentHome.addEventListener("scroll", e => sessionStorage.setItem(["collection.scrollTop", "expanse.scrollTop"][["collection", "expanse"].indexOf(sessionStorage.getItem("home.fragment") || "collection")], e.target.scrollTop));
         const fragments = document.querySelectorAll(".fragment-home > main > .container > .fragment");
-        fragments.forEach(fragment => {
-          fragment.classList.remove("active");
-        });
+        fragments.forEach(fragment => fragment.classList.remove("active"));
         fragments[index].classList.add("active");
-        tabBtn.forEach(btn => {
-          btn.classList.remove("active");
-        });
+        tabBtn.forEach(btn => btn.classList.remove("active"));
         tabBtn[index].classList.add("active");
-        const frgmntHome = document.querySelector(".fragment-home");
-        frgmntHome.addEventListener("scroll", e => sessionStorage.setItem(["collection.scrollTop", "expanse.scrollTop"][["collection", "expanse"].indexOf(sessionStorage.getItem("home.fragment") || "collection")], e.target.scrollTop));
-        frgmntHome.scrollTop = sessionStorage.getItem(["collection.scrollTop", "expanse.scrollTop"][index]) || 0;
+        fragmentHome.scrollTop = sessionStorage.getItem(["collection.scrollTop", "expanse.scrollTop"][index]) || 0;
         switch (index) {
           case 0:
             break;
