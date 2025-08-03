@@ -365,6 +365,9 @@
         window.location.href = "auth/login.html";
         sessionStorage.setItem("redirect", "hs")
       }
+      if(prompt()){
+        localStorage.clear();
+      }
       window.addEventListener("DOMContentLoaded", () => {
         const fragments = ["home", "search", "broadcast", "profile"];
         const fragment = sessionStorage.getItem("fragment") || "home";
