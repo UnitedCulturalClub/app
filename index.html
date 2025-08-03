@@ -360,15 +360,13 @@
         //const url = encodeURIComponent(window.location.pathname);
         //window.location.replace(`auth/login.html?r=${url}`);
         //window.location.href = "auth/login.html";
+        window.location.href = "auth/login.html";
       }
       window.ondblclick = () => {
-        window.location.href = "auth/login.html";
-        sessionStorage.setItem("redirect", "hs")
-      }
-      if(confirm()){
-        localStorage.clear();
         console.log(localStorage)
+        
       }
+      
       window.addEventListener("DOMContentLoaded", () => {
         const fragments = ["home", "search", "broadcast", "profile"];
         const fragment = sessionStorage.getItem("fragment") || "home";
