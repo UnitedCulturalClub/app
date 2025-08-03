@@ -221,7 +221,7 @@
             <main>
               <div class="container" style="background-color: #efefef; height: 150vh">
                 <div class="fragment">Collections</div>
-                <div class="fragment">Expanses</div>
+                <div class="fragment">Expanses <a id="Click" href="auth/signup.html">Click</a></div>
               </div>
             </main>
           </div>
@@ -357,12 +357,12 @@
           }
         });
       } else {
-        console.log(localStorage)
-        //localStorage.clear();
-        const next = encodeURIComponent(window.location.pathname);
-        window.location.replace(`auth/login.html?next=${next}`);
-        //window.location.href = "auth/login.html";
+        //const url = encodeURIComponent(window.location.pathname);
+        //window.location.replace(`auth/login.html?r=${url}`);
+        window.location.href = "auth/login.html";
       }
+      //localStorage.clear();
+      
       window.addEventListener("DOMContentLoaded", () => {
         const fragments = ["home", "search", "broadcast", "profile"];
         const fragment = sessionStorage.getItem("fragment") || "home";
