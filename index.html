@@ -359,7 +359,10 @@
       } else {
         //const url = encodeURIComponent(window.location.pathname);
         //window.location.replace(`auth/login.html?r=${url}`);
-        window.location.href = "auth/login.html";
+        //window.location.href = "auth/login.html";
+      }
+      window.onlongpress = () => {
+        alert();
       }
       window.ondblclick = () => {
         localStorage.clear();
