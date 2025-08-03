@@ -11,7 +11,80 @@
     <h1>Hii from Login</h1>
     <a href="signup.html">signup.html</a>
 
-    <script type="text/javascript" charset="utf-8">
+<script type="text/javascript" charset="utf-8">
+  const interval = setInterval(() => {
+  const user = JSON.parse(localStorage.getItem("application.user"));
+
+  if (user && user.auth.isLoggedIn) {
+    clearInterval(interval);
+
+    // Ye function check karta hai ki user internal source se aaya hai ya nahi
+    const determineInternalSource = () => {
+      // Apne app ke base path ko get karein
+      const getBasePath = () => {
+        const path = window.location.pathname;
+        const parts = path.split('/');
+        return parts.slice(0, parts.indexOf('app') + 1).join('/');
+      };
+
+      const basePath = getBasePath();
+      const allowedPaths = [
+        `${basePath}/`,
+        `${basePath}/index.html`,
+        `${basePath}/auth/login.html`,
+        `${basePath}/auth/signup.html`
+      ];
+
+      // URL paths ko normalize karne ke liye
+      const normalizePath = (path) => {
+        // Base path ko remove karke relative path banayein
+        let normalized = path.replace(window.location.origin, '');
+        if (normalized.endsWith('/') && normalized.length > 1) {
+          normalized = normalized.slice(0, -1);
+        }
+        return normalized;
+      };
+
+      // 1. URL parameter se check karein (jaise ?from=/app/index.html)
+      const params = new URLSearchParams(window.location.search);
+      const fromParam = params.get("from");
+      const isFromInternal = fromParam && allowedPaths.includes(normalizePath(fromParam));
+
+      // 2. SessionStorage se check karein
+      const lastInternalPath = sessionStorage.getItem("lastInternal");
+      const isLastInternal = lastInternalPath && allowedPaths.includes(normalizePath(lastInternalPath));
+
+      // 3. Referrer (pichle page) se check karein
+      const isReferrerInternal = (() => {
+        if (!document.referrer) return false;
+        try {
+          const referrerPath = new URL(document.referrer).pathname;
+          return allowedPaths.includes(normalizePath(referrerPath));
+        } catch {
+          return false;
+        }
+      })();
+
+      return isFromInternal || isLastInternal || isReferrerInternal;
+    };
+
+    // User kis source se aaya hai, yeh pata karein
+    const wasUserReferredInternally = determineInternalSource();
+
+    // Final condition check karein
+    if (wasUserReferredInternally && history.length > 1) {
+      history.back();
+    } else {
+      window.location.replace("index.html");
+    }
+  }
+}, 50);
+
+
+</script>
+
+
+<!--     <script type="text/javascript" charset="utf-8">
       const interval = setInterval(() => {
         const user = JSON.parse(localStorage.getItem("application.user"));
         if (user && user.auth.isLoggedIn) {
@@ -31,5 +104,9 @@
       })
       //sessionStorage.setItem("redirect", "gg");
     </script>
+   -->
+  
+  
+  
   </body>
 </html>
