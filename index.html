@@ -363,8 +363,6 @@
       }
       window.ondblclick = () => {
         window.location.href = "auth/login.html";
-        if(!prompt()) return;
-        localStorage.clear();
       }
       window.addEventListener("DOMContentLoaded", () => {
         const fragments = ["home", "search", "broadcast", "profile"];
