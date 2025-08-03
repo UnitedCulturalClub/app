@@ -361,8 +361,9 @@
         //window.location.replace(`auth/login.html?r=${url}`);
         window.location.href = "auth/login.html";
       }
-      //localStorage.clear();
-      
+      window.ondblclick = () => {
+        localStorage.clear();
+      }
       window.addEventListener("DOMContentLoaded", () => {
         const fragments = ["home", "search", "broadcast", "profile"];
         const fragment = sessionStorage.getItem("fragment") || "home";
