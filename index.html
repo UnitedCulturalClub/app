@@ -363,6 +363,7 @@
       }
       window.ondblclick = () => {
         window.location.href = "auth/login.html";
+        sessionStorage.setItem("redirect", "hs")
       }
       window.addEventListener("DOMContentLoaded", () => {
         const fragments = ["home", "search", "broadcast", "profile"];
