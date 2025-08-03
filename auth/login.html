@@ -4,37 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Login</title>
     <style type="text/css" media="all"></style>
   </head>
   <body>
+    <h1>Hii from Login</h1>
+    <a href="signup.html">signup.html</a>
+
     <script type="text/javascript" charset="utf-8">
-      function getNextParam() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get("next") ? decodeURIComponent(params.get("next")) : "/";
-      }
-      window.ondblclick = () => {
-        const user = {
-          auth: {
-            isLoggedIn: true
-          },
-          account: {
-            email: "shubhajit3012@gmail.com"
-          },
-          device: {
-            info: ""
-          },
-          session: {
-            id: ""
+      const interval = setInterval(() => {
+        const user = JSON.parse(localStorage.getItem("application.user"));
+        if (user && user.auth.isLoggedIn) {
+          clearInterval(interval);
+          const redirect = sessionStorage.getItem("redirect");
+          sessionStorage.removeItem("redirect");
+          if (redirect) {
+            window.history.back();
+          } else {
+            window.location.replace("../index.html");
           }
         }
-        localStorage.setItem("application.user", JSON.stringify(user))
-        console.log(localStorage)
-        if(!confirm()) return;
-        const next = getNextParam();
-        window.location.replace(next);
-      };
-      console.log(localStorage);
+      }, 1);
+      sessionStorage.setItem("redirect", "gg");
     </script>
   </body>
 </html>
