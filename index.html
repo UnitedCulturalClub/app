@@ -365,7 +365,7 @@
         window.location.href = "auth/login.html";
         sessionStorage.setItem("redirect", "hs")
       }
-      if(prompt()){
+      if(confirm()){
         localStorage.clear();
         console.log(localStorage)
       }
