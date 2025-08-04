@@ -357,44 +357,10 @@
           }
         });
       }
+
       window.ondblclick = () => {
         localStorage.clear();
       };
-      //addEventListener
-
-      // Har internal page par is file ko include karein
-      /*document.addEventListener("DOMContentLoaded", () => {
-        const getStack = () => {
-          const stack = sessionStorage.getItem("navStack");
-          return stack ? JSON.parse(stack) : [];
-        };
-
-        const setStack = stack => {
-          sessionStorage.setItem("navStack", JSON.stringify(stack));
-        };
-
-        const currentPath = window.location.pathname;
-        const stack = getStack();
-        const lastPath = stack[stack.length - 1];
-
-        if (currentPath !== lastPath) {
-          // Ye tab chalta hai jab user naye page par aata hai
-          // Ya history.back se wapas aata hai.
-          // Hum stack ko sync rakhenge.
-          if (stack.includes(currentPath)) {
-            // Agar back button se wapas aaye, to stack se aage ka hissa hata do
-            const index = stack.indexOf(currentPath);
-            stack.splice(index + 1);
-          } else {
-            // Agar aage badhe, to naya path stack mein daal do
-            stack.push(currentPath);
-          }
-        }
-
-        setStack(stack);
-      });*/
-
-      //addEventListener
 
       window.addEventListener("DOMContentLoaded", () => {
         const fragments = ["home", "search", "broadcast", "profile"];
