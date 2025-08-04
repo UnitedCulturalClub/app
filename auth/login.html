@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Login</title>
     <style type="text/css" media="all"></style>
@@ -10,123 +11,70 @@
   <body>
     <h1>Hello Login</h1>
     <a href="signup.html">signup.html</a>
-
-    <script>
-      window.onload = function () {
-        // stack uthao
-        let stack = sessionStorage.getItem("appNavStack") ? JSON.parse(sessionStorage.getItem("appNavStack")) : [];
-
-        // referrer internal hai ya nahi check karo
-        if (document.referrer) {
-          const u = new URL(document.referrer);
-          const allowed = [window.location.origin, "https://unitedculturalclub.github.io"];
-          if (allowed.includes(u.origin)) {
-            const path = u.pathname;
-            if (stack.length === 0 || stack[stack.length - 1] !== path) {
-              stack.push(path);
-            }
-          }
-        }
-
-        // stack save/clear
-        if (stack.length > 0) {
-          sessionStorage.setItem("appNavStack", JSON.stringify(stack));
-        } else {
-          sessionStorage.removeItem("appNavStack");
-        }
-      };
-
-      const interval = setInterval(() => {
-        const userRaw = localStorage.getItem("application.user");
-        const user = userRaw ? JSON.parse(userRaw) : null;
-
-        if (user && user.auth && user.auth.isLoggedIn) {
-          clearInterval(interval);
-
-          const navStack = sessionStorage.getItem("appNavStack") ? JSON.parse(sessionStorage.getItem("appNavStack")) : [];
-
-          if (navStack.length > 0) {
-            navStack.pop();
-            if (navStack.length > 0) {
-              sessionStorage.setItem("appNavStack", JSON.stringify(navStack));
-            } else {
-              sessionStorage.removeItem("appNavStack");
-            }
-            history.back();
-          } else {
-            // fallback to index.html
-            const parts = window.location.pathname.split("/").filter(p => p);
-            const basePath = parts.includes("app") ? "/" + parts.slice(0, parts.indexOf("app") + 1).join("/") : "";
-            window.location.replace(window.location.origin + basePath + "/index.html");
-          }
-        }
-      }, 50);
-    </script>
-
-    <!-- 
     <script type="text/javascript" charset="utf-8">
-      // Har internal page par is file ko include karein
-      document.addEventListener("DOMContentLoaded", () => {
-        const getStack = () => {
-          const stack = sessionStorage.getItem("navStack");
+      window.ondblclick = () => {
+        const userr = {
+          auth: {
+            isLoggedIn: true
+          },
+          account: {
+            email: "shubhajit3012@gmail.com"
+          },
+          device: {
+            info: ""
+          },
+          session: {
+            id: ""
+          }
+        };
+        localStorage.setItem("application.user", JSON.stringify(userr));
+      };
+      window.addEventListener("DOMContentLoaded", e => {
+        function getStack() {
+          let stack = sessionStorage.getItem("application.auth.nav.stack");
           return stack ? JSON.parse(stack) : [];
-        };
-
-        const setStack = stack => {
-          sessionStorage.setItem("navStack", JSON.stringify(stack));
-        };
-
-        const currentPath = window.location.pathname;
+        }
         const stack = getStack();
-        const lastPath = stack[stack.length - 1];
-
-        if (currentPath !== lastPath) {
-          // Ye tab chalta hai jab user naye page par aata hai
-          // Ya history.back se wapas aata hai.
-          // Hum stack ko sync rakhenge.
-          if (stack.includes(currentPath)) {
-            // Agar back button se wapas aaye, to stack se aage ka hissa hata do
-            const index = stack.indexOf(currentPath);
-            stack.splice(index + 1);
-          } else {
-            // Agar aage badhe, to naya path stack mein daal do
-            stack.push(currentPath);
-          }
+        if (document.referrer) {
+          try {
+            const url = new URL(document.referrer);
+            const allowed = [window.location.origin, "https://unitedculturalclub.github.io"];
+            if (allowed.includes(url.origin)) {
+              const path = url.pathname;
+              if (stack.length === 0 || stack[stack.length - 1] !== path) {
+                stack.push(path);
+              }
+            }
+          } catch {}
+        }
+        if (stack && stack.length > 0) {
+          sessionStorage.setItem("application.auth.nav.stack", JSON.stringify(stack));
+        } else {
+          sessionStorage.removeItem("application.auth.nav.stack");
         }
 
-        setStack(stack);
+        const interval = setInterval(() => {
+          const rawUser = localStorage.getItem("application.user");
+          const user = rawUser ? JSON.parse(rawUser) : null;
+          if (user && user.auth?.isLoggedIn) {
+            clearInterval(interval);
+            const stack = getStack();
+            if (stack.length > 0) {
+              stack.pop();
+              if (stack.length > 0) {
+                sessionStorage.setItem("application.auth.nav.stack", JSON.stringify(stack));
+              } else {
+                sessionStorage.removeItem("application.auth.nav.stack");
+              }
+              history.back();
+            } else {
+              const parts = window.location.pathname.split("/").filter(p => p);
+              const basePath = parts.includes("app") ? "/" + parts.slice(0, parts.indexOf("app") + 1).join("/") : "";
+              window.location.replace(window.location.origin + basePath + "/index.html");
+            }
+          }
+        }, 50);
       });
-
-      const interval = setInterval(() => {
-        const user = JSON.parse(localStorage.getItem("application.user"));
-
-        if (user && user.auth.isLoggedIn) {
-          clearInterval(interval);
-
-          // Stack se navigation depth pata karein
-          const getStack = () => {
-            const stack = sessionStorage.getItem("navStack");
-            return stack ? JSON.parse(stack) : [];
-          };
-
-          const navStack = getStack();
-          const count = navStack.length;
-
-          const isSafeToBack = history.length > 1;
-
-          // Ab logic sirf stack aur history ki depth par depend karega
-          if (count > 1 && isSafeToBack) {
-            history.back();
-          } else {
-            const path = window.location.pathname;
-            const parts = path.split("/").filter(p => p !== "");
-            const basePath = parts.includes("app") ? "/" + parts.slice(0, parts.indexOf("app") + 1).join("/") : "";
-            const destination = `${window.location.origin}${basePath}/index.html`;
-            window.location.replace(destination);
-          }
-        }
-      }, 50);
     </script>
-   -->
   </body>
 </html>
