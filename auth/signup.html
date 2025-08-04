@@ -10,77 +10,10 @@
   <body>
     <h1>Hii from Signup</h1>
     <script type="text/javascript" charset="utf-8">
-      const interval = setInterval(() => {
-        const user = JSON.parse(localStorage.getItem("application.user"));
-
-        if (user && user.auth.isLoggedIn) {
-          clearInterval(interval);
-
-          // Ye function check karta hai ki user internal source se aaya hai ya nahi
-          const determineInternalSource = () => {
-            // Apne app ke base path ko get karein
-            const getBasePath = () => {
-              const path = window.location.pathname;
-              const parts = path.split("/");
-              return parts.slice(0, parts.indexOf("app") + 1).join("/");
-            };
-
-            const basePath = getBasePath();
-            const allowedPaths = [`${basePath}/`, `${basePath}/index.html`, `${basePath}/auth/login.html`, `${basePath}/auth/signup.html`];
-
-            // URL paths ko normalize karne ke liye
-            const normalizePath = path => {
-              // Base path ko remove karke relative path banayein
-              let normalized = path.replace(window.location.origin, "");
-              if (normalized.endsWith("/") && normalized.length > 1) {
-                normalized = normalized.slice(0, -1);
-              }
-              return normalized;
-            };
-
-            // 1. URL parameter se check karein (jaise ?from=/app/index.html)
-            const params = new URLSearchParams(window.location.search);
-            const fromParam = params.get("from");
-            const isFromInternal = fromParam && allowedPaths.includes(normalizePath(fromParam));
-
-            // 2. SessionStorage se check karein
-            const lastInternalPath = sessionStorage.getItem("lastInternal");
-            const isLastInternal = lastInternalPath && allowedPaths.includes(normalizePath(lastInternalPath));
-
-            // 3. Referrer (pichle page) se check karein
-            const isReferrerInternal = (() => {
-              if (!document.referrer) return false;
-              try {
-                const referrerPath = new URL(document.referrer).pathname;
-                return allowedPaths.includes(normalizePath(referrerPath));
-              } catch {
-                return false;
-              }
-            })();
-
-            return isFromInternal || isLastInternal || isReferrerInternal;
-          };
-
-          // User kis source se aaya hai, yeh pata karein
-          const wasUserReferredInternally = determineInternalSource();
-
-          // Final condition check karein
-          if (wasUserReferredInternally && history.length > 1) {
-            alert("Signup")
-            history.back();
-          } else {
-            
-            window.location.replace("/index.html");
-          }
-        }
-      }, 50);
-    </script>
-    <script type="text/javascript" charset="utf-8">
       /*const interval = setInterval(() => {
         const user = JSON.parse(localStorage.getItem("application.user"));
         if (user && user.auth.isLoggedIn) {
           clearInterval(interval);
-          alert();
           const redirect = sessionStorage.getItem("redirect");
           sessionStorage.removeItem("redirect");
           if (redirect) {
@@ -112,5 +45,100 @@
 
       //localStorage.clear();
     </script>
+    <script type="text/javascript" charset="utf-8">
+      // Har internal page par is file ko include karein
+      document.addEventListener("DOMContentLoaded", () => {
+        const getStack = () => {
+          const stack = sessionStorage.getItem("navStack");
+          return stack ? JSON.parse(stack) : [];
+        };
+
+        const setStack = stack => {
+          sessionStorage.setItem("navStack", JSON.stringify(stack));
+        };
+
+        const currentPath = window.location.pathname;
+        const stack = getStack();
+        const lastPath = stack[stack.length - 1];
+
+        if (currentPath !== lastPath) {
+          // Ye tab chalta hai jab user naye page par aata hai
+          // Ya history.back se wapas aata hai.
+          // Hum stack ko sync rakhenge.
+          if (stack.includes(currentPath)) {
+            // Agar back button se wapas aaye, to stack se aage ka hissa hata do
+            const index = stack.indexOf(currentPath);
+            stack.splice(index + 1);
+          } else {
+            // Agar aage badhe, to naya path stack mein daal do
+            stack.push(currentPath);
+          }
+        }
+
+        setStack(stack);
+      });
+
+      const interval = setInterval(() => {
+        const user = JSON.parse(localStorage.getItem("application.user"));
+
+        if (user && user.auth.isLoggedIn) {
+          clearInterval(interval);
+
+          // Stack se navigation depth pata karein
+          const getStack = () => {
+            const stack = sessionStorage.getItem("navStack");
+            return stack ? JSON.parse(stack) : [];
+          };
+
+          const navStack = getStack();
+          const count = navStack.length;
+
+          const isSafeToBack = history.length > 1;
+
+          // Ab logic sirf stack aur history ki depth par depend karega
+          if (count > 1 && isSafeToBack) {
+            history.back();
+          } else {
+            const path = window.location.pathname;
+            const parts = path.split("/").filter(p => p !== "");
+            const basePath = parts.includes("app") ? "/" + parts.slice(0, parts.indexOf("app") + 1).join("/") : "";
+            const destination = `${window.location.origin}${basePath}/index.html`;
+            window.location.replace(destination);
+          }
+        }
+      }, 50);
+    </script>
+
+    <!--     <script type="text/javascript" charset="utf-8">
+      const interval = setInterval(() => {
+        const user = JSON.parse(localStorage.getItem("application.user"));
+        if (user && user.auth.isLoggedIn) {
+          clearInterval(interval);
+
+          const allowed = ["/app/", "/app/index.html", "/app/auth/login.html", "/app/auth/signup.html"];
+          const params = new URLSearchParams(window.location.search);
+          const from = params.get("from");
+          const last = sessionStorage.getItem("lastInternal");
+          const refIsInternal = (() => {
+            if (!document.referrer) return false;
+            try {
+              let path = new URL(document.referrer).pathname;
+              if (path === "/app") path = "/app/";
+              return allowed.includes(path);
+            } catch {
+              return false;
+            }
+          })();
+          const internalSource = (from && allowed.includes(from)) || (last && allowed.includes(last)) || refIsInternal;
+          if (internalSource && history.length > 1) {
+            
+            history.back();
+          } else {
+            alert(1)
+            location.replace("/index.html");
+          }
+        }
+      }, 50);
+    </script> -->
   </body>
 </html>
