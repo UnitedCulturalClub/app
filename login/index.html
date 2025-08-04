@@ -59,6 +59,7 @@
           const user = rawUser ? JSON.parse(rawUser) : null;
           if (user && user.auth?.isLoggedIn) {
             clearInterval(interval);
+            document.body.innerHTMl = "";
             const stack = getStack();
             if (stack.length > 0) {
               stack.pop();
