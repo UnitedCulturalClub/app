@@ -4,111 +4,134 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Login</title>
+    <title>Document</title>
     <style type="text/css" media="all"></style>
   </head>
   <body>
-    <h1>Hii from Login</h1>
+    <h1>Hello Login</h1>
     <a href="signup.html">signup.html</a>
+    <script type="text/javascript" charset="utf-8">
+      // Har internal page par is file ko include karein
+      document.addEventListener("DOMContentLoaded", () => {
+        const getStack = () => {
+          const stack = sessionStorage.getItem("navStack");
+          return stack ? JSON.parse(stack) : [];
+        };
 
-<script type="text/javascript" charset="utf-8">
- alert()
-  const interval = setInterval(() => {
-  const user = JSON.parse(localStorage.getItem("application.user"));
+        const setStack = stack => {
+          sessionStorage.setItem("navStack", JSON.stringify(stack));
+        };
 
-  if (user && user.auth.isLoggedIn) {
-    clearInterval(interval);
+        const currentPath = window.location.pathname;
+        const stack = getStack();
+        const lastPath = stack[stack.length - 1];
 
-    // Ye function check karta hai ki user internal source se aaya hai ya nahi
-    const determineInternalSource = () => {
-      // Apne app ke base path ko get karein
-      const getBasePath = () => {
-        const path = window.location.pathname;
-        const parts = path.split('/');
-        return parts.slice(0, parts.indexOf('app') + 1).join('/');
-      };
-
-      const basePath = getBasePath();
-      const allowedPaths = [
-        `${basePath}/`,
-        `${basePath}/index.html`,
-        `${basePath}/auth/login.html`,
-        `${basePath}/auth/signup.html`
-      ];
-
-      // URL paths ko normalize karne ke liye
-      const normalizePath = (path) => {
-        // Base path ko remove karke relative path banayein
-        let normalized = path.replace(window.location.origin, '');
-        if (normalized.endsWith('/') && normalized.length > 1) {
-          normalized = normalized.slice(0, -1);
+        if (currentPath !== lastPath) {
+          // Ye tab chalta hai jab user naye page par aata hai
+          // Ya history.back se wapas aata hai.
+          // Hum stack ko sync rakhenge.
+          if (stack.includes(currentPath)) {
+            // Agar back button se wapas aaye, to stack se aage ka hissa hata do
+            const index = stack.indexOf(currentPath);
+            stack.splice(index + 1);
+          } else {
+            // Agar aage badhe, to naya path stack mein daal do
+            stack.push(currentPath);
+          }
         }
-        return normalized;
-      };
 
-      // 1. URL parameter se check karein (jaise ?from=/app/index.html)
-      const params = new URLSearchParams(window.location.search);
-      const fromParam = params.get("from");
-      const isFromInternal = fromParam && allowedPaths.includes(normalizePath(fromParam));
+        setStack(stack);
+      });
 
-      // 2. SessionStorage se check karein
-      const lastInternalPath = sessionStorage.getItem("lastInternal");
-      const isLastInternal = lastInternalPath && allowedPaths.includes(normalizePath(lastInternalPath));
+      const interval = setInterval(() => {
+        const user = JSON.parse(localStorage.getItem("application.user"));
 
-      // 3. Referrer (pichle page) se check karein
-      const isReferrerInternal = (() => {
-        if (!document.referrer) return false;
-        try {
-          const referrerPath = new URL(document.referrer).pathname;
-          return allowedPaths.includes(normalizePath(referrerPath));
-        } catch {
-          return false;
+        if (user && user.auth.isLoggedIn) {
+          clearInterval(interval);
+
+          // Stack se navigation depth pata karein
+          const getStack = () => {
+            const stack = sessionStorage.getItem("navStack");
+            return stack ? JSON.parse(stack) : [];
+          };
+
+          const navStack = getStack();
+          const count = navStack.length;
+
+          const isSafeToBack = history.length > 1;
+
+          // Ab logic sirf stack aur history ki depth par depend karega
+          if (count > 1 && isSafeToBack) {
+            history.back();
+          } else {
+            const path = window.location.pathname;
+            const parts = path.split("/").filter(p => p !== "");
+            const basePath = parts.includes("app") ? "/" + parts.slice(0, parts.indexOf("app") + 1).join("/") : "";
+            const destination = `${window.location.origin}${basePath}/index.html`;
+            window.location.replace(destination);
+          }
         }
-      })();
-
-      return isFromInternal || isLastInternal || isReferrerInternal;
-    };
-
-    // User kis source se aaya hai, yeh pata karein
-    const wasUserReferredInternally = determineInternalSource();
-
-    // Final condition check karein
-    if (wasUserReferredInternally && history.length > 1) {
-      history.back();
-    } else {
-      alert("Login")
-      window.location.replace("/index.html");
-    }
-  }
-}, 50);
-
-
-</script>
-
-
-<!--     <script type="text/javascript" charset="utf-8">
+      }, 50);
+    </script>
+    <!--     <script type="text/javascript" charset="utf-8">
       const interval = setInterval(() => {
         const user = JSON.parse(localStorage.getItem("application.user"));
         if (user && user.auth.isLoggedIn) {
           clearInterval(interval);
-          const redirect = sessionStorage.getItem("redirect");
-          sessionStorage.removeItem("redirect");
-          if (redirect) {
-            window.history.back();
+          const refIsInternal = (() => {
+            if (!document.referrer) return false;
+            const allowedDomains = [window.location.origin, "https://unitedculturalclub.github.io"];
+            try {
+              const referrerUrl = new URL(document.referrer);
+              return allowedDomains.includes(referrerUrl.origin);
+            } catch {
+              return false;
+            }
+          })();
+
+          const navigationCount = sessionStorage.getItem("appNavigationCount");
+          const count = navigationCount ? parseInt(navigationCount, 10) : 0;
+
+          if (refIsInternal || count > 0) {
+            history.back();
+            if (count > 0) {
+              const newCount = count - 1;
+              sessionStorage.setItem("appNavigationCount", newCount.toString());
+              if (newCount === 0) {
+                sessionStorage.removeItem("appNavigationCount");
+              }
+            }
           } else {
-            window.location.replace("../index.html");
+            const path = window.location.pathname;
+            const parts = path.split("/").filter(p => p !== "");
+            const basePath = parts.includes("app") ? "/" + parts.slice(0, parts.indexOf("app") + 1).join("/") : "";
+            const destination = `${window.location.origin}${basePath}/index.html`;
+            window.location.replace(destination);
           }
         }
-      }, 1);
-      alert(document.referrer)
-      document.querySelector("a").addEventListener("click", ()=>{
-        sessionStorage.setItem("redirect", "gg");
-      })
-      //sessionStorage.setItem("redirect", "gg");
-    </script>
-   -->
-  
-  
-  
+      }, 50);
+
+      window.onload = function () {
+        const referrer = document.referrer;
+        const isReferrerInternal = (() => {
+          if (!referrer) return false;
+          const allowedDomains = [window.location.origin, "https://unitedculturalclub.github.io"];
+          try {
+            const referrerUrl = new URL(referrer);
+            return allowedDomains.includes(referrerUrl.origin);
+          } catch {
+            return false;
+          }
+        })();
+
+        // Agar user ek naye internal page par navigate kar raha hai, tab hi count badhaein.
+        if (isReferrerInternal) {
+          let count = sessionStorage.getItem("appNavigationCount");
+          count = count ? parseInt(count, 10) : 0;
+          count++;
+          sessionStorage.setItem("appNavigationCount", count.toString());
+        }
+      };
+    </script> -->
   </body>
 </html>
