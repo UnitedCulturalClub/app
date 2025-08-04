@@ -4,12 +4,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Login</title>
     <style type="text/css" media="all"></style>
   </head>
   <body>
     <h1>Hello Login</h1>
     <a href="signup.html">signup.html</a>
+
+    <script>
+      window.onload = function () {
+        // stack uthao
+        let stack = sessionStorage.getItem("appNavStack") ? JSON.parse(sessionStorage.getItem("appNavStack")) : [];
+
+        // referrer internal hai ya nahi check karo
+        if (document.referrer) {
+          const u = new URL(document.referrer);
+          const allowed = [window.location.origin, "https://unitedculturalclub.github.io"];
+          if (allowed.includes(u.origin)) {
+            const path = u.pathname;
+            if (stack.length === 0 || stack[stack.length - 1] !== path) {
+              stack.push(path);
+            }
+          }
+        }
+
+        // stack save/clear
+        if (stack.length > 0) {
+          sessionStorage.setItem("appNavStack", JSON.stringify(stack));
+        } else {
+          sessionStorage.removeItem("appNavStack");
+        }
+      };
+
+      const interval = setInterval(() => {
+        const userRaw = localStorage.getItem("application.user");
+        const user = userRaw ? JSON.parse(userRaw) : null;
+
+        if (user && user.auth && user.auth.isLoggedIn) {
+          clearInterval(interval);
+
+          const navStack = sessionStorage.getItem("appNavStack") ? JSON.parse(sessionStorage.getItem("appNavStack")) : [];
+
+          if (navStack.length > 0) {
+            navStack.pop();
+            if (navStack.length > 0) {
+              sessionStorage.setItem("appNavStack", JSON.stringify(navStack));
+            } else {
+              sessionStorage.removeItem("appNavStack");
+            }
+            history.back();
+          } else {
+            // fallback to index.html
+            const parts = window.location.pathname.split("/").filter(p => p);
+            const basePath = parts.includes("app") ? "/" + parts.slice(0, parts.indexOf("app") + 1).join("/") : "";
+            window.location.replace(window.location.origin + basePath + "/index.html");
+          }
+        }
+      }, 50);
+    </script>
+
+    <!-- 
     <script type="text/javascript" charset="utf-8">
       // Har internal page par is file ko include karein
       document.addEventListener("DOMContentLoaded", () => {
@@ -73,65 +127,6 @@
         }
       }, 50);
     </script>
-    <!--     <script type="text/javascript" charset="utf-8">
-      const interval = setInterval(() => {
-        const user = JSON.parse(localStorage.getItem("application.user"));
-        if (user && user.auth.isLoggedIn) {
-          clearInterval(interval);
-          const refIsInternal = (() => {
-            if (!document.referrer) return false;
-            const allowedDomains = [window.location.origin, "https://unitedculturalclub.github.io"];
-            try {
-              const referrerUrl = new URL(document.referrer);
-              return allowedDomains.includes(referrerUrl.origin);
-            } catch {
-              return false;
-            }
-          })();
-
-          const navigationCount = sessionStorage.getItem("appNavigationCount");
-          const count = navigationCount ? parseInt(navigationCount, 10) : 0;
-
-          if (refIsInternal || count > 0) {
-            history.back();
-            if (count > 0) {
-              const newCount = count - 1;
-              sessionStorage.setItem("appNavigationCount", newCount.toString());
-              if (newCount === 0) {
-                sessionStorage.removeItem("appNavigationCount");
-              }
-            }
-          } else {
-            const path = window.location.pathname;
-            const parts = path.split("/").filter(p => p !== "");
-            const basePath = parts.includes("app") ? "/" + parts.slice(0, parts.indexOf("app") + 1).join("/") : "";
-            const destination = `${window.location.origin}${basePath}/index.html`;
-            window.location.replace(destination);
-          }
-        }
-      }, 50);
-
-      window.onload = function () {
-        const referrer = document.referrer;
-        const isReferrerInternal = (() => {
-          if (!referrer) return false;
-          const allowedDomains = [window.location.origin, "https://unitedculturalclub.github.io"];
-          try {
-            const referrerUrl = new URL(referrer);
-            return allowedDomains.includes(referrerUrl.origin);
-          } catch {
-            return false;
-          }
-        })();
-
-        // Agar user ek naye internal page par navigate kar raha hai, tab hi count badhaein.
-        if (isReferrerInternal) {
-          let count = sessionStorage.getItem("appNavigationCount");
-          count = count ? parseInt(count, 10) : 0;
-          count++;
-          sessionStorage.setItem("appNavigationCount", count.toString());
-        }
-      };
-    </script> -->
+   -->
   </body>
 </html>
