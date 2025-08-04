@@ -45,6 +45,59 @@
 
       //localStorage.clear();
     </script>
+
+    <script>
+      window.onload = function () {
+        // stack uthao
+        let stack = sessionStorage.getItem("appNavStack") ? JSON.parse(sessionStorage.getItem("appNavStack")) : [];
+
+        // referrer internal hai ya nahi check karo
+        if (document.referrer) {
+          const u = new URL(document.referrer);
+          const allowed = [window.location.origin, "https://unitedculturalclub.github.io"];
+          if (allowed.includes(u.origin)) {
+            const path = u.pathname;
+            if (stack.length === 0 || stack[stack.length - 1] !== path) {
+              stack.push(path);
+            }
+          }
+        }
+
+        // stack save/clear
+        if (stack.length > 0) {
+          sessionStorage.setItem("appNavStack", JSON.stringify(stack));
+        } else {
+          sessionStorage.removeItem("appNavStack");
+        }
+      };
+
+      const interval = setInterval(() => {
+        const userRaw = localStorage.getItem("application.user");
+        const user = userRaw ? JSON.parse(userRaw) : null;
+
+        if (user && user.auth && user.auth.isLoggedIn) {
+          clearInterval(interval);
+
+          const navStack = sessionStorage.getItem("appNavStack") ? JSON.parse(sessionStorage.getItem("appNavStack")) : [];
+
+          if (navStack.length > 0) {
+            navStack.pop();
+            if (navStack.length > 0) {
+              sessionStorage.setItem("appNavStack", JSON.stringify(navStack));
+            } else {
+              sessionStorage.removeItem("appNavStack");
+            }
+            history.back();
+          } else {
+            // fallback to index.html
+            const parts = window.location.pathname.split("/").filter(p => p);
+            const basePath = parts.includes("app") ? "/" + parts.slice(0, parts.indexOf("app") + 1).join("/") : "";
+            window.location.replace(window.location.origin + basePath + "/index.html");
+          }
+        }
+      }, 50);
+    </script>
+    <!-- 
     <script type="text/javascript" charset="utf-8">
       // Har internal page par is file ko include karein
       document.addEventListener("DOMContentLoaded", () => {
@@ -108,37 +161,6 @@
         }
       }, 50);
     </script>
-
-    <!--     <script type="text/javascript" charset="utf-8">
-      const interval = setInterval(() => {
-        const user = JSON.parse(localStorage.getItem("application.user"));
-        if (user && user.auth.isLoggedIn) {
-          clearInterval(interval);
-
-          const allowed = ["/app/", "/app/index.html", "/app/auth/login.html", "/app/auth/signup.html"];
-          const params = new URLSearchParams(window.location.search);
-          const from = params.get("from");
-          const last = sessionStorage.getItem("lastInternal");
-          const refIsInternal = (() => {
-            if (!document.referrer) return false;
-            try {
-              let path = new URL(document.referrer).pathname;
-              if (path === "/app") path = "/app/";
-              return allowed.includes(path);
-            } catch {
-              return false;
-            }
-          })();
-          const internalSource = (from && allowed.includes(from)) || (last && allowed.includes(last)) || refIsInternal;
-          if (internalSource && history.length > 1) {
-            
-            history.back();
-          } else {
-            alert(1)
-            location.replace("/index.html");
-          }
-        }
-      }, 50);
-    </script> -->
+ -->
   </body>
 </html>
