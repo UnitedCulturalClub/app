@@ -219,11 +219,10 @@
               </nav>
             </header>
             <main>
-              <div class="container" style="background-color: #efefef; height: 150vh">
+              <div class="container">
                 <div class="fragment">Collections</div>
                 <div class="fragment">
-                  <a href="/login/">Login</a>
-                  <a href="https://unitedculturalclub.github.io/app/">Nested!</a>
+                  <a href="admin/index.html">ADMIN</a>
                 </div>
               </div>
             </main>
@@ -357,6 +356,22 @@
             //localStorage.removeItem("application.user");
             //window.location.reload();
             return;
+          }
+        });
+      } else {
+        window.addEventListener("pageshow", e => {
+          const rawUser = localStorage.getItem("application.user");
+          const user = rawUser ? JSON.parse(rawUser) : null;
+          if (user && user.auth.isLoggedIn) {
+            window.location.reload();
+          } else {
+            const rawStack = sessionStorage.getItem("application.auth.nav.stack");
+            const stack = rawStack ? JSON.parse(rawStack) : [];
+            if (stack.includes(window.location.pathname)) {
+              const newStack = stack.filter(stack => stack !== location.pathname);
+              if (newStack.length > 0) sessionStorage.setItem("application.auth.nav.stack", JSON.stringify(newStack));
+              else sessionStorage.removeItem("application.auth.nav.stack");
+            }
           }
         });
       }
