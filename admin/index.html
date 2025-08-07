@@ -310,7 +310,7 @@
       const user = rawUser ? JSON.parse(rawUser) : null;
       if (user && user.auth.isLoggedIn) {
       } else {
-        location.replace("/app/login/");
+        window.open("/app/login/");
       }
       
       window.addEventListener("DOMContentLoaded", () => {
