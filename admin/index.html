@@ -306,6 +306,13 @@
       </main>
     </div>
     <script type="text/javascript" charset="utf-8">
+      const rawUser = localStorage.getItem("application.user");
+      const user = rawUser ? JSON.parse(rawUser) : null;
+      if (user && user.auth.isLoggedIn) {
+      } else {
+        location.replace("/app/login/");
+      }
+      
       window.addEventListener("DOMContentLoaded", () => {
         const fragments = ["dashboard", "profile"];
         const fragment = sessionStorage.getItem("fragments[app[0]][admin]") || "dashboard";
