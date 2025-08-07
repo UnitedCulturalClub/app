@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Dashboard</title>
+    <style type="text/css" media="all">
+      @media only screen and (prefers-color-scheme: light) {
+        :root {
+          --color-text-primary: rgba(0, 0, 0, 1);
+          --color-text-secondary: rgba(0, 0, 0, 0.5);
+          --color-background: rgba(255, 255, 255, 1);
+          --color-on-background: rgba(0, 0, 0, 1);
+          --color-surface: rgba(245, 245, 245, 1);
+          --color-devider: rgba(0, 0, 0, 0.1);
+        }
+      }
+      @media only screen and (prefers-color-scheme: dark) {
+        :root {
+          --color-text-primary: rgba(255, 255, 255, 1);
+          --color-text-secondary: rgba(190, 190, 190, 1);
+          --color-background: rgba(42, 45, 54, 1);
+          --color-on-background: rgba(255, 255, 255, 1);
+          --color-surface: ;
+          --color-devider: rgba(255, 255, 255, 0.1);
+        }
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Sans-Serif;
+        background-color: var(--color-background);
+      }
+      .activity-main {
+        width: 100%;
+      }
+      .activity-main > aside {
+        width: 60px;
+        height: 100%;
+        border-right: 1px solid var(--color-devider);
+        background-color: var(--color-background);
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: 0.3s;
+        z-index: 100;
+      }
+      .activity-main > aside header {
+        width: 100%;
+      }
+      .activity-main > aside header .launcher {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+      .activity-main > aside header .launcher .app {
+        width: 100%;
+        overflow: hidden;
+      }
+      .activity-main > aside header .launcher .app .wrapper {
+        width: 130px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+      }
+      .activity-main > aside header .launcher .app .icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .activity-main > aside header .launcher .app .title {
+        flex: 1;
+        height: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+      }
+      .activity-main > aside nav {
+        width: 100%;
+        flex: 1;
+        padding: 0 10px;
+        box-sizing: border-box;
+        position: relative;
+        overflow-x: hidden;
+      }
+      .activity-main > aside nav::-webkit-scrollbar {
+        display: none;
+      }
+      .activity-main > aside nav .box-shadow {
+        width: 100%;
+        position: sticky;
+        top: 0;
+        left: 0;
+        box-shadow: 0px 0px 10px 15px var(--color-background);
+      }
+      .activity-main > aside nav .box-shadow.bottom {
+        bottom: 0;
+      }
+      .activity-main > aside nav .nav-btn {
+        width: 100%;
+        border-radius: 5px;
+        margin: 10px 0;
+        overflow: hidden;
+      }
+      .activity-main > aside nav .nav-btn.active {
+        background-color:;
+      }
+      .activity-main > aside nav .nav-btn .wrapper {
+        width: 130px;
+        height: 40px;
+        display: flex;
+        color: var(--color-text-secondary);
+        fill: var(--color-text-secondary);
+      }
+      .activity-main > aside nav .nav-btn.active .wrapper {
+        color: var(--color-text-primary);
+        fill: var(--color-text-primary);
+      }
+      .activity-main > aside nav .nav-btn .icon-wrapper {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .activity-main > aside nav .icon-wrapper .icon {
+        width: 20px;
+        height: 20px;
+      }
+      .activity-main > aside nav .icon-wrapper .icon-solid {
+        display: none;
+      }
+      .activity-main > aside nav .nav-btn.active .icon-regular {
+        display: none;
+      }
+      .activity-main > aside nav .nav-btn.active .icon-solid {
+        display: block;
+      }
+      .activity-main > aside nav .nav-btn .title-wrapper {
+        width: max-content;
+        height: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+      }
+      .activity-main > aside nav .title-wrapper span {
+        color: var(--color-text-primary);
+        font-size: 14px;
+      }
+      .activity-main > aside footer {
+        width: 100%;
+      }
+      .activity-main > aside footer .profile {
+        width: 100%;
+        padding: 14px;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+      .activity-main > aside footer .profile .nav-btn {
+        width: 100%;
+        overflow: hidden;
+      }
+      .activity-main > aside footer .profile .nav-btn .wrapper {
+        width: 130px;
+        height: 32px;
+        display: flex;
+        color: var(--color-text-secondary);
+        fill: var(--color-text-secondary);
+      }
+      .activity-main > aside footer .profile .nav-btn .icon-wrapper {
+        width: 32px;
+        height: 32px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .activity-main > aside footer .profile .nav-btn.active .icon-wrapper::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        border: 2px solid var(--color-on-background);
+        box-sizing: border-box;
+        border-radius: 100px;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .activity-main > aside footer .profile .nav-btn .icon {
+        width: 100%;
+        height: 100%;
+        border-radius: 100px;
+        background-color: var(--color-devider);
+      }
+      .activity-main > aside footer .profile .nav-btn.active .icon {
+        border: 4px solid var(--color-background);
+        box-sizing: border-box;
+      }
+      .activity-main > aside footer .profile .nav-btn .info {
+        flex: 1;
+        height: 40px;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .activity-main > aside footer .profile .nav-btn .info span {
+        color: var(--color-text-primary);
+        fill: var(--color-text-primary);
+        font-size: 12px;
+      }
+      .activity-main > aside footer .profile .nav-btn .info span:nth-child(1) {
+        font-weight: bold;
+        margin-bottom: 2px;
+      }
+      .activity-main > aside footer .profile .nav-btn .info span:nth-child(2) {
+        font-weight: 400;
+      }
+      .activity-main > main {
+        width: 100%;
+        height: 100vh;
+        padding-left: 60px;
+        box-sizing: border-box;
+      }
+      .activity-main > main .container {
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-surface);
+      }
+      .activity-main > main > .container > .fragment {
+        display: none;
+      }
+      .activity-main > main > .container > .fragment.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="activity-main">
+      <aside>
+        <header>
+          <div class="launcher">
+            <div class="app">
+              <div class="wrapper">
+                <div class="icon"></div>
+                <div class="title">
+                  <span>OneClub</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+        <nav>
+          <div class="box-shadow"></div>
+          <div class="nav-btn">
+            <div class="wrapper">
+              <div class="icon-wrapper">
+                <div class="icon icon-regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g><path d="M7 0H4a4 4 0 0 0-4 4v3a4 4 0 0 0 4 4h3a4 4 0 0 0 4-4V4a4 4 0 0 0-4-4Zm2 7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2ZM20 0h-3a4 4 0 0 0-4 4v3a4 4 0 0 0 4 4h3a4 4 0 0 0 4-4V4a4 4 0 0 0-4-4Zm2 7a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2ZM7 13H4a4 4 0 0 0-4 4v3a4 4 0 0 0 4 4h3a4 4 0 0 0 4-4v-3a4 4 0 0 0-4-4Zm2 7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2ZM20 13h-3a4 4 0 0 0-4 4v3a4 4 0 0 0 4 4h3a4 4 0 0 0 4-4v-3a4 4 0 0 0-4-4Zm2 7a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2Z"></path></g>
+                  </svg>
+                </div>
+                <div class="icon icon-solid">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <g><path d="M85.333 0h64c47.128 0 85.333 38.205 85.333 85.333v64c0 47.128-38.205 85.333-85.333 85.333h-64C38.205 234.667 0 196.462 0 149.333v-64C0 38.205 38.205 0 85.333 0zM362.667 0h64C473.795 0 512 38.205 512 85.333v64c0 47.128-38.205 85.333-85.333 85.333h-64c-47.128 0-85.333-38.205-85.333-85.333v-64C277.333 38.205 315.538 0 362.667 0zM85.333 277.333h64c47.128 0 85.333 38.205 85.333 85.333v64c0 47.128-38.205 85.333-85.333 85.333h-64C38.205 512 0 473.795 0 426.667v-64c0-47.129 38.205-85.334 85.333-85.334zM362.667 277.333h64c47.128 0 85.333 38.205 85.333 85.333v64C512 473.795 473.795 512 426.667 512h-64c-47.128 0-85.333-38.205-85.333-85.333v-64c-.001-47.129 38.204-85.334 85.333-85.334z"></path></g>
+                  </svg>
+                </div>
+              </div>
+              <div class="title-wrapper">
+                <span>Dashboard</span>
+              </div>
+            </div>
+          </div>
+          <div class="box-shadow bottom"></div>
+        </nav>
+        <footer>
+          <nav></nav>
+          <div class="profile">
+            <div class="nav-btn active">
+              <div class="wrapper">
+                <div class="icon-wrapper">
+                  <div class="icon"></div>
+                </div>
+                <div class="info">
+                  <span>User Name</span>
+                  <span>Role</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </aside>
+      <main>
+        <div class="container">
+          <div class="fragment fragment-dashboard">Dashboard</div>
+          <div class="fragment fragment-profile">Profile</div>
+        </div>
+      </main>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+      window.addEventListener("DOMContentLoaded", () => {
+        const fragments = ["dashboard", "profile"];
+        const fragment = sessionStorage.getItem("fragments[app[0]][admin]") || "dashboard";
+        const index = fragments.indexOf(fragment);
+        switch (index) {
+          case 0:
+            location.replace(`#${fragments[index]}`);
+            if (!history.state) {
+              history.replaceState({ dashboard: true }, "");
+            }
+            break;
+        }
+        onCreate(index);
+      });
+
+      const navBtn = document.querySelectorAll(".activity-main > aside .nav-btn");
+      navBtn.forEach((btn, index) => {
+        btn.addEventListener("click", () => {
+          if (!btn.classList.contains("active")) {
+            const fragments = ["dashboard", "profile"];
+            if (navBtn[0].classList.contains("active")) {
+              history.pushState({ fragment: `${fragments[index]}` }, "", `#${fragments[index]}`);
+            } else {
+              history.replaceState({ fragment: `${fragments[index]}` }, "", `#${fragments[index]}`);
+              switch (index) {
+                case 0:
+                  onBackPressed();
+                  break;
+              }
+            }
+            sessionStorage.setItem("fragments[app[0]][admin]", fragments[index]);
+            onCreate(index);
+          } else {
+            //recreate(index);
+          }
+        });
+      });
+
+      window.addEventListener("hashchange", () => {
+        const fragments = ["dashboard", "profile"];
+        const path = location.hash.replace("#", "");
+        const index = fragments.indexOf(path);
+        switch (index) {
+          case 0:
+            onBackPressed();
+            break;
+        }
+        sessionStorage.setItem("fragments[app[0]][admin]", fragments[index]);
+        onCreate(index);
+      });
+
+      function onBackPressed() {
+        const ref = document.referrer;
+        const canGoBack = ref === "" || ref.includes(location.hostname);
+        if (canGoBack) {
+          const goBack = () => {
+            if (history.state && history.state.dashboard) {
+              return;
+            } else {
+              history.back();
+              setTimeout(goBack, 100);
+            }
+          };
+          goBack();
+        }
+      }
+
+      function onCreate(index) {
+        const fragments = document.querySelectorAll(".activity-main > main > .container > .fragment");
+        fragments.forEach(fragment => fragment.classList.remove("active"));
+        fragments[index].classList.add("active");
+        navBtn.forEach(btn => btn.classList.remove("active"));
+        navBtn[index].classList.add("active");
+        switch (index) {
+          case 0:
+            //renderHome();
+            break;
+          case 1:
+            //renderSearch();
+            break;
+          case 2:
+            //renderBroadcast();
+            break;
+          case 3:
+            //renderProfile();
+            break;
+        }
+      }
+    </script>
+  </body>
+</html>
