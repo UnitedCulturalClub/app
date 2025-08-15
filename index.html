@@ -95,10 +95,10 @@
         display: none;
       }
       .app > .footer .nav-btn.active .ic-regular {
-        display: none;
+        /*display: none;*/
       }
       .app > .footer .nav-btn.active .ic-solid {
-        display: block;
+        /*display: block;*/
       }
       .app > .footer .nav-title {
         width: 100%;
@@ -117,16 +117,6 @@
       .app > .footer .nav-btn.active .active-bar {
         visibility: visible;
       }
-
-      nav {
-        display: flex;
-      }
-      nav .nav-btn {
-        padding: 10px;
-      }
-      nav .nav-btn.active {
-        background-color: #efefef;
-      }
     </style>
   </head>
   <body>
@@ -135,14 +125,6 @@
         <div class="container">
           <div class="fragment">
             <span>Home</span>
-            <nav>
-              <div class="nav-btn active">
-                <span>Coll</span>
-              </div>
-              <div class="nav-btn">
-                <span>Exp</span>
-              </div>
-            </nav>
           </div>
           <div class="fragment">
             <span>Search</span>
@@ -251,16 +233,157 @@
     </div>
     <script type="text/javascript" charset="utf-8">
       window.addEventListener("DOMContentLoaded", e => {
-        const state = sessionStorage.state;
-        const activity = state?.activity || "main";
-        if (activity !== "main") return;
-        const fragment = state?.fragments["main"] || "home";
-        switch (["home", "search", "updates", "profile"].indexOf(fragment)) {
+        const fragment = sessionStorage.getItem("fragments[app[0]]") || "home";
+        const index = ["home", "search", "updates", "profile"].indexOf(fragment);
+        switch (index) {
           case 0:
-            if (!history.state) history.replaceState({}, "", "/#/home/coll")
+            if (!history.state) history.replaceState({}, "", "#/home/coll");
             break;
         }
+        onCreate(index);
       });
+
+      const navBtn = document.querySelectorAll(".app > .footer .nav-btn");
+      navBtn.forEach((btn, index) => {
+        btn.addEventListener("click", e => {
+          if (!btn.classList.contains("active")) {
+            const fragments = ["home", "search", "updates", "profile"];
+            if (navBtn[0].classList.contains("active")) {
+              history.pushState({}, "", `#/${fragments[index]}`);
+            } else {
+              switch (index) {
+                case 0:
+                  onBackPressed();
+                  break;
+              }
+              history.replaceState({}, "", `#/${fragments[index]}`);
+            }
+            sessionStorage.setItem("fragments[app[0]]", fragments[index]);
+            onCreate(index);
+          } else {
+          }
+        });
+      });
+
+      window.addEventListener("hashchange", e => {
+        const oldHash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
+        const newHash = new URL(e.newURL).hash.replace(/^#\/?/, "");
+        const oldParts = oldHash.split("/").filter(Boolean);
+        const newParts = newHash.split("/").filter(Boolean);
+        const oldMain = oldParts[0] || null;
+        const newMain = newParts[0] || null;
+        const activities = ["auth", "popup"];
+        const validPaths = {
+          home: { coll: { popup: {} }, exp: {} },
+          search: {},
+          updates: {},
+          profile: {},
+          auth: { login: {}, signup: {} },
+          popup: {}
+        };
+        function isValidRoute(parts, validTree) {
+          if (parts.length === 0) return true;
+          const [head, ...tail] = parts;
+          if (!validTree[head]) return false;
+          return isValidRoute(tail, validTree[head]);
+        }
+        if (activities.includes(oldMain)) {
+          const index = activities.indexOf(oldMain);
+          switch (index) {
+            case 0:
+              break;
+            case 1:
+              break;
+          }
+        }
+        if (activities.includes(newMain) && isValidRoute(newParts, validPaths)) {
+          const index = activities.indexOf(newMain);
+          switch (index) {
+            case 0:
+              break;
+            case 1:
+              break;
+          }
+          return;
+        }
+        if (["home", "search", "updates", "profile"].includes(newMain) && isValidRoute(newParts, validPaths)) {
+          const index = ["home", "search", "updates", "profile"].indexOf(newMain);
+          switch (index) {
+            case 0:
+              const index = ["", ""].indexOf(newParts[1]);
+              switch (index) {
+                case 0:
+                  break;
+                case 1:
+                  break;
+                default:
+              }
+              break;
+          }
+          onCreate(index);
+          return;
+        }
+        if (history.length > 1) {
+          history.back();
+        } else {
+          window.location.hash = "#/home/coll";
+        }
+      });
+
+      function onBackPressed() {
+        const ref = document.referrer;
+        const canGoBack = ref === "" || ref.includes(location.hostname);
+        if (canGoBack) {
+          const goBack = () => {
+            const hashPath = location.hash.replace(/^#\/?/, "");
+            if (hashPath.startsWith("home/") && ["coll", "exp"].includes(hashPath.split("/")[1])) {
+              return;
+            } else {
+              history.back();
+              setTimeout(goBack, 100);
+            }
+          };
+          goBack();
+        }
+      }
+
+      function onCreate(index) {
+        const fragments = document.querySelectorAll(".app > .main > .container > .fragment");
+        fragments.forEach(fragment => fragment.classList.remove("active"));
+        fragments[index].classList.add("active");
+        navBtn.forEach(btn => btn.classList.remove("active"));
+        navBtn[index].classList.add("active");
+        switch (index) {
+          case 0:
+            renderHome();
+            break;
+          case 1:
+            //renderSearch();
+            break;
+          case 2:
+            //renderBroadcast();
+            break;
+          case 3:
+            //renderProfile();
+            break;
+        }
+      }
+
+      function recreate(index) {
+        switch (index) {
+          case 0:
+            break;
+          case 1:
+            break;
+          case 2:
+            break;
+          case 3:
+            break;
+        }
+        onCreate(index);
+      }
+
+      function renderHome() {}
     </script>
   </body>
 </html>
