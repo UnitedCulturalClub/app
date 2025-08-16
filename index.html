@@ -117,6 +117,7 @@
       .app > .footer .nav-btn.active .active-bar {
         visibility: visible;
       }
+
       .home {
         width: 100%;
       }
@@ -128,93 +129,40 @@
       }
       .home > .header .nav {
         width: 100%;
-        padding: 5px 10px;
+        padding: 10px;
         box-sizing: border-box;
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
-      .home > .header .nav .drop-down {
-        position: relative;
-      }
-      .home > .header .drop-down .menu {
-        width: 38px;
-        height: 38px;
+      .home > .header .nav .menu {
+        width: 26px;
+        height: 26px;
         padding: 8px;
-        box-sizing: border-box;
-        border-radius: 100%;
+        margin-left: 10px;
         display: flex;
         flex-direction: column;
         justify-content: center;
       }
-      .home > .header .drop-down .menu span {
+      .home > .header .nav .menu span {
         width: 100%;
         height: 2px;
         border-radius: 100px;
         background-color: var(--color-on-background);
       }
-      .home > .header .drop-down .menu span:nth-child(2) {
-        width: 10px;
+      .home > .header .nav .menu span:nth-child(2) {
+        width: 12px;
         margin-top: 5px;
       }
-      .home > .header .drop-down .menu-items {
-        width: 150px;
-        padding: 10px;
-        box-sizing: border-box;
-        border-radius: 5px;
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-        background-color: var(--color-background);
-        border: 1px solid var(--color-devider);
-        position: absolute;
-        display: none;
-        margin-left: 10px;
-      }
-      .home > .header .drop-down .menu:hover ~ .menu-items {
-        display: block;
-      }
-      .home > .header .drop-down .menu-item {
-        width: 100%;
-        padding: 10px;
-        box-sizing: border-box;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-      }
-      .home > .header .drop-down .menu-item:last-child {
-        margin-top: 10px;
-      }
-      .home > .header .drop-down .menu-item.active {
-        background-color: #efefef;
-      }
-      .home > .header .drop-down .menu-icon {
-        width: 16px;
-        height: 16px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .home > .header .drop-down .menu-title {
-        width: 100%;
-        height: 10px;
-        margin-left: 5px;
-        position: relative;
-      }
-      .home > .header .drop-down .menu-title span {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-        font-size: 14px;
-      }
       .home > .header .nav-items {
+        margin-right: 10px;
         display: flex;
         align-items: center;
       }
       .home > .header .nav-item {
-        width: 32px;
-        height: 32px;
+        width: 18px;
+        height: 18px;
         padding: 8px;
-        box-sizing: border-box;
         border-radius: 100px;
         margin-left: 15px;
         display: flex;
@@ -246,34 +194,9 @@
           <div class="fragment home">
             <div class="header">
               <div class="nav">
-                <div class="drop-down">
-                  <div class="menu">
-                    <span></span>
-                    <span></span>
-                  </div>
-                  <div class="menu-items">
-                    <div class="menu-item active">
-                      <div class="menu-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                          <path d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                          <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
-                        </svg>
-                      </div>
-                      <div class="menu-title">
-                        <span>Search</span>
-                      </div>
-                    </div>
-                    <div class="menu-item">
-                      <div class="menu-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                          <g><path d="M12 12a6 6 0 1 0-6-6 6.006 6.006 0 0 0 6 6Zm0-10a4 4 0 1 1-4 4 4 4 0 0 1 4-4ZM12 14a9.01 9.01 0 0 0-9 9 1 1 0 0 0 2 0 7 7 0 0 1 14 0 1 1 0 0 0 2 0 9.01 9.01 0 0 0-9-9Z"></path></g>
-                        </svg>
-                      </div>
-                      <div class="menu-title">
-                        <span>Profile</span>
-                      </div>
-                    </div>
-                  </div>
+                <div class="menu">
+                  <span></span>
+                  <span></span>
                 </div>
                 <div class="nav-items">
                   <div class="nav-item">
@@ -289,7 +212,6 @@
             </div>
             <div class="main">
               <div class="container">
-                <div style="padding:15px">Exercitation sit proident magna voluptate deserunt excepteur officia occaecat velit. Laborum minim ipsum sunt sunt sunt in velit ad proident do aliqua culpa ad adipisicing. Ad ut commodo aliqua ex eu fugiat mollit. Officia dolore do duis adipisicing et aliqua esse eu. Tempor et quis est nisi amet duis sit labore est. Laboris aliqua cillum veniam sit consequat fugiat. Eiusmod aliqua anim pariatur excepteur cupidatat nisi consequat esse excepteur esse est duis. Velit mollit officia proident fugiat velit sint tempor cillum do. Excepteur fugiat cillum fugiat deserunt quis culpa incididunt et commodo ex aute. Veniam nostrud eiusmod veniam amet quis. Est consectetur dolore esse laboris. Quis quis excepteur sit sunt culpa aute nostrud exercitation. Culpa exercitation culpa qui exercitation consequat eu dolore esse tempor ex labore esse proident. Anim pariatur dolore fugiat nulla. Adipisicing aute laboris ex eiusmod deserunt deserunt eu culpa laboris. Labore minim sint laborum ea ad labore elit est. Fugiat velit et ullamco do sint. Non ea non reprehenderit non aliquip. Dolor est ullamco aute pariatur. Labore nisi anim reprehenderit nisi cupidatat. Tempor nulla consequat commodo consequat tempor ad ut velit pariatur. Ullamco irure irure excepteur esse qui ut sint. Ipsum esse veniam consequat sint elit elit anim ut. Incididunt aliqua duis ut ex enim nisi cupidatat nostrud aliqua sint ut sit duis eu. Eiusmod nisi dolore magna aute id veniam aliquip sit aliqua reprehenderit. Excepteur eiusmod sit aliquip ea commodo et culpa est aliqua. Ullamco aliquip eiusmod mollit labore cupidatat ex eiusmod pariatur occaecat. Sint cupidatat est et id reprehenderit. Dolor anim aute adipisicing veniam. Veniam id fugiat cillum officia. Irure ipsum ad sunt dolor amet voluptate occaecat duis ad eiusmod anim non laborum quis. Ea quis enim sint aliquip adipisicing exercitation aliqua consectetur dolor consequat aliqua consequat amet. Sint eiusmod nostrud voluptate deserunt consectetur ea sunt quis esse duis eiusmod ad occaecat ullamco. Pariatur do sit excepteur velit aliqua officia. Non velit excepteur elit commodo et amet id ea tempor cillum Lorem laborum consectetur ex. Dolore eiusmod ad id aute anim sunt culpa cillum nostrud. Labore anim exercitation labore proident deserunt fugiat ex elit Lorem ullamco enim et velit id. Deserunt esse commodo id duis aute sunt aliqua nostrud ad consequat in deserunt. Sunt adipisicing ad cupidatat nostrud dolore. Veniam nisi nostrud consectetur minim laboris do velit ea. Nisi proident qui in velit tempor commodo sunt. Eiusmod sunt culpa pariatur eiusmod id ad magna velit eu. Dolore laboris aliqua amet adipisicing consectetur. Ad non sint nisi sit eu cupidatat nostrud magna culpa quis. In ea labore magna ex laborum qui nostrud et commodo duis fugiat in nisi. Ex enim eiusmod nostrud ullamco aliqua esse sit. Qui est magna fugiat minim. Ex exercitation velit ad nostrud ut ex eiusmod anim incididunt cupidatat. Reprehenderit aute aliquip ad cupidatat velit id dolore qui labore reprehenderit qui ad. Mollit nisi dolor ut adipisicing eu nostrud ullamco esse do eu dolore ea. Fugiat laborum labore veniam exercitation. Est amet quis et sint enim dolor Lorem ea culpa eiusmod. Magna aliqua Lorem sunt amet qui Lorem tempor irure. Excepteur culpa ullamco velit nostrud excepteur voluptate ullamco exercitation veniam anim ullamco mollit. Veniam incididunt adipisicing culpa ipsum. In laboris eu id elit excepteur labore est. Velit tempor ex sit ipsum nostrud in consectetur veniam. Culpa fugiat reprehenderit Lorem ipsum tempor nulla reprehenderit non anim officia deserunt anim quis excepteur. Veniam do ex proident magna culpa ullamco ex laborum fugiat aliquip excepteur. Magna sunt veniam enim velit. Reprehenderit minim ea ex nisi excepteur adipisicing magna velit in dolore. Eiusmod sint aliqua incididunt anim Lorem. Adipisicing laborum anim ex reprehenderit minim mollit incididunt fugiat non quis est. Elit adipisicing quis culpa id veniam amet ea in aliquip eiusmod tempor pariatur. Qui nostrud et consequat deserunt anim est do in id. Occaecat et duis nulla ipsum consequat. Ea Lorem consequat do mollit minim incididunt officia exercitation quis aliqua sunt exercitation est est. Non occaecat amet consectetur qui excepteur consequat. Dolor magna reprehenderit labore elit enim ad reprehenderit quis cupidatat. Proident enim voluptate esse occaecat dolor do id non. Exercitation cupidatat consectetur dolore occaecat duis in dolor pariatur dolor Lorem voluptate et esse cillum. Minim labore commodo voluptate tempor laboris sint aliqua eu commodo. Excepteur qui excepteur id labore do consectetur nostrud labore reprehenderit officia. Laboris occaecat do in irure irure aliquip mollit irure. In excepteur pariatur id dolor cupidatat anim eiusmod dolor cillum ad. Nostrud exercitation do eu non. Id ullamco sint mollit in. Consequat proident dolore nulla veniam est minim cupidatat non do cillum sunt. Enim deserunt ipsum sit ea fugiat sit dolor consequat aliqua tempor eiusmod consequat ullamco. Do laborum veniam nisi ea excepteur. Do do ut minim ullamco aliqua minim Lorem mollit enim. Consectetur sit non aliqua sit esse mollit eu eu id mollit pariatur velit ad qui. Mollit do nostrud ut occaecat Lorem. Veniam nulla dolore aliquip nostrud enim. Ipsum laborum pariatur laboris fugiat labore commodo officia. Deserunt nisi cupidatat ex ad adipisicing pariatur commodo Lorem ullamco labore cupidatat eiusmod. Esse officia laborum laborum id est et occaecat nostrud adipisicing. Aliqua ut aute qui dolor fugiat laboris mollit Lorem ad dolore quis commodo. Ullamco qui dolore incididunt adipisicing cupidatat minim exercitation tempor occaecat. Ut amet culpa tempor eu deserunt tempor exercitation ea. Esse dolore laborum non officia consequat do incididunt deserunt duis enim qui ullamco. Cillum veniam et excepteur nulla adipisicing ex incididunt ullamco Lorem esse ad excepteur cillum ut. Duis veniam irure ullamco proident nisi minim velit ipsum dolore commodo cupidatat aute. Esse duis exercitation ad sint deserunt veniam. Aute fugiat minim laborum ex deserunt. Sint et enim nulla qui ad occaecat occaecat minim.</div>
                 <div class="fragment">
                   <span>coll</span>
                 </div>
