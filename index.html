@@ -36,6 +36,8 @@
       }
       .app > .main {
         width: 100%;
+        padding-bottom: 65px;
+        box-sizing: border-box;
       }
       .app > .main > .container {
         width: 100%;
@@ -129,7 +131,7 @@
       }
       .home > .header .nav {
         width: 100%;
-        padding: 10px;
+        padding: 10px 20px;
         box-sizing: border-box;
         display: flex;
         align-items: center;
@@ -139,7 +141,6 @@
         width: 26px;
         height: 26px;
         padding: 8px;
-        margin-left: 10px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -155,7 +156,6 @@
         margin-top: 5px;
       }
       .home > .header .nav-items {
-        margin-right: 10px;
         display: flex;
         align-items: center;
       }
@@ -201,9 +201,13 @@
                 <div class="nav-items">
                   <div class="nav-item">
                     <div class="nav-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                        <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 682.667 682.667">
+                        <g>
+                          <defs>
+                            <clipPath id="a" clipPathUnits="userSpaceOnUse"><path d="M0 512h512V0H0Z" fill="#000000" opacity="1" data-original="#000000"></path></clipPath>
+                          </defs>
+                          <g clip-path="url(#a)" transform="matrix(1.33333 0 0 -1.33333 0 682.667)"><path d="M0 0c-43.446 0-78.667-35.22-78.667-78.667 0-43.446 35.221-78.666 78.667-78.666 43.446 0 78.667 35.22 78.667 78.666C78.667-35.22 43.446 0 0 0Zm220.802-22.53-21.299-17.534c-24.296-20.001-24.296-57.204 0-77.205l21.299-17.534c7.548-6.214 9.497-16.974 4.609-25.441l-42.057-72.845c-4.889-8.467-15.182-12.159-24.337-8.729l-25.835 9.678c-29.469 11.04-61.688-7.561-66.862-38.602l-4.535-27.213c-1.607-9.643-9.951-16.712-19.727-16.712h-84.116c-9.776 0-18.12 7.069-19.727 16.712l-4.536 27.213c-5.173 31.041-37.392 49.642-66.861 38.602l-25.834-9.678c-9.156-3.43-19.449.262-24.338 8.729l-42.057 72.845c-4.888 8.467-2.939 19.227 4.609 25.441l21.3 17.534c24.295 20.001 24.295 57.204 0 77.205l-21.3 17.534c-7.548 6.214-9.497 16.974-4.609 25.441l42.057 72.845c4.889 8.467 15.182 12.159 24.338 8.729l25.834-9.678c29.469-11.04 61.688 7.561 66.861 38.602l4.536 27.213c1.607 9.643 9.951 16.711 19.727 16.711h84.116c9.776 0 18.12-7.068 19.727-16.711l4.535-27.213c5.174-31.041 37.393-49.642 66.862-38.602l25.835 9.678c9.155 3.43 19.448-.262 24.337-8.729l42.057-72.845c4.888-8.467 2.939-19.227-4.609-25.441z" style="stroke-width: 40; stroke-linecap: round; stroke-linejoin: round; stroke-miterlimit: 10; stroke-dasharray: none; stroke-opacity: 1" transform="translate(256 334.666)" fill="none" stroke="#000000" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000"></path></g>
+                        </g>
                       </svg>
                     </div>
                   </div>
@@ -405,13 +409,14 @@
           const index = ["home", "search", "updates", "profile"].indexOf(newMain);
           switch (index) {
             case 0:
-              const index = ["", ""].indexOf(newParts[1]);
+              const index = ["coll", "exp"].indexOf(newParts[1]);
               switch (index) {
                 case 0:
                   break;
                 case 1:
                   break;
                 default:
+                  window.location.hash = "#/home/coll";
               }
               break;
           }
