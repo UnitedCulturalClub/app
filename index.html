@@ -106,6 +106,8 @@
         width: 100%;
         margin-top: 3px;
         margin-bottom: 2px;
+        display: flex;
+        justify-content: center;
         color: var(--color-text-primary);
         font-size: 10px;
       }
@@ -125,53 +127,90 @@
       }
       .home > .header {
         width: 100%;
+        height: 60px;
+        box-shadow: 0px 0px 10px 15px var(--color-background);
         background-color: var(--color-background);
         position: sticky;
         top: 0;
+        transition: height 0.3s ease;
+        overflow: hidden;
+      }
+      .home > .header:hover {
+        height: 180px;
       }
       .home > .header .nav {
         width: 100%;
+        height: 60px;
         padding: 10px 20px;
         box-sizing: border-box;
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
-      .home > .header .nav .menu {
-        width: 26px;
-        height: 26px;
+      .home > .header > .nav .hamburger {
+        width: 40px;
+        height: 40px;
         padding: 8px;
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         justify-content: center;
       }
-      .home > .header .nav .menu span {
+      .home > .header .nav .hamburger span {
         width: 100%;
         height: 2px;
         border-radius: 100px;
         background-color: var(--color-on-background);
       }
-      .home > .header .nav .menu span:nth-child(2) {
+      .home > .header .nav .hamburger span:nth-child(2) {
         width: 12px;
         margin-top: 5px;
       }
-      .home > .header .nav-items {
+      .home > .header > div:nth-child(2) {
         display: flex;
         align-items: center;
       }
-      .home > .header .nav-item {
-        width: 20px;
-        height: 20px;
+      .home > .header .nav .nav-item {
+        width: 36px;
+        height: 36px;
         padding: 8px;
-        border-radius: 100px;
+        box-sizing: border-box;
         margin-left: 15px;
         display: flex;
         align-items: center;
         justify-content: center;
       }
-      .home > .header .nav-icon {
+      .home > .header .nav .nav-icon {
         width: 100%;
         height: 100%;
+      }
+      .home > .header .menu {
+        width: 100%;
+        height: 100px;
+        padding: 0 28px;
+        box-sizing: border-box;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .home > .header .menu .nav-item {
+        width: 100%;
+        height: 40px;
+        padding: 10px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+      }
+      .home > .header .menu .nav-item {
+        background-color: #efefef;
+      }
+      .home > .header .menu .nav-icon {
+        width: 20px;
+        height: 20px;
+        background-color: red;
       }
       .home > .main {
         width: 100%;
@@ -194,19 +233,11 @@
           <div class="fragment home">
             <div class="header">
               <div class="nav">
-                <div class="menu">
+                <div class="hamburger">
                   <span></span>
                   <span></span>
                 </div>
-                <div class="nav-items">
-                  <div class="nav-item">
-                    <div class="nav-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                        <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
-                      </svg>
-                    </div>
-                  </div>
+                <div>
                   <div class="nav-item">
                     <div class="nav-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -217,11 +248,27 @@
                   </div>
                 </div>
               </div>
+              <div class="menu">
+                <div class="nav-item">
+                  <div class="nav-icon"></div>
+                  <div class="nav-title">Coll</div>
+                </div>
+                <div class="nav-item">
+                  <div class="nav-icon"></div>
+                  <div class="nav-title">Exp</div>
+                </div>
+              </div>
             </div>
             <div class="main">
               <div class="container">
-                <div class="fragment">
-                  <span>coll</span>
+                <div class="fragment active">
+                  <div style="padding: 10px 28px">
+                    Fugiat cupidatat esse consequat fugiat do velit. Veniam pariatur ad anim dolor occaecat proident ipsum. Esse enim esse laborum voluptate aliqua fugiat duis reprehenderit nulla. <span style="display: block; margin-bottom: 30px"></span> Dolor exercitation voluptate consequat aliqua sint. Officia velit et laboris excepteur qui irure. Aliquip ullamco ex irure fugiat. Consequat aliqua id dolor adipisicing anim est do sit nulla commodo tempor eiusmod aliquip minim. Ut pariatur esse voluptate consequat sit commodo velit est velit qui mollit aliquip. Nostrud consequat non et ullamco sunt ullamco nisi sunt eiusmod magna. Labore mollit esse incididunt eu id pariatur do sunt nostrud. Ut labore in elit ipsum elit aute est sit cillum velit adipisicing est irure eiusmod. Minim tempor sit elit sit ea magna anim sint enim. Nulla minim occaecat proident cupidatat irure cillum Lorem reprehenderit excepteur veniam ea quis irure. Aute fugiat est Lorem elit dolor Lorem sint incididunt.
+                    Sit deserunt consectetur anim adipisicing sunt aute. Sunt labore eiusmod fugiat magna ipsum. Ea laboris dolor et ad do cillum qui in adipisicing. Cupidatat sunt dolor reprehenderit culpa proident exercitation eiusmod laborum ad aliqua irure ad sint. Reprehenderit laborum proident tempor ipsum sit eu labore eiusmod esse duis et. Est cillum consequat Lorem excepteur cupidatat nulla exercitation occaecat nisi ea est. Ut id incididunt sint irure excepteur enim ut ullamco sint dolore. Lorem occaecat labore enim cillum laboris ad commodo Lorem exercitation magna est reprehenderit esse. Minim consequat cillum adipisicing culpa labore ipsum ad esse amet quis dolor deserunt commodo pariatur. Ad velit quis fugiat labore cupidatat. Nostrud veniam officia magna magna cillum incididunt. Quis nisi adipisicing anim consequat qui nulla aute velit non laborum qui labore laboris qui. Ea duis ullamco reprehenderit anim minim proident elit eu nostrud aliqua amet est. Minim magna dolor
+                    nisi consequat Lorem. Aliquip labore cillum exercitation minim. Proident sint ex fugiat elit minim. Tempor id dolor sint laboris deserunt laborum irure duis est occaecat est non fugiat. Dolor ad nisi amet nostrud est veniam incididunt veniam enim sunt officia. Non ea nisi ut deserunt cillum eiusmod magna aliqua veniam esse aute ut ut. Aliqua exercitation ut ipsum nostrud mollit fugiat. Qui ut anim ullamco consequat enim ex anim veniam sint esse in commodo voluptate ad. Qui deserunt ipsum incididunt ex. Nulla do qui ea irure ipsum do consectetur duis Lorem enim fugiat fugiat laborum. Incididunt et do ullamco sint aliquip in velit. Laboris nostrud ut ad enim sit duis ad sint elit minim. Non irure cupidatat cillum magna cupidatat reprehenderit consequat sunt irure excepteur minim reprehenderit. Dolor consectetur reprehenderit qui eu ex amet incididunt tempor culpa nostrud sunt officia cillum. Incididunt voluptate magna magna labore nulla magna. Labore consequat
+                    consectetur sit nostrud dolor eu. Veniam ex qui reprehenderit exercitation laborum et ullamco nostrud velit qui sint et veniam cillum. Quis consectetur voluptate proident elit deserunt aute consectetur id ad pariatur. Irure esse consequat qui nostrud irure nisi sint minim. Nulla sint minim irure in sunt cupidatat amet laboris nisi irure. Laboris proident excepteur reprehenderit sint reprehenderit esse ad excepteur ad sunt consequat. Cupidatat occaecat exercitation incididunt minim. In pariatur irure veniam aute deserunt aliqua sint. Occaecat consectetur Lorem cillum magna mollit commodo in incididunt Lorem. Deserunt pariatur aliquip amet consectetur quis. Mollit quis consectetur anim aliquip occaecat duis. Laborum qui ad tempor adipisicing elit culpa non proident velit reprehenderit anim. Excepteur culpa mollit ipsum proident exercitation. Nostrud eiusmod irure sunt magna qui in labore labore sunt sint. Sit ad sit magna officia nulla excepteur consectetur ipsum
+                    tempor nostrud ullamco. Laboris reprehenderit sunt do veniam eu dolore ullamco adipisicing excepteur. Aliquip ex in nulla irure mollit consectetur est cupidatat deserunt anim nulla ut laborum et.
+                  </div>
                 </div>
                 <div class="fragment">
                   <span>exp</span>
@@ -293,7 +340,9 @@
               <div class="nav-icon">
                 <div class="icon ic-regular">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <g><path d="M13.5 12a1.5 1.5 0 1 1-3.001-.001A1.5 1.5 0 0 1 13.5 12Zm3.5-1.5a1.5 1.5 0 1 0 .001 3.001A1.5 1.5 0 0 0 17 10.5Zm-10 0a1.5 1.5 0 1 0 .001 3.001A1.5 1.5 0 0 0 7 10.5Zm17 1.84V19c0 2.757-2.243 5-5 5h-5.917C6.082 24 .47 19.208.03 12.854c-.241-3.476 1.027-6.878 3.479-9.333S9.363-.206 12.836.029C19.096.454 24 5.862 24 12.341Zm-2 0c0-5.431-4.084-9.962-9.299-10.316a10.015 10.015 0 0 0-7.777 2.91 10.019 10.019 0 0 0-2.899 7.782c.373 5.38 5.024 9.285 11.059 9.285h5.917c1.654 0 3-1.346 3-3v-6.66Z"></path></g>
+                    <g>
+                      <path d="M13.5 12a1.5 1.5 0 1 1-3.001-.001A1.5 1.5 0 0 1 13.5 12Zm3.5-1.5a1.5 1.5 0 1 0 .001 3.001A1.5 1.5 0 0 0 17 10.5Zm-10 0a1.5 1.5 0 1 0 .001 3.001A1.5 1.5 0 0 0 7 10.5Zm17 1.84V19c0 2.757-2.243 5-5 5h-5.917C6.082 24 .47 19.208.03 12.854c-.241-3.476 1.027-6.878 3.479-9.333S9.363-.206 12.836.029C19.096.454 24 5.862 24 12.341Zm-2 0c0-5.431-4.084-9.962-9.299-10.316a10.015 10.015 0 0 0-7.777 2.91 10.019 10.019 0 0 0-2.899 7.782c.373 5.38 5.024 9.285 11.059 9.285h5.917c1.654 0 3-1.346 3-3v-6.66Z"></path>
+                    </g>
                   </svg>
                 </div>
                 <div class="icon ic-solid">
