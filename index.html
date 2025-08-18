@@ -338,161 +338,7 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" charset="utf-8">
-      window.BottomSheetDialog = class {
-        constructor(context) {
-          this.context = context || document.body;
-          this.container = null;
-          this.overlay = null;
-          this.cancelable = true;
-          this.onDismissListener = null;
-          this.onShowListener = null;
-          this.dragHandleView = null;
-          this.dragHandle = null;
-          this.dragging = false;
-          this.startY = 0;
-          this.currentBottom = 0;
-        }
-        setContentView(layout) {
-          if (this.container) this.container.remove();
-          this.container = document.createElement("div");
-          if (layout instanceof HTMLElement) this.container.appendChild(layout);
-          else if (typeof layout === "string") this.container.innerHTML = layout;
-          else this.container.innerHTML = "";
-          Object.assign(this.container.style, {
-            width: "100%",
-            maxHeight: "80%",
-            boxSizing: "border-box",
-            borderTopLeftRadius: "15px",
-            borderTopRightRadius: "15px",
-            background: "#fff",
-            boxShadow: "0 -2px 10px rgba(0,0,0,0.3)",
-            position: "absolute",
-            left: "0",
-            bottom: "-100%",
-            overflowY: "auto",
-            transition: "bottom 0.3s ease",
-            zIndex: "9998"
-          });
-          this.context.appendChild(this.container);
-          if ((layout instanceof HTMLElement && layout.children.length) || (typeof layout === "string" && layout.trim())) {
-            this.showDragHandle(true);
-          }
-        }
-        showDragHandle(flag) {
-          if (flag && !this.dragHandleView) {
-            this.dragHandleView = document.createElement("div");
-            Object.assign(this.dragHandleView.style, {
-              width: "100%",
-              padding: "15px",
-              boxSizing: "border-box",
-              position: "sticky",
-              top: "0",
-              display: "flex",
-              justifyContent: "center",
-              zIndex: "9999"
-            });
-            this.dragHandle = document.createElement("div");
-            Object.assign(this.dragHandle.style, {
-              width: "40px",
-              height: "5px",
-              borderRadius: "100px",
-              background: "#ccc",
-              cursor: "grab"
-            });
-            this.dragHandleView.appendChild(this.dragHandle);
-            this.container.insertBefore(this.dragHandleView, this.container.firstChild);
-            this.dragHandle.addEventListener("mousedown", this.startDrag.bind(this));
-            this.dragHandle.addEventListener("touchstart", this.startDrag.bind(this), { passive: false });
-          } else if (!flag && this.dragHandle) {
-            this.dragHandleView.remove();
-            this.dragHandleView = null;
-          }
-        }
-        startDrag(e) {
-          e.preventDefault();
-          this.dragging = true;
-          this.startY = e.touches ? e.touches[0].clientY : e.clientY;
-          this.currentBottom = parseFloat(this.container.style.bottom);
-          document.addEventListener("mousemove", this.onDrag.bind(this));
-          document.addEventListener("mouseup", this.endDrag.bind(this));
-          document.addEventListener("touchmove", this.onDrag.bind(this), { passive: false });
-          document.addEventListener("touchend", this.endDrag.bind(this));
-        }
-        onDrag(e) {
-          if (!this.dragging) return;
-          e.preventDefault();
-          const currentY = e.touches ? e.touches[0].clientY : e.clientY;
-          let delta = this.startY - currentY; // drag up positive
-          let bottom = Math.max(-this.container.offsetHeight, delta);
-          this.container.style.bottom = bottom + "px";
-        }
-        endDrag(e) {
-          if (!this.dragging) return;
-          this.dragging = false;
-          const currentBottom = parseFloat(this.container.style.bottom);
-          const threshold = -this.container.offsetHeight / 3;
-          if (currentBottom < threshold) this.dismiss();
-          else this.container.style.bottom = "0";
-          document.removeEventListener("mousemove", this.onDrag.bind(this));
-          document.removeEventListener("mouseup", this.endDrag.bind(this));
-          document.removeEventListener("touchmove", this.onDrag.bind(this));
-          document.removeEventListener("touchend", this.endDrag.bind(this));
-        }
-        show() {
-          if (!this.container) this.setContentView("");
-          if (!this.overlay) {
-            this.overlay = document.createElement("div");
-            Object.assign(this.overlay.style, {
-              width: "100%",
-              height: "100%",
-              background: "rgba(0,0,0,0.5)",
-              position: "fixed",
-              top: "0",
-              left: "0",
-              opacity: "0",
-              transition: "opacity 0.3s ease",
-              pointerEvents: "none",
-              zIndex: "9997"
-            });
-            this.context.appendChild(this.overlay);
-            this.overlay.addEventListener("click", () => {
-              if (this.cancelable) this.dismiss();
-            });
-          }
-          this.overlay.style.opacity = "1";
-          this.overlay.style.pointerEvents = "auto";
-          requestAnimationFrame(() => {
-            this.container.style.bottom = "0";
-            if (this.onShowListener) this.onShowListener();
-          });
-        }
-        dismiss() {
-          this.container.style.bottom = "-100%";
-          this.overlay.style.opacity = "0";
-          this.overlay.style.pointerEvents = "none";
-          setTimeout(() => {
-            if (this.onDismissListener) this.onDismissListener();
-          }, 300);
-        }
-        setCancelable(flag) {
-          this.cancelable = flag;
-        }
-        setOnShowListener(callback) {
-          this.onShowListener = callback;
-        }
-        setOnDismissListener(callback) {
-          this.onDismissListener = callback;
-        }
-      };
-
-      window.ondblclick = e => {
-        const bottomSheetDialog = new BottomSheetDialog(document.body);
-        bottomSheetDialog.setContentView("Hello");
-        bottomSheetDialog.showDragHandle(true);
-        bottomSheetDialog.show();
-      };
-    </script>
+    <script src="/android/BottomSheetDialog.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
       window.addEventListener("DOMContentLoaded", e => {
         const fragment = sessionStorage.getItem("fragments[app[0]]") || "home";
@@ -647,6 +493,13 @@
       }
 
       function renderHome() {}
+      
+      window.addEventListener("dblclick", e => {
+        const bottomSheetDialog = new BottomSheetDialog(document.body);
+        bottomSheetDialog.showDragHandle(true);
+        bottomSheetDialog.setContentView("Hello This a BottomSheetDialog Like Android");
+        bottomSheetDialog.show();
+      })
     </script>
   </body>
 </html>
