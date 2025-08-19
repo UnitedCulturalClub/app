@@ -31,6 +31,9 @@
         font-family: Sans-Serif;
         background-color: var(--color-background);
       }
+      .no-scroll {
+        overflow: hidden;
+      }
       .app {
         width: 100%;
       }
@@ -131,6 +134,7 @@
         background-color: var(--color-background);
         position: sticky;
         top: 0;
+        z-index: 1;
       }
       .home > .header .nav {
         width: 100%;
@@ -140,7 +144,7 @@
         align-items: center;
         justify-content: space-between;
       }
-      .home > .header > .nav .menu {
+      .home > .header .nav .hamburg {
         width: 40px;
         height: 40px;
         padding: 8px;
@@ -148,18 +152,43 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        z-index: 2;
       }
-      .home > .header .nav .menu span {
+      .home > .header .nav .hamburg span {
         width: 100%;
         height: 2px;
         border-radius: 100px;
         background-color: var(--color-on-background);
+        transition: all 0.1s ease;
       }
-      .home > .header .nav .menu span:nth-child(2) {
+      .home > .header .nav .hamburg span:nth-child(2) {
         width: 12px;
         margin-top: 5px;
       }
-      .home > .header > div:nth-child(2) {
+      .home > .header .nav .hamburg.active span:nth-child(1) {
+        opacity: 0;
+        width: 20px;
+        transform: rotate(45deg) translate(2.5px, 2.5px);
+        animation: fade 0.5s forwards;
+      }
+      .home > .header .nav .hamburg.active span:nth-child(2) {
+        opacity: 0;
+        width: 20px;
+        transform: rotate(-45deg) translate(2.5px, -2.5px);
+        animation: fade 0.5s ease forwards;
+      }
+      @keyframes fade {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      .home > .header .nav > div:nth-child(2) {
         display: flex;
         align-items: center;
       }
@@ -176,6 +205,21 @@
       .home > .header .nav .nav-icon {
         width: 100%;
         height: 100%;
+      }
+      .home > .header .menu {
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-background);
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.1s ease;
+      }
+      .home > .header .menu.active {
+        pointer-events: auto;
+        opacity: 1;
       }
       .home > .main {
         width: 100%;
@@ -198,7 +242,7 @@
           <div class="fragment home">
             <div class="header">
               <div class="nav">
-                <div class="menu">
+                <div class="hamburg">
                   <span></span>
                   <span></span>
                 </div>
@@ -213,6 +257,7 @@
                   </div>
                 </div>
               </div>
+              <div class="menu"></div>
             </div>
             <div class="main">
               <div class="container">
@@ -338,7 +383,7 @@
         </div>
       </div>
     </div>
-    <script src="components/BottomSheetDialog.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
       window.addEventListener("DOMContentLoaded", e => {
         const fragment = sessionStorage.getItem("fragments[app[0]]") || "home";
@@ -378,16 +423,11 @@
         const newHash = new URL(e.newURL).hash.replace(/^#\/?/, "");
         const oldParts = oldHash.split("/").filter(Boolean);
         const newParts = newHash.split("/").filter(Boolean);
-        const oldMain = oldParts[0] || null;
-        const newMain = newParts[0] || null;
-        const activities = ["auth", "popup"];
         const validPaths = {
-          home: { coll: { popup: {} }, exp: {} },
+          home: { menu: {}, coll: {}, exp: {} },
           search: {},
           updates: {},
-          profile: {},
-          auth: { login: {}, signup: {} },
-          popup: {}
+          profile: {}
         };
         function isValidRoute(parts, validTree) {
           if (parts.length === 0) return true;
@@ -395,48 +435,51 @@
           if (!validTree[head]) return false;
           return isValidRoute(tail, validTree[head]);
         }
-        if (activities.includes(oldMain)) {
-          const index = activities.indexOf(oldMain);
+        if (["home"].includes(oldParts[0])) {
+          const index = ["home"].indexOf(oldParts[0]);
           switch (index) {
             case 0:
-              break;
-            case 1:
-              break;
-          }
-        }
-        if (activities.includes(newMain) && isValidRoute(newParts, validPaths)) {
-          const index = activities.indexOf(newMain);
-          switch (index) {
-            case 0:
-              break;
-            case 1:
-              break;
-          }
-          return;
-        }
-        if (["home", "search", "updates", "profile"].includes(newMain) && isValidRoute(newParts, validPaths)) {
-          const index = ["home", "search", "updates", "profile"].indexOf(newMain);
-          switch (index) {
-            case 0:
-              const index = ["coll", "exp"].indexOf(newParts[1]);
+              const index = ["menu"].indexOf(oldParts[1]);
               switch (index) {
                 case 0:
+                  const menu = document.querySelector(".home > .header .menu");
+                  const hamburg = document.querySelector(".home > .header .nav .hamburg");
+                  hamburg.classList.remove("active");
+                  menu.classList.remove("active");
+                  document.body.classList.remove("no-scroll");
+                  break;
+              }
+              break;
+          }
+        }
+        if (["home", "search", "updates", "profile"].includes(newParts[0]) && isValidRoute(newParts, validPaths)) {
+          const index = ["home", "search", "updates", "profile"].indexOf(newParts[0]);
+          switch (index) {
+            case 0:
+              const index = ["menu", "coll", "exp"].indexOf(newParts[1]);
+              switch (index) {
+                case 0:
+                  const menu = document.querySelector(".home > .header .menu");
+                  const hamburg = document.querySelector(".home > .header .nav .hamburg");
+                  hamburg.classList.add("active");
+                  menu.classList.add("active");
+                  document.body.classList.add("no-scroll");
                   break;
                 case 1:
+                  break;
+                case 2:
                   break;
                 default:
                   window.location.hash = "#/home/coll";
               }
               break;
           }
+          sessionStorage.setItem("fragments[app[0]]", ["home", "search", "updates", "profile"][index]);
           onCreate(index);
           return;
         }
-        if (history.length > 1) {
-          history.back();
-        } else {
-          window.location.hash = "#/home/coll";
-        }
+        if (history.length > 1) history.back();
+        else window.location.hash = "#/home/coll";
       });
 
       function onBackPressed() {
@@ -464,7 +507,7 @@
         navBtn[index].classList.add("active");
         switch (index) {
           case 0:
-            renderHome();
+            ///renderHome();
             break;
           case 1:
             //renderSearch();
@@ -492,14 +535,21 @@
         onCreate(index);
       }
 
-      function renderHome() {}
-      
-      window.addEventListener("dblclick", e => {
-        const bottomSheetDialog = new BottomSheetDialog(document.body);
-        bottomSheetDialog.showDragHandle(true);
-        bottomSheetDialog.setContentView("Hello This a BottomSheetDialog Like Android");
-        bottomSheetDialog.show();
-      })
+      const menu = document.querySelector(".home > .header .menu");
+      const hamburg = document.querySelector(".home > .header .nav .hamburg");
+      hamburg.addEventListener("click", e => {
+        if (!menu.classList.contains("active")) {
+          history.pushState({}, "", "#/home/menu");
+          hamburg.classList.add("active");
+          menu.classList.add("active");
+          document.body.classList.add("no-scroll");
+        } else {
+          history.back();
+          hamburg.classList.remove("active");
+          menu.classList.remove("active");
+          document.body.classList.remove("no-scroll");
+        }
+      });
     </script>
   </body>
 </html>
