@@ -31,8 +31,8 @@
         font-family: Sans-Serif;
         background-color: var(--color-background);
       }
-      .no-scroll {
-        overflow: hidden;
+      .scrollable.no-scroll {
+        overflow-y: hidden;
       }
       .app {
         width: 100%;
@@ -209,6 +209,8 @@
       .home > .header .menu {
         width: 100%;
         height: 100%;
+        padding: 60px 28px 0px 28px;
+        box-sizing: border-box;
         background-color: var(--color-background);
         position: fixed;
         top: 0;
@@ -257,21 +259,26 @@
                   </div>
                 </div>
               </div>
-              <div class="menu"></div>
+              <div class="menu">
+                <div class="menu-item">
+                  <h1>Collections</h1>
+                </div>
+                <div class="menu-item">
+                  <h1>Expanses</h1>
+                </div>
+              </div>
             </div>
             <div class="main">
               <div class="container">
-                <div class="fragment active">
+                <div class="fragment">
                   <div style="padding: 10px 28px">
-                    Fugiat cupidatat esse consequat fugiat do velit. Veniam pariatur ad anim dolor occaecat proident ipsum. Esse enim esse laborum voluptate aliqua fugiat duis reprehenderit nulla. <span style="display: block; margin-bottom: 30px"></span> Dolor exercitation voluptate consequat aliqua sint. Officia velit et laboris excepteur qui irure. Aliquip ullamco ex irure fugiat. Consequat aliqua id dolor adipisicing anim est do sit nulla commodo tempor eiusmod aliquip minim. Ut pariatur esse voluptate consequat sit commodo velit est velit qui mollit aliquip. Nostrud consequat non et ullamco sunt ullamco nisi sunt eiusmod magna. Labore mollit esse incididunt eu id pariatur do sunt nostrud. Ut labore in elit ipsum elit aute est sit cillum velit adipisicing est irure eiusmod. Minim tempor sit elit sit ea magna anim sint enim. Nulla minim occaecat proident cupidatat irure cillum Lorem reprehenderit excepteur veniam ea quis irure. Aute fugiat est Lorem elit dolor Lorem sint incididunt.
-                    Sit deserunt consectetur anim adipisicing sunt aute. Sunt labore eiusmod fugiat magna ipsum. Ea laboris dolor et ad do cillum qui in adipisicing. Cupidatat sunt dolor reprehenderit culpa proident exercitation eiusmod laborum ad aliqua irure ad sint. Reprehenderit laborum proident tempor ipsum sit eu labore eiusmod esse duis et. Est cillum consequat Lorem excepteur cupidatat nulla exercitation occaecat nisi ea est. Ut id incididunt sint irure excepteur enim ut ullamco sint dolore. Lorem occaecat labore enim cillum laboris ad commodo Lorem exercitation magna est reprehenderit esse. Minim consequat cillum adipisicing culpa labore ipsum ad esse amet quis dolor deserunt commodo pariatur. Ad velit quis fugiat labore cupidatat. Nostrud veniam officia magna magna cillum incididunt. Quis nisi adipisicing anim consequat qui nulla aute velit non laborum qui labore laboris qui. Ea duis ullamco reprehenderit anim minim proident elit eu nostrud aliqua amet est. Minim magna dolor
-                    nisi consequat Lorem. Aliquip labore cillum exercitation minim. Proident sint ex fugiat elit minim. Tempor id dolor sint laboris deserunt laborum irure duis est occaecat est non fugiat. Dolor ad nisi amet nostrud est veniam incididunt veniam enim sunt officia. Non ea nisi ut deserunt cillum eiusmod magna aliqua veniam esse aute ut ut. Aliqua exercitation ut ipsum nostrud mollit fugiat. Qui ut anim ullamco consequat enim ex anim veniam sint esse in commodo voluptate ad. Qui deserunt ipsum incididunt ex. Nulla do qui ea irure ipsum do consectetur duis Lorem enim fugiat fugiat laborum. Incididunt et do ullamco sint aliquip in velit. Laboris nostrud ut ad enim sit duis ad sint elit minim. Non irure cupidatat cillum magna cupidatat reprehenderit consequat sunt irure excepteur minim reprehenderit. Dolor consectetur reprehenderit qui eu ex amet incididunt tempor culpa nostrud sunt officia cillum. Incididunt voluptate magna magna labore nulla magna. Labore consequat
-                    consectetur sit nostrud dolor eu. Veniam ex qui reprehenderit exercitation laborum et ullamco nostrud velit qui sint et veniam cillum. Quis consectetur voluptate proident elit deserunt aute consectetur id ad pariatur. Irure esse consequat qui nostrud irure nisi sint minim. Nulla sint minim irure in sunt cupidatat amet laboris nisi irure. Laboris proident excepteur reprehenderit sint reprehenderit esse ad excepteur ad sunt consequat. Cupidatat occaecat exercitation incididunt minim. In pariatur irure veniam aute deserunt aliqua sint. Occaecat consectetur Lorem cillum magna mollit commodo in incididunt Lorem. Deserunt pariatur aliquip amet consectetur quis. Mollit quis consectetur anim aliquip occaecat duis. Laborum qui ad tempor adipisicing elit culpa non proident velit reprehenderit anim. Excepteur culpa mollit ipsum proident exercitation. Nostrud eiusmod irure sunt magna qui in labore labore sunt sint. Sit ad sit magna officia nulla excepteur consectetur ipsum
-                    tempor nostrud ullamco. Laboris reprehenderit sunt do veniam eu dolore ullamco adipisicing excepteur. Aliquip ex in nulla irure mollit consectetur est cupidatat deserunt anim nulla ut laborum et.
+                    <h2>Hello</h2>
                   </div>
                 </div>
                 <div class="fragment">
-                  <span>exp</span>
+                  <div style="padding: 10px 28px">
+                    <h2>Hello</h2>
+                  </div>
                 </div>
               </div>
             </div>
@@ -390,7 +397,7 @@
         const index = ["home", "search", "updates", "profile"].indexOf(fragment);
         switch (index) {
           case 0:
-            if (!history.state) history.replaceState({}, "", "#/home/coll");
+            //if (!history.state) history.replaceState({}, "", "#/home/coll");
             break;
         }
         onCreate(index);
@@ -463,11 +470,15 @@
                   const hamburg = document.querySelector(".home > .header .nav .hamburg");
                   hamburg.classList.add("active");
                   menu.classList.add("active");
-                  document.body.classList.add("no-scroll");
+                  document.querySelectorAll(".scrollable").forEach(item => {
+                    item.classList.remove("no-scroll");
+                  });
                   break;
                 case 1:
+                  sessionStorage.setItem("fragments[app[0][1]]", "coll");
                   break;
                 case 2:
+                  sessionStorage.setItem("fragments[app[0][1]]", "exp");
                   break;
                 default:
                   window.location.hash = "#/home/coll";
@@ -507,7 +518,7 @@
         navBtn[index].classList.add("active");
         switch (index) {
           case 0:
-            ///renderHome();
+            renderHome();
             break;
           case 1:
             //renderSearch();
@@ -535,6 +546,17 @@
         onCreate(index);
       }
 
+      function renderHome() {
+        const fragment = sessionStorage.getItem("fragments[app[0][1]]") || "coll";
+        const index = ["coll", "exp"].indexOf(fragment);
+        switch (index) {
+          case 0:
+            if (!history.state) history.replaceState({}, "", "#/home/coll");
+            break;
+        }
+        loadFragment(index);
+      }
+
       const menu = document.querySelector(".home > .header .menu");
       const hamburg = document.querySelector(".home > .header .nav .hamburg");
       hamburg.addEventListener("click", e => {
@@ -542,14 +564,46 @@
           history.pushState({}, "", "#/home/menu");
           hamburg.classList.add("active");
           menu.classList.add("active");
-          document.body.classList.add("no-scroll");
+          document.body.classList.add("scrollable");
+          document.querySelectorAll(".scrollable").forEach(item => {
+            item.classList.add("no-scroll");
+          });
         } else {
           history.back();
-          hamburg.classList.remove("active");
-          menu.classList.remove("active");
-          document.body.classList.remove("no-scroll");
         }
       });
+
+      const menuItem = document.querySelectorAll(".home > .header .menu-item");
+      menuItem.forEach((item, index) => {
+        item.addEventListener("click", e => {
+          if (!menuItem[index].classList.contains("active")) {
+            const fragments = ["coll", "exp"];
+            if (menuItem[0].classList.contains("active")) {
+              history.replaceState({}, "", "#/home/exp");
+              hamburg.classList.remove("active");
+              menu.classList.remove("active");
+              document.querySelectorAll(".scrollable").forEach(item => {
+                item.classList.remove("no-scroll");
+              });
+            } else {
+              history.go(-2);
+            }
+            sessionStorage.setItem("fragments[app[0][1]]", fragments[index]);
+            loadFragment(index);
+          } else {
+            history.back();
+          }
+        });
+      });
+
+      function loadFragment(index) {
+        const fragments = document.querySelectorAll(".home > .main > .container > .fragment");
+        fragments.forEach(fragment => fragment.classList.remove("active"));
+        fragments[index].classList.add("active");
+        const menuItem = document.querySelectorAll(".home > .header .menu-item");
+        menuItem.forEach(item => item.classList.remove("active"));
+        menuItem[index].classList.add("active");
+      }
     </script>
   </body>
 </html>
