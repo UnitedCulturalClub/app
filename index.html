@@ -219,17 +219,6 @@
         transform: rotate(-45deg) translate(2.5px, -2.5px);
         animation: fade 0.5s ease forwards;
       }
-      @keyframes fade {
-        0% {
-          opacity: 0;
-        }
-        50% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
       .home > .header .nav > div:nth-child(2) {
         display: flex;
         align-items: center;
@@ -264,6 +253,32 @@
       .home > .header .menu.active {
         pointer-events: auto;
         opacity: 1;
+      }
+      .home > .header .menu-item {
+        width: 100%;
+        margin: 20px 0;
+        color: var(--color-text-primary);
+        font-size: 20px;
+        font-weight: 500;
+        opacity: 0;
+      }
+      .home > .header .menu-item.active {
+        font-size: 40px;
+      }
+      .home > .header .menu.active .menu-item {
+        opacity: 0;
+        animation: fade 0.5s ease forwards;
+      }
+      @keyframes fade {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
       }
       .home > .main {
         width: 100%;
@@ -303,10 +318,10 @@
               </div>
               <div class="menu">
                 <div class="menu-item">
-                  <h1>Collections</h1>
+                  <span>Collections</span>
                 </div>
                 <div class="menu-item">
-                  <h1>Expanses</h1>
+                  <span>Expanses</span>
                 </div>
               </div>
             </div>
@@ -314,12 +329,12 @@
               <div class="container">
                 <div class="fragment">
                   <div style="padding: 10px 28px">
-                    <h2>Hello</h2>
+                    <h2>Tab 1</h2>
                   </div>
                 </div>
                 <div class="fragment">
                   <div style="padding: 10px 28px">
-                    <h2>Hello</h2>
+                    <h2>Tab 2</h2>
                   </div>
                 </div>
               </div>
@@ -432,17 +447,15 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
       window.addEventListener("DOMContentLoaded", e => {
-        const fragment = sessionStorage.getItem("fragments[app[0]]") || "home";
-        const index = ["home", "search", "updates", "profile"].indexOf(fragment);
-        switch (index) {
-          case 0:
-            //if (!history.state) history.replaceState({}, "", "#/home/coll");
-            break;
+        const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
+        const parts = hash.split("/").filter(Boolean);
+        const main = parts[0] || "home";
+        if (["home", "search", "updates", "profile"].includes(main)) {
+          const index = ["home", "search", "updates", "profile"].indexOf(main);
+          onCreate(index);
         }
-        onCreate(index);
       });
 
       const navBtn = document.querySelectorAll(".app > .footer .nav-btn");
@@ -460,7 +473,6 @@
               }
               history.replaceState({}, "", `#/${fragments[index]}`);
             }
-            sessionStorage.setItem("fragments[app[0]]", fragments[index]);
             onCreate(index);
           } else {
           }
@@ -488,15 +500,14 @@
           const index = ["home"].indexOf(oldParts[0]);
           switch (index) {
             case 0:
-              const index = ["menu"].indexOf(oldParts[1]);
-              switch (index) {
-                case 0:
-                  const menu = document.querySelector(".home > .header .menu");
-                  const hamburg = document.querySelector(".home > .header .nav .hamburg");
-                  hamburg.classList.remove("active");
-                  menu.classList.remove("active");
-                  document.body.classList.remove("no-scroll");
-                  break;
+              if (["menu"].includes(oldParts[1])) {
+                const menu = document.querySelector(".home > .header .menu");
+                const hamburg = document.querySelector(".home > .header .nav .hamburg");
+                hamburg.classList.remove("active");
+                menu.classList.remove("active");
+                document.querySelectorAll(".scrollable").forEach(item => {
+                  item.classList.remove("no-scroll");
+                });
               }
               break;
           }
@@ -505,29 +516,20 @@
           const index = ["home", "search", "updates", "profile"].indexOf(newParts[0]);
           switch (index) {
             case 0:
-              const index = ["menu", "coll", "exp"].indexOf(newParts[1]);
-              switch (index) {
-                case 0:
-                  const menu = document.querySelector(".home > .header .menu");
-                  const hamburg = document.querySelector(".home > .header .nav .hamburg");
-                  hamburg.classList.add("active");
-                  menu.classList.add("active");
-                  document.querySelectorAll(".scrollable").forEach(item => {
-                    item.classList.remove("no-scroll");
-                  });
-                  break;
-                case 1:
-                  sessionStorage.setItem("fragments[app[0][1]]", "coll");
-                  break;
-                case 2:
-                  sessionStorage.setItem("fragments[app[0][1]]", "exp");
-                  break;
-                default:
-                  window.location.hash = "#/home/coll";
+              if (["menu"].includes(newParts[1])) {
+                hamburg.classList.add("active");
+                menu.classList.add("active");
+                document.querySelectorAll(".scrollable").forEach(item => {
+                  item.classList.add("no-scroll");
+                });
+              } else if (["coll", "exp"].includes(newParts[1])) {
+                const index = ["coll", "exp"].indexOf(newParts[1]);
+                sessionStorage.setItem("app[0][1][fragment]", ["coll", "exp"][index]);
+              } else {
+                window.location.hash = "#/home/coll";
               }
               break;
           }
-          sessionStorage.setItem("fragments[app[0]]", ["home", "search", "updates", "profile"][index]);
           onCreate(index);
           return;
         }
@@ -589,7 +591,17 @@
       }
 
       function renderHome() {
-        const fragment = sessionStorage.getItem("fragments[app[0][1]]") || "coll";
+        const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
+        const parts = hash.split("/").filter(Boolean);
+        const sub = parts[1] || "coll";
+        if (["menu"].includes(sub)) {
+          hamburg.classList.add("active");
+          menu.classList.add("active");
+          document.querySelectorAll(".scrollable").forEach(item => {
+            item.classList.add("no-scroll");
+          });
+        }
+        const fragment = sessionStorage.getItem("app[0][1][fragment]") || "coll";
         const index = ["coll", "exp"].indexOf(fragment);
         switch (index) {
           case 0:
@@ -630,7 +642,7 @@
             } else {
               history.go(-2);
             }
-            sessionStorage.setItem("fragments[app[0][1]]", fragments[index]);
+            sessionStorage.setItem("app[0][1][fragment]", fragments[index]);
             loadFragment(index);
           } else {
             history.back();
