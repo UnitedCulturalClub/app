@@ -80,6 +80,7 @@
         width: 80px;
         height: 100%;
         border-right: 1px solid var(--color-devider);
+        background-color: var(--color-background);
         position: fixed;
         top: 0;
         left: 0;
@@ -90,13 +91,13 @@
       .app > .side .header {
         width: 100%;
       }
-      .app > .side .nav {
+      .app > .side .header .nav {
         width: 100%;
-        flex: 1;
         padding: 10px 20px;
         box-sizing: border-box;
+        display: flex;
       }
-      .app > .side .nav .hamburg {
+      .app > .side .header .nav .hamburg {
         width: 40px;
         height: 40px;
         padding: 8px;
@@ -104,24 +105,86 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        z-index: 2;
       }
-      .app > .side .nav .hamburg span {
+      .app > .side .header .nav .hamburg span {
         width: 100%;
         height: 2px;
         border-radius: 100px;
         background-color: var(--color-on-background);
         transition: all 0.1s ease;
       }
-      .app > .side .nav .hamburg span:nth-child(2) {
+      .app > .side .header .nav .hamburg span:nth-child(2) {
         width: 12px;
         margin-top: 5px;
+      }
+      .app > .side .header .nav .hamburg.active span:nth-child(1) {
+        opacity: 0;
+        width: 20px;
+        transform: rotate(45deg) translate(2.5px, 2.5px);
+        animation: fade 0.5s forwards;
+      }
+      .app > .side .header .nav .hamburg.active span:nth-child(2) {
+        opacity: 0;
+        width: 20px;
+        transform: rotate(-45deg) translate(2.5px, -2.5px);
+        animation: fade 0.5s ease forwards;
+      }
+      .app > .side .header .menu {
+        width: 100%;
+        height: 100%;
+        padding: 60px 28px 0px 28px;
+        box-sizing: border-box;
+        background-color: var(--color-background);
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.1s ease;
+        z-index: 1;
+      }
+      .app > .side .header .menu.active {
+        pointer-events: auto;
+        opacity: 1;
+      }
+      .app > .side .header .menu-item {
+        width: 100%;
+        margin: 20px 0;
+        color: var(--color-text-primary);
+        font-size: 20px;
+        font-weight: 500;
+        opacity: 0;
+      }
+      .app > .side .header .menu-item.active {
+        font-size: 40px;
+      }
+      .app > .side .header .menu.active .menu-item {
+        opacity: 0;
+        animation: fade 0.5s ease forwards;
+      }
+      @keyframes fade {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      .app > .side .nav {
+        width: 100%;
+        flex: 1;
+        padding: 10px;
+        box-sizing: border-box;
+        overflow-x: hidden;
       }
       .app > .side .nav-item {
         width: 40px;
         height: 40px;
-        border-radius: 5px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -143,22 +206,19 @@
       .app > .side .nav-icon .ic-solid {
         display: none;
       }
-      .app > .side .footer {
-        width: 100%;
-      }
-      .app > .side .nav-icon.profile {
+      .app > .side .footer .nav-icon {
         width: 32px;
         height: 32px;
-        border-radius: 100px;
+        border-radius: 100%;
         background-color: var(--color-background);
         overflow: hidden;
       }
-      .app > .side .nav-item.active .nav-icon.profile {
+      .app > .side .footer .nav-item.active .nav-icon {
         border: 2px solid var(--color-background);
         box-sizing: border-box;
         outline: 2px solid var(--color-on-background);
       }
-      .app > .side .nav-icon.profile img {
+      .app > .side .footer .nav-icon img {
         width: 100%;
         height: 100%;
       }
@@ -178,7 +238,18 @@
       }
       .dashboard {
         width: 100%;
-        height: 100vh;
+      }
+      .dashboard > .main {
+        width: 100%;
+      }
+      .dashboard > .main > .container {
+        width: 100%;
+      }
+      .dashboard > .main > .container > .fragment {
+        display: none;
+      }
+      .dashboard > .main > .container > .fragment.active {
+        display: block;
       }
     </style>
   </head>
@@ -186,10 +257,18 @@
     <div class="app">
       <div class="side">
         <div class="header">
-          <div class="nav">
+          <nav class="nav">
             <div class="hamburg">
               <span></span>
               <span></span>
+            </div>
+          </nav>
+          <div class="menu">
+            <div class="menu-item">
+              <span>Collections</span>
+            </div>
+            <div class="menu-item">
+              <span>Expanses</span>
             </div>
           </div>
         </div>
@@ -212,8 +291,10 @@
         <div class="footer">
           <div class="nav">
             <div class="nav-item">
-              <div class="nav-icon profile">
-                <img src="" alt="" />
+              <div class="nav-icon">
+                <div class="ic">
+                  <img src="" alt="" />
+                </div>
               </div>
             </div>
           </div>
@@ -221,7 +302,18 @@
       </div>
       <div class="main">
         <div class="container">
-          <div class="fragment dashboard"></div>
+          <div class="fragment dashboard">
+            <div class="main">
+              <div class="container">
+                <div class="fragment">
+                  <span>Coll</span>
+                </div>
+                <div class="fragment">
+                  <span>Exp</span>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="fragment">
             <span>Profile</span>
           </div>
@@ -276,18 +368,24 @@
           if (!validTree[head]) return false;
           return isValidRoute(tail, validTree[head]);
         }
-        if (["dashboard", "profile"].includes(newParts[0]) && isValidRoute(newParts, validPaths)) {
-          const index = ["dashboard", "profile"].indexOf(newParts[0]);
+        if (["dashboard"].includes(oldParts[0])) {
+          const index = ["dashboard"].indexOf(oldParts[0]);
           switch (index) {
             case 0:
-              if (["coll", "exp"].includes(newParts[1])) {
-                const index = ["coll", "exp"].indexOf(newParts[1]);
-                sessionStorage.setItem("app[0][1][fragment]", ["coll", "exp"][index]);
-              } else {
-                window.location.hash = "#/dashboard/coll";
+              if (["menu"].includes(oldParts[1])) {
+                const menu = document.querySelector(".app > .side .header .menu");
+                const hamburg = document.querySelector(".app > .side .header .nav .hamburg");
+                hamburg.classList.remove("active");
+                menu.classList.remove("active");
+                document.querySelectorAll(".scrollable").forEach(item => {
+                  item.classList.remove("no-scroll");
+                });
               }
               break;
           }
+        }
+        if (["dashboard", "profile"].includes(newParts[0]) && isValidRoute(newParts, validPaths)) {
+          const index = ["dashboard", "profile"].indexOf(newParts[0]);
           onCreate(index);
           return;
         }
@@ -332,17 +430,75 @@
         const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
         const parts = hash.split("/").filter(Boolean);
         const sub = parts[1] || "coll";
+        if (["menu"].includes(sub)) {
+          const menu = document.querySelector(".app > .side .header .menu");
+          const hamburg = document.querySelector(".app > .side .header .nav .hamburg");
+          hamburg.classList.add("active");
+          menu.classList.add("active");
+          document.querySelectorAll(".scrollable").forEach(item => {
+            item.classList.add("no-scroll");
+          });
+        } else if (["coll", "exp"].includes(sub)) {
+          const index = ["coll", "exp"].indexOf(sub);
+          switch (index) {
+            case 0:
+              if (!history.state) history.replaceState({}, "", "#/dashboard/coll");
+              break;
+          }
+          sessionStorage.setItem("app[0][1][fragment]", ["coll", "exp"][index]);
+        }
         const fragment = sessionStorage.getItem("app[0][1][fragment]") || "coll";
         const index = ["coll", "exp"].indexOf(fragment);
-        switch (index) {
-          case 0:
-            if (!history.state) history.replaceState({}, "", "#/dashboard/coll");
-            break;
-        }
         loadFragment(index);
       }
 
-      function loadFragment(index) {}
+      const menu = document.querySelector(".app > .side .header .menu");
+      const hamburg = document.querySelector(".app > .side .header .nav .hamburg");
+      hamburg.addEventListener("click", e => {
+        if (!menu.classList.contains("active")) {
+          history.pushState({}, "", "#/dashboard/menu");
+          hamburg.classList.add("active");
+          menu.classList.add("active");
+          document.body.classList.add("scrollable");
+          document.querySelectorAll(".scrollable").forEach(item => {
+            item.classList.add("no-scroll");
+          });
+        } else {
+          history.back();
+        }
+      });
+
+      const menuItem = document.querySelectorAll(".app > .side .header .menu-item");
+      menuItem.forEach((item, index) => {
+        item.addEventListener("click", e => {
+          if (!menuItem[index].classList.contains("active")) {
+            const fragments = ["coll", "exp"];
+            if (menuItem[0].classList.contains("active")) {
+              history.replaceState({}, "", "#/dashboard/exp");
+              hamburg.classList.remove("active");
+              menu.classList.remove("active");
+              document.querySelectorAll(".scrollable").forEach(item => {
+                item.classList.remove("no-scroll");
+              });
+            } else {
+              history.go(-2);
+            }
+            sessionStorage.setItem("app[0][1][fragment]", fragments[index]);
+            loadFragment(index);
+          } else {
+            history.back();
+          }
+        });
+      });
+
+      function loadFragment(index) {
+        const fragments = document.querySelectorAll(".dashboard > .main > .container > .fragment");
+        fragments.forEach(fragment => fragment.classList.remove("active"));
+        fragments[index].classList.add("active");
+        const menuItem = document.querySelectorAll(".app > .side .header .menu-item");
+        menuItem.forEach(item => item.classList.remove("active"));
+        menuItem[index].classList.add("active");
+      }
     </script>
   </body>
 </html>
