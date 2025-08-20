@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark light" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Dashboard</title>
+    <title>OneClub</title>
     <style type="text/css" media="all">
       @media only screen and (prefers-color-scheme: light) {
         :root {
@@ -28,42 +28,42 @@
       /* Regular (400 normal) */
       @font-face {
         font-family: "GoogleSans";
-        src: url("/app/assets/fonts/GoogleSans-Regular.ttf") format("truetype");
+        src: url("assets/fonts/GoogleSans-Regular.ttf") format("truetype");
         font-weight: 400;
         font-style: normal;
       }
       /* Italic (400 italic) */
       @font-face {
         font-family: "GoogleSans";
-        src: url("/app/assets/fonts/GoogleSans-Italic.ttf") format("truetype");
+        src: url("assets/fonts/GoogleSans-Italic.ttf") format("truetype");
         font-weight: 400;
         font-style: italic;
       }
       /* Medium (500 normal) */
       @font-face {
         font-family: "GoogleSans";
-        src: url("/app/assets/fonts/GoogleSans-Medium.ttf") format("truetype");
+        src: url("assets/fonts/GoogleSans-Medium.ttf") format("truetype");
         font-weight: 500;
         font-style: normal;
       }
       /* Medium Italic (500 italic) */
       @font-face {
         font-family: "GoogleSans";
-        src: url("/app/assets/fonts/GoogleSans-MediumItalic.ttf") format("truetype");
+        src: url("assets/fonts/GoogleSans-MediumItalic.ttf") format("truetype");
         font-weight: 500;
         font-style: italic;
       }
       /* Bold (700 normal) */
       @font-face {
         font-family: "GoogleSans";
-        src: url("/app/assets/fonts/GoogleSans-Bold.ttf") format("truetype");
+        src: url("assets/fonts/GoogleSans-Bold.ttf") format("truetype");
         font-weight: 700;
         font-style: normal;
       }
       /* Bold Italic (700 italic) */
       @font-face {
         font-family: "GoogleSans";
-        src: url("/app/assets/fonts/GoogleSans-BoldItalic.ttf") format("truetype");
+        src: url("assets/fonts/GoogleSans-BoldItalic.ttf") format("truetype");
         font-weight: 700;
         font-style: italic;
       }
@@ -73,77 +73,15 @@
         font-family: GoogleSans;
         background-color: var(--color-background);
       }
+      .scrollable.no-scroll {
+        overflow-y: hidden;
+      }
       .app {
         width: 100%;
       }
-      .app > .side {
-        width: 60px;
-        height: 100%;
-        border-right: 1px solid var(--color-devider);
-        position: fixed;
-        top: 0;
-        left: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-      .app > .side .nav {
-        width: 100%;
-        flex: 1;
-        padding-left: 10px;
-        padding-right: 10px;
-        box-sizing: border-box;
-        overflow-x: hidden;
-      }
-      .app > .side .nav-item {
-        width: 100%;
-        height: 40px;
-        border-radius: 5px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .app > .side .nav-icon {
-        width: 20px;
-        height: 20px;
-        color: var(--color-text-secondary);
-        fill: var(--color-text-secondary);
-      }
-      .app > .side .nav-item.active .nav-icon {
-        color: var(--color-text-primary);
-        fill: var(--color-text-primary);
-      }
-      .app > .side .nav-icon .ic {
-        width: 100%;
-        height: 100%;
-      }
-      .app > .side .nav-icon .ic-solid {
-        display: none;
-      }
-      .app > .side .footer {
-        width: 100%;
-      }
-      .app > .side .nav-icon.profile {
-        width: 32px;
-        height: 32px;
-        border-radius: 100px;
-        background-color:;
-        overflow: hidden;
-      }
-      .app > .side .nav-item.active .nav-icon.profile {
-        border: 2px solid var(--color-background);
-        box-sizing: border-box;
-        outline: 2px solid var(--color-on-background);
-      }
-      .app > .side .nav-icon.profile img {
-        width: 100%;
-        height: 100%;
-      }
       .app > .main {
         width: 100%;
-        padding-left: 65px;
+        padding-bottom: 65px;
         box-sizing: border-box;
       }
       .app > .main > .container {
@@ -155,65 +93,422 @@
       .app > .main > .container > .fragment.active {
         display: block;
       }
+      .app > .footer {
+        width: 100%;
+        height: 65px;
+        background-color: var(--color-background);
+        border-top: 1px solid var(--color-devider);
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        user-select: none;
+      }
+      .app > .footer .nav {
+        width: 100%;
+        height: 100%;
+        display: flex;
+      }
+      .app > .footer .nav-btn {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .app > .footer .nav-btn .wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: var(--color-text-secondary);
+        fill: var(--color-text-secondary);
+      }
+      .app > .footer .nav-btn.active .wrapper {
+        color: var(--color-text-primary);
+        fill: var(--color-text-primary);
+      }
+      .app > .footer .nav-icon {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .app > .footer .nav .icon {
+        width: 100%;
+        height: 100%;
+      }
+      .app > .footer .nav .ic-solid {
+        display: none;
+      }
+      .app > .footer .nav-btn.active .ic-regular {
+        /*display: none;*/
+      }
+      .app > .footer .nav-btn.active .ic-solid {
+        /*display: block;*/
+      }
+      .app > .footer .nav-title {
+        width: 100%;
+        margin-top: 3px;
+        margin-bottom: 2px;
+        display: flex;
+        justify-content: center;
+        color: var(--color-text-primary);
+        font-size: 10px;
+      }
+      .app > .footer .nav-btn .active-bar {
+        width: 25px;
+        height: 2px;
+        border-radius: 100px;
+        background-color: var(--color-on-background);
+        visibility: hidden;
+      }
+      .app > .footer .nav-btn.active .active-bar {
+        visibility: visible;
+      }
+
+      .home {
+        width: 100%;
+      }
+      .home > .header {
+        width: 100%;
+        box-shadow: 0px 0px 10px 15px var(--color-background);
+        background-color: var(--color-background);
+        position: sticky;
+        top: 0;
+        user-select: none;
+        z-index: 1;
+      }
+      .home > .header .nav {
+        width: 100%;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .home > .header .nav .hamburg {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        z-index: 2;
+      }
+      .home > .header .nav .hamburg span {
+        width: 100%;
+        height: 2px;
+        border-radius: 100px;
+        background-color: var(--color-on-background);
+        transition: all 0.1s ease;
+      }
+      .home > .header .nav .hamburg span:nth-child(2) {
+        width: 12px;
+        margin-top: 5px;
+      }
+      .home > .header .nav .hamburg.active span:nth-child(1) {
+        opacity: 0;
+        width: 20px;
+        transform: rotate(45deg) translate(2.5px, 2.5px);
+        animation: fade 0.5s forwards;
+      }
+      .home > .header .nav .hamburg.active span:nth-child(2) {
+        opacity: 0;
+        width: 20px;
+        transform: rotate(-45deg) translate(2.5px, -2.5px);
+        animation: fade 0.5s ease forwards;
+      }
+      .home > .header .nav > div:nth-child(2) {
+        display: flex;
+        align-items: center;
+      }
+      .home > .header .nav .nav-item {
+        width: 36px;
+        height: 36px;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-left: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .home > .header .nav .nav-icon {
+        width: 100%;
+        height: 100%;
+      }
+      .home > .header .menu {
+        width: 100%;
+        height: 100%;
+        padding: 60px 28px 0px 28px;
+        box-sizing: border-box;
+        background-color: var(--color-background);
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.1s ease;
+      }
+      .home > .header .menu.active {
+        pointer-events: auto;
+        opacity: 1;
+      }
+      .home > .header .menu-item {
+        width: 100%;
+        margin: 20px 0;
+        color: var(--color-text-primary);
+        font-size: 20px;
+        font-weight: 500;
+        opacity: 0;
+      }
+      .home > .header .menu-item.active {
+        font-size: 40px;
+      }
+      .home > .header .menu.active .menu-item {
+        opacity: 0;
+        animation: fade 0.5s ease forwards;
+      }
+      @keyframes fade {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      .home > .main {
+        width: 100%;
+      }
+      .home > .main > .container {
+        width: 100%;
+      }
+      .home > .main > .container > .fragment {
+        display: none;
+      }
+      .home > .main > .container > .fragment.active {
+        display: block;
+      }
     </style>
   </head>
   <body>
     <div class="app">
-      <div class="side">
-        <div class="nav">
-          <div class="nav-item">
-            <div class="nav-icon">
-              <div class="ic ic-regular">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <g><path d="M7 0H4a4 4 0 0 0-4 4v3a4 4 0 0 0 4 4h3a4 4 0 0 0 4-4V4a4 4 0 0 0-4-4Zm2 7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2ZM20 0h-3a4 4 0 0 0-4 4v3a4 4 0 0 0 4 4h3a4 4 0 0 0 4-4V4a4 4 0 0 0-4-4Zm2 7a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2ZM7 13H4a4 4 0 0 0-4 4v3a4 4 0 0 0 4 4h3a4 4 0 0 0 4-4v-3a4 4 0 0 0-4-4Zm2 7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2ZM20 13h-3a4 4 0 0 0-4 4v3a4 4 0 0 0 4 4h3a4 4 0 0 0 4-4v-3a4 4 0 0 0-4-4Zm2 7a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2Z"></path></g>
-                </svg>
-              </div>
-              <div class="ic ic-solid">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                  <g><path d="M85.333 0h64c47.128 0 85.333 38.205 85.333 85.333v64c0 47.128-38.205 85.333-85.333 85.333h-64C38.205 234.667 0 196.462 0 149.333v-64C0 38.205 38.205 0 85.333 0zM362.667 0h64C473.795 0 512 38.205 512 85.333v64c0 47.128-38.205 85.333-85.333 85.333h-64c-47.128 0-85.333-38.205-85.333-85.333v-64C277.333 38.205 315.538 0 362.667 0zM85.333 277.333h64c47.128 0 85.333 38.205 85.333 85.333v64c0 47.128-38.205 85.333-85.333 85.333h-64C38.205 512 0 473.795 0 426.667v-64c0-47.129 38.205-85.334 85.333-85.334zM362.667 277.333h64c47.128 0 85.333 38.205 85.333 85.333v64C512 473.795 473.795 512 426.667 512h-64c-47.128 0-85.333-38.205-85.333-85.333v-64c-.001-47.129 38.204-85.334 85.333-85.334z"></path></g>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="footer">
-          <div class="nav">
-            <div class="nav-item">
-              <div class="nav-icon profile">
-                <img src="" alt="" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="main">
         <div class="container">
+          <div class="fragment home">
+            <div class="header">
+              <div class="nav">
+                <div class="hamburg">
+                  <span></span>
+                  <span></span>
+                </div>
+                <div>
+                  <div class="nav-item">
+                    <div class="nav-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" fill="none" r="8.635" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle>
+                        <path d="M14.232 3.656a1.269 1.269 0 0 1-.796-.66L12.93 2h-1.86l-.505.996a1.269 1.269 0 0 1-.796.66m-.001 16.688a1.269 1.269 0 0 1 .796.66l.505.996h1.862l.505-.996a1.269 1.269 0 0 1 .796-.66M3.656 9.768a1.269 1.269 0 0 1-.66.796L2 11.07v1.862l.996.505a1.269 1.269 0 0 1 .66.796m16.688-.001a1.269 1.269 0 0 1 .66-.796L22 12.93v-1.86l-.996-.505a1.269 1.269 0 0 1-.66-.796M7.678 4.522a1.269 1.269 0 0 1-1.03.096l-1.06-.348L4.27 5.587l.348 1.062a1.269 1.269 0 0 1-.096 1.03m11.8 11.799a1.269 1.269 0 0 1 1.03-.096l1.06.348 1.318-1.317-.348-1.062a1.269 1.269 0 0 1 .096-1.03m-14.956.001a1.269 1.269 0 0 1 .096 1.03l-.348 1.06 1.317 1.318 1.062-.348a1.269 1.269 0 0 1 1.03.096m11.799-11.8a1.269 1.269 0 0 1-.096-1.03l.348-1.06-1.317-1.318-1.062.348a1.269 1.269 0 0 1-1.03-.096" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="menu">
+                <div class="menu-item">
+                  <span>Collections</span>
+                </div>
+                <div class="menu-item">
+                  <span>Expanses</span>
+                </div>
+              </div>
+            </div>
+            <div class="main">
+              <div class="container">
+                <div class="fragment">
+                  <div style="padding: 10px 28px">
+                    <h2>Tab 1</h2>
+                    <a href="admin/">admin/</a>
+                  </div>
+                </div>
+                <div class="fragment">
+                  <div style="padding: 10px 28px">
+                    <h2>Tab 2</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="fragment">
-            <span>Dashboard</span>
+            <span>Search</span>
+          </div>
+          <div class="fragment">
+            <span>Updates</span>
           </div>
           <div class="fragment">
             <span>Profile</span>
           </div>
         </div>
       </div>
+      <div class="footer">
+        <div class="nav">
+          <div class="nav-btn">
+            <div class="wrapper">
+              <div class="nav-icon">
+                <div class="icon ic-regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g>
+                      <path d="M13.819 4.666a2.815 2.815 0 0 0-3.638 0L4.795 9.12C4.305 9.526 4 10.167 4 10.866v6.945C4 19.078 4.952 20 6 20h2v-3.252c0-2.255 1.734-4.19 4-4.19s4 1.935 4 4.19V20h2c1.048 0 2-.922 2-2.19v-6.944c0-.699-.304-1.34-.795-1.746zm1.274-1.541 5.386 4.453c.97.803 1.521 2.019 1.521 3.288v6.945C22 20.066 20.266 22 18 22h-2a2 2 0 0 1-2-2v-3.252c0-1.268-.952-2.19-2-2.19s-2 .922-2 2.19V20a2 2 0 0 1-2 2H6c-2.266 0-4-1.934-4-4.19v-6.944c0-1.269.55-2.485 1.521-3.288l5.386-4.453a4.814 4.814 0 0 1 6.186 0z"></path>
+                    </g>
+                  </svg>
+                </div>
+                <div class="icon ic-solid">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g>
+                      <path d="m20.479 7.578-5.386-4.453a4.814 4.814 0 0 0-6.186 0L3.521 7.578C2.551 8.381 2 9.597 2 10.866v6.945C2 20.066 3.734 22 6 22h2a2 2 0 0 0 2-2v-3.252c0-1.268.952-2.19 2-2.19s2 .922 2 2.19V20a2 2 0 0 0 2 2h2c2.266 0 4-1.934 4-4.19v-6.944c0-1.269-.55-2.485-1.521-3.288z" clip-rule="evenodd" opacity="1" data-original="#000000"></path>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="nav-title">
+                <span>Home</span>
+              </div>
+              <div class="active-bar"></div>
+            </div>
+          </div>
+          <div class="nav-btn">
+            <div class="wrapper">
+              <div class="nav-icon">
+                <div class="icon ic-regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
+                  </svg>
+                </div>
+                <div class="icon ic-solid">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M18.5 10.5a8 8 0 1 1-8-8 8 8 0 0 1 8 8Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+                    <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" x1="16.511" x2="21.643" y1="16.511" y2="21.643"></line>
+                  </svg>
+                </div>
+              </div>
+              <div class="nav-title">
+                <span>Search</span>
+              </div>
+              <div class="active-bar"></div>
+            </div>
+          </div>
+          <div class="nav-btn">
+            <div class="wrapper">
+              <div class="nav-icon">
+                <div class="icon ic-regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g>
+                      <path d="M13.5 12a1.5 1.5 0 1 1-3.001-.001A1.5 1.5 0 0 1 13.5 12Zm3.5-1.5a1.5 1.5 0 1 0 .001 3.001A1.5 1.5 0 0 0 17 10.5Zm-10 0a1.5 1.5 0 1 0 .001 3.001A1.5 1.5 0 0 0 7 10.5Zm17 1.84V19c0 2.757-2.243 5-5 5h-5.917C6.082 24 .47 19.208.03 12.854c-.241-3.476 1.027-6.878 3.479-9.333S9.363-.206 12.836.029C19.096.454 24 5.862 24 12.341Zm-2 0c0-5.431-4.084-9.962-9.299-10.316a10.015 10.015 0 0 0-7.777 2.91 10.019 10.019 0 0 0-2.899 7.782c.373 5.38 5.024 9.285 11.059 9.285h5.917c1.654 0 3-1.346 3-3v-6.66Z"></path>
+                    </g>
+                  </svg>
+                </div>
+                <div class="icon ic-solid">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g><path d="M12.836.029C9.362-.206 5.961 1.065 3.508 3.521S-.211 9.378.03 12.854C.47 19.208 6.082 24 13.084 24h5.917c2.757 0 5-2.243 5-5v-6.66C24 5.862 19.096.454 12.836.029ZM7 13.5a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 7 13.5Zm5 0a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 12 13.5Zm5 0a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 17 13.5Z"></path></g>
+                  </svg>
+                </div>
+              </div>
+              <div class="nav-title">
+                <span>Updates</span>
+              </div>
+              <div class="active-bar"></div>
+            </div>
+          </div>
+          <div class="nav-btn">
+            <div class="wrapper">
+              <div class="nav-icon">
+                <div class="icon ic-regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g><path d="M12 12a6 6 0 1 0-6-6 6.006 6.006 0 0 0 6 6Zm0-10a4 4 0 1 1-4 4 4 4 0 0 1 4-4ZM12 14a9.01 9.01 0 0 0-9 9 1 1 0 0 0 2 0 7 7 0 0 1 14 0 1 1 0 0 0 2 0 9.01 9.01 0 0 0-9-9Z"></path></g>
+                  </svg>
+                </div>
+                <div class="icon ic-solid">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <g>
+                      <circle cx="256" cy="128" r="128" opacity="1" data-original="#000000"></circle>
+                      <path d="M256 298.667c-105.99.118-191.882 86.01-192 192C64 502.449 73.551 512 85.333 512h341.333c11.782 0 21.333-9.551 21.333-21.333-.117-105.99-86.009-191.883-191.999-192z"></path>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="nav-title">
+                <span>Profile</span>
+              </div>
+              <div class="active-bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script type="text/javascript" charset="utf-8">
+      const fetchUser = async user => {
+        const status = { success: false };
+        while (!status.success) {
+          try {
+            const res = await fetch("https://script.google.com/macros/s/AKfycbwEy3EAl_MQqzQ_iYuWdGk1a3AC3Dl-0_clayU3nG7MjiO85yQF_KD9INmJffq-ekxu/exec", {
+              method: "POST",
+              body: JSON.stringify({
+                query: "CHECKUSER",
+                contents: {
+                  query: "CHECK",
+                  user: user
+                }
+              })
+            });
+            status.success = true;
+            const data = await res.json();
+            return data;
+          } catch (err) {
+            await new Promise(resolve => setTimeout(resolve, 3000));
+          }
+        }
+      };
+
+      const rawUser = localStorage.getItem("application.user");
+      const user = rawUser ? JSON.parse(rawUser) : null;
+      if (user && user.auth.isLoggedIn) {
+      } else {
+        window.addEventListener("pageshow", e => {
+          const rawStack = sessionStorage.getItem("application.auth.nav.stack");
+          const stack = rawStack ? JSON.parse(rawStack) : [];
+          if (stack.includes(window.location.pathname)) {
+            const newStack = stack.filter(stack => stack !== location.pathname);
+            if (newStack.length > 0) sessionStorage.setItem("application.auth.nav.stack", JSON.stringify(newStack));
+            else sessionStorage.removeItem("application.auth.nav.stack");
+          }
+          const rawUser = localStorage.getItem("application.user");
+          const user = rawUser ? JSON.parse(rawUser) : null;
+          if (user && user.auth.isLoggedIn) {
+            window.location.reload();
+          }
+        });
+      }
+
       window.addEventListener("DOMContentLoaded", e => {
         const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
         const parts = hash.split("/").filter(Boolean);
-        const main = parts[0] || "dashboard";
-        if (["dashboard", "profile"].includes(main)) {
-          const index = ["dashboard", "profile"].indexOf(main);
+        const main = parts[0] || "home";
+        if (["home", "search", "updates", "profile"].includes(main)) {
+          const index = ["home", "search", "updates", "profile"].indexOf(main);
           onCreate(index);
         }
       });
 
-      const navItem = document.querySelectorAll(".app > .side .nav-item");
-      navItem.forEach((item, index) => {
-        item.addEventListener("click", e => {
-          if (!item.classList.contains("active")) {
-            const fragments = ["dashboard", "profile"];
-            if (navItem[0].classList.contains("active")) {
+      const navBtn = document.querySelectorAll(".app > .footer .nav-btn");
+      navBtn.forEach((btn, index) => {
+        btn.addEventListener("click", e => {
+          if (!btn.classList.contains("active")) {
+            const fragments = ["home", "search", "updates", "profile"];
+            if (navBtn[0].classList.contains("active")) {
               history.pushState({}, "", `#/${fragments[index]}`);
             } else {
               switch (index) {
@@ -235,7 +530,8 @@
         const oldParts = oldHash.split("/").filter(Boolean);
         const newParts = newHash.split("/").filter(Boolean);
         const validPaths = {
-          dashboard: { menu: {}, coll: {}, exp: {} },
+          home: { menu: {}, coll: {}, exp: {} },
+          search: {},
           updates: {},
           profile: {}
         };
@@ -245,15 +541,37 @@
           if (!validTree[head]) return false;
           return isValidRoute(tail, validTree[head]);
         }
-        if (["dashboard", "profile"].includes(newParts[0]) && isValidRoute(newParts, validPaths)) {
-          const index = ["dashboard", "profile"].indexOf(newParts[0]);
+        if (["home"].includes(oldParts[0])) {
+          const index = ["home"].indexOf(oldParts[0]);
           switch (index) {
             case 0:
-              if (["coll", "exp"].includes(newParts[1])) {
+              if (["menu"].includes(oldParts[1])) {
+                const menu = document.querySelector(".home > .header .menu");
+                const hamburg = document.querySelector(".home > .header .nav .hamburg");
+                hamburg.classList.remove("active");
+                menu.classList.remove("active");
+                document.querySelectorAll(".scrollable").forEach(item => {
+                  item.classList.remove("no-scroll");
+                });
+              }
+              break;
+          }
+        }
+        if (["home", "search", "updates", "profile"].includes(newParts[0]) && isValidRoute(newParts, validPaths)) {
+          const index = ["home", "search", "updates", "profile"].indexOf(newParts[0]);
+          switch (index) {
+            case 0:
+              if (["menu"].includes(newParts[1])) {
+                hamburg.classList.add("active");
+                menu.classList.add("active");
+                document.querySelectorAll(".scrollable").forEach(item => {
+                  item.classList.add("no-scroll");
+                });
+              } else if (["coll", "exp"].includes(newParts[1])) {
                 const index = ["coll", "exp"].indexOf(newParts[1]);
                 sessionStorage.setItem("app[0][1][fragment]", ["coll", "exp"][index]);
               } else {
-                window.location.hash = "#/dashboard/coll";
+                window.location.hash = "#/home/coll";
               }
               break;
           }
@@ -261,7 +579,7 @@
           return;
         }
         if (history.length > 1) history.back();
-        else window.location.hash = "#/dashboard/coll";
+        else window.location.hash = "#/home/coll";
       });
 
       function onBackPressed() {
@@ -270,7 +588,7 @@
         if (canGoBack) {
           const goBack = () => {
             const hashPath = location.hash.replace(/^#\/?/, "");
-            if (hashPath.startsWith("dashboard/") && ["coll", "exp"].includes(hashPath.split("/")[1])) {
+            if (hashPath.startsWith("home/") && ["coll", "exp"].includes(hashPath.split("/")[1])) {
               return;
             } else {
               history.back();
@@ -285,33 +603,106 @@
         const fragments = document.querySelectorAll(".app > .main > .container > .fragment");
         fragments.forEach(fragment => fragment.classList.remove("active"));
         fragments[index].classList.add("active");
-        navItem.forEach(item => item.classList.remove("active"));
-        navItem[index].classList.add("active");
+        navBtn.forEach(btn => btn.classList.remove("active"));
+        navBtn[index].classList.add("active");
         switch (index) {
           case 0:
-            renderDashboard();
+            renderHome();
             break;
           case 1:
+            //renderSearch();
+            break;
+          case 2:
+            //renderBroadcast();
+            break;
+          case 3:
             //renderProfile();
             break;
         }
       }
 
-      function renderDashboard() {
+      function recreate(index) {
+        switch (index) {
+          case 0:
+            break;
+          case 1:
+            break;
+          case 2:
+            break;
+          case 3:
+            break;
+        }
+        onCreate(index);
+      }
+
+      function renderHome() {
         const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
         const parts = hash.split("/").filter(Boolean);
         const sub = parts[1] || "coll";
+        if (["menu"].includes(sub)) {
+          hamburg.classList.add("active");
+          menu.classList.add("active");
+          document.querySelectorAll(".scrollable").forEach(item => {
+            item.classList.add("no-scroll");
+          });
+        }
         const fragment = sessionStorage.getItem("app[0][1][fragment]") || "coll";
         const index = ["coll", "exp"].indexOf(fragment);
         switch (index) {
           case 0:
-            if (!history.state) history.replaceState({}, "", "#/dashboard/coll");
+            if (!history.state) history.replaceState({}, "", "#/home/coll");
             break;
         }
         loadFragment(index);
       }
 
-      function loadFragment(index) {}
+      const menu = document.querySelector(".home > .header .menu");
+      const hamburg = document.querySelector(".home > .header .nav .hamburg");
+      hamburg.addEventListener("click", e => {
+        if (!menu.classList.contains("active")) {
+          history.pushState({}, "", "#/home/menu");
+          hamburg.classList.add("active");
+          menu.classList.add("active");
+          document.body.classList.add("scrollable");
+          document.querySelectorAll(".scrollable").forEach(item => {
+            item.classList.add("no-scroll");
+          });
+        } else {
+          history.back();
+        }
+      });
+
+      const menuItem = document.querySelectorAll(".home > .header .menu-item");
+      menuItem.forEach((item, index) => {
+        item.addEventListener("click", e => {
+          if (!menuItem[index].classList.contains("active")) {
+            const fragments = ["coll", "exp"];
+            if (menuItem[0].classList.contains("active")) {
+              history.replaceState({}, "", "#/home/exp");
+              hamburg.classList.remove("active");
+              menu.classList.remove("active");
+              document.querySelectorAll(".scrollable").forEach(item => {
+                item.classList.remove("no-scroll");
+              });
+            } else {
+              history.go(-2);
+            }
+            sessionStorage.setItem("app[0][1][fragment]", fragments[index]);
+            loadFragment(index);
+          } else {
+            history.back();
+          }
+        });
+      });
+
+      function loadFragment(index) {
+        const fragments = document.querySelectorAll(".home > .main > .container > .fragment");
+        fragments.forEach(fragment => fragment.classList.remove("active"));
+        fragments[index].classList.add("active");
+        const menuItem = document.querySelectorAll(".home > .header .menu-item");
+        menuItem.forEach(item => item.classList.remove("active"));
+        menuItem[index].classList.add("active");
+      }
     </script>
   </body>
 </html>
