@@ -90,7 +90,8 @@
       .app > .side .nav {
         width: 100%;
         flex: 1;
-        padding: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
         box-sizing: border-box;
         overflow-x: hidden;
       }
@@ -98,6 +99,8 @@
         width: 100%;
         height: 40px;
         border-radius: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -126,7 +129,7 @@
         width: 32px;
         height: 32px;
         border-radius: 100px;
-        background-color: ;
+        background-color:;
         overflow: hidden;
       }
       .app > .side .nav-item.active .nav-icon.profile {
@@ -137,6 +140,20 @@
       .app > .side .nav-icon.profile img {
         width: 100%;
         height: 100%;
+      }
+      .app > .main {
+        width: 100%;
+        padding-left: 65px;
+        box-sizing: border-box;
+      }
+      .app > .main > .container {
+        width: 100%;
+      }
+      .app > .main > .container > .fragment {
+        display: none;
+      }
+      .app > .main > .container > .fragment.active {
+        display: block;
       }
     </style>
   </head>
@@ -170,11 +187,131 @@
         </div>
       </div>
       <div class="main">
-        <div class="container"></div>
+        <div class="container">
+          <div class="fragment">
+            <span>Dashboard</span>
+          </div>
+          <div class="fragment">
+            <span>Profile</span>
+          </div>
+        </div>
       </div>
     </div>
     <script type="text/javascript" charset="utf-8">
-      
+      window.addEventListener("DOMContentLoaded", e => {
+        const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
+        const parts = hash.split("/").filter(Boolean);
+        const main = parts[0] || "dashboard";
+        if (["dashboard", "profile"].includes(main)) {
+          const index = ["dashboard", "profile"].indexOf(main);
+          onCreate(index);
+        }
+      });
+
+      const navItem = document.querySelectorAll(".app > .side .nav-item");
+      navItem.forEach((item, index) => {
+        item.addEventListener("click", e => {
+          if (!item.classList.contains("active")) {
+            const fragments = ["dashboard", "profile"];
+            if (navItem[0].classList.contains("active")) {
+              history.pushState({}, "", `#/${fragments[index]}`);
+            } else {
+              switch (index) {
+                case 0:
+                  onBackPressed();
+                  break;
+              }
+              history.replaceState({}, "", `#/${fragments[index]}`);
+            }
+            onCreate(index);
+          } else {
+          }
+        });
+      });
+
+      window.addEventListener("hashchange", e => {
+        const oldHash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
+        const newHash = new URL(e.newURL).hash.replace(/^#\/?/, "");
+        const oldParts = oldHash.split("/").filter(Boolean);
+        const newParts = newHash.split("/").filter(Boolean);
+        const validPaths = {
+          dashboard: { menu: {}, coll: {}, exp: {} },
+          updates: {},
+          profile: {}
+        };
+        function isValidRoute(parts, validTree) {
+          if (parts.length === 0) return true;
+          const [head, ...tail] = parts;
+          if (!validTree[head]) return false;
+          return isValidRoute(tail, validTree[head]);
+        }
+        if (["dashboard", "profile"].includes(newParts[0]) && isValidRoute(newParts, validPaths)) {
+          const index = ["dashboard", "profile"].indexOf(newParts[0]);
+          switch (index) {
+            case 0:
+              if (["coll", "exp"].includes(newParts[1])) {
+                const index = ["coll", "exp"].indexOf(newParts[1]);
+                sessionStorage.setItem("app[0][1][fragment]", ["coll", "exp"][index]);
+              } else {
+                window.location.hash = "#/dashboard/coll";
+              }
+              break;
+          }
+          onCreate(index);
+          return;
+        }
+        if (history.length > 1) history.back();
+        else window.location.hash = "#/dashboard/coll";
+      });
+
+      function onBackPressed() {
+        const ref = document.referrer;
+        const canGoBack = ref === "" || ref.includes(location.hostname);
+        if (canGoBack) {
+          const goBack = () => {
+            const hashPath = location.hash.replace(/^#\/?/, "");
+            if (hashPath.startsWith("dashboard/") && ["coll", "exp"].includes(hashPath.split("/")[1])) {
+              return;
+            } else {
+              history.back();
+              setTimeout(goBack, 100);
+            }
+          };
+          goBack();
+        }
+      }
+
+      function onCreate(index) {
+        const fragments = document.querySelectorAll(".app > .main > .container > .fragment");
+        fragments.forEach(fragment => fragment.classList.remove("active"));
+        fragments[index].classList.add("active");
+        navItem.forEach(item => item.classList.remove("active"));
+        navItem[index].classList.add("active");
+        switch (index) {
+          case 0:
+            renderDashboard();
+            break;
+          case 1:
+            //renderProfile();
+            break;
+        }
+      }
+
+      function renderDashboard() {
+        const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
+        const parts = hash.split("/").filter(Boolean);
+        const sub = parts[1] || "coll";
+        const fragment = sessionStorage.getItem("app[0][1][fragment]") || "coll";
+        const index = ["coll", "exp"].indexOf(fragment);
+        switch (index) {
+          case 0:
+            if (!history.state) history.replaceState({}, "", "#/dashboard/coll");
+            break;
+        }
+        loadFragment(index);
+      }
+
+      function loadFragment(index) {}
     </script>
   </body>
 </html>
