@@ -13,6 +13,7 @@
           --color-text-secondary: rgba(0, 0, 0, 0.5);
           --color-background: rgba(255, 255, 255, 1);
           --color-on-background: rgba(0, 0, 0, 1);
+          --color-surface: rgba(249, 250, 254, 1);
           --color-devider: rgba(0, 0, 0, 0.1);
         }
       }
@@ -22,6 +23,7 @@
           --color-text-secondary: rgba(190, 190, 190, 1);
           --color-background: rgba(42, 45, 54, 1);
           --color-on-background: rgba(255, 255, 255, 1);
+          --color-surface: rgba(53, 57, 68, 1);
           --color-devider: rgba(255, 255, 255, 0.1);
         }
       }
@@ -166,13 +168,12 @@
       .app > .footer .nav-btn.active .active-bar {
         visibility: visible;
       }
-
       .home {
         width: 100%;
       }
       .home > .header {
         width: 100%;
-        box-shadow: 0px 0px 10px 15px var(--color-background);
+        /*box-shadow: 0px 0px 10px 15px var(--color-background);*/
         background-color: var(--color-background);
         position: sticky;
         top: 0;
@@ -295,115 +296,134 @@
       .home > .main > .container > .fragment.active {
         display: block;
       }
-      .home > .main .coll {
+      .home > .main .coll,
+      .home > .main .exp {
         width: 100%;
         padding: 8px;
         box-sizing: border-box;
-        background-color:;
       }
-      .card {
+      .home > .main .coll .gen,
+      .home > .main .exp .gen {
         width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 28px;
+      }
+      .gen-card {
+        width: 100%;
+        max-width: 320px;
         border-radius: 15px;
-        background-color: #f8f9fd;
-        margin-bottom: 20px;
+        background-color: #f7f9fd;
+        user-select: none;
       }
-      .card-header {
+      .gen .card-header {
         width: 100%;
-        padding: 5px;
+        padding: 15px;
         box-sizing: border-box;
         display: flex;
+        align-items: stretch;
+        gap: 15px;
       }
-      .card .header-icon {
+      .gen-card .header-icon {
         width: 45px;
         height: 45px;
-        padding: 5px;
-      }
-      .card-header .icon {
-        width: 100%;
-        height: 100%;
-        border-radius: 5px;
-        background-color: #efefef;
+        border-radius: 10px;
+        background-color: #ebeaf5;
+        flex-shrink: 0;
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
       }
-      .card .header-icon .svg {
+      .gen .card-header .svg {
         width: 20px;
         height: 20px;
+        color: #0b284b;
+        fill: #0b284b;
       }
-      .card .header-icon .img {
+      .gen .card-header .img {
         width: 100%;
         height: 100%;
       }
-      .card .header-details {
+      .gen-card .header-info {
         flex: 1;
-        height: 45px;
-        padding: 5px;
+        min-width: 0;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: space-between;
+        gap: 2px;
       }
-      .card .header-title {
-        display: inline-block;
-        font-size: 18px;
-        font-weight: 500;
-        line-height: 0.75em;
-      }
-      .card .header-title span {
-        position: relative;
-        bottom: -0.02em;
-      }
-      .card .header-des {
-        display: inline-block;
-        font-size: 16px;
-        line-height: 0.75em;
-      }
-      .card .header-des span {
-        position: relative;
-        bottom: -0.02em;
-      }
-      .card-main {
+      .gen .card-header .tit {
         width: 100%;
-        padding: 5px;
-        box-sizing: border-box;
-      }
-      .card-overview {
-        width: 100%;
-        padding: 5px;
-        box-sizing: border-box;
-        display: -webkit-box;
-        -webkit-line-clamp: 5;
-        -webkit-box-orient: vertical;
+        white-space: nowrap;
         text-overflow: ellipsis;
-        line-height: 1.4;
         overflow: hidden;
       }
-      .card-footer {
+      .gen .card-header .tit span {
+        color: #0b284b;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .gen .card-header .des {
+        width: 100%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      .gen .card-header .des span {
+        color: #546685;
+        font-size: 16px;
+      }
+      .gen .card-main {
+        width: 100%;
+        padding: 0 15px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .gen .card-heading {
+        width: 100%;
+      }
+      .gen .card-heading span {
+        color: #0b284b;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .gen .card-overview {
         width: 100%;
         padding: 10px;
+        border-left: 2px solid #0b284b;
+        box-sizing: border-box;
+        cursor: pointer;
+      }
+      .gen .card-overview span {
+        color: #546685;
+        font-size: 14px;
+        font-style: italic;
+      }
+      .gen .card-footer {
+        width: 100%;
+        padding: 15px;
         box-sizing: border-box;
         display: flex;
         justify-content: end;
+        gap: 15px;
       }
-      .card-btn {
-        flex: 1;
-        height: 40px;
-        border-radius: 100px;
-        border: 1px solid;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .card-tag {
+      .gen .card-tag {
         flex: 1;
         height: 45px;
-        border-radius: 100px;
-        color: #fff;
-        background-color: #000;
-        margin-left: 10px;
+        border-radius: 10px;
+        background-color: #0b284b;
+        box-sizing: border-box;
         display: flex;
         justify-content: center;
         align-items: center;
+      }
+      .gen .card-tag span {
+        color: #fff;
+        font-size: 16px;
       }
     </style>
   </head>
@@ -441,100 +461,38 @@
             <div class="main">
               <div class="container">
                 <div class="fragment coll">
-                  <div class="card">
-                    <div class="card-header">
-                      <div class="header-icon">
-                        <div class="icon">
+                  <div class="gen">
+                    <div class="gen-card">
+                      <div class="card-header">
+                        <div class="header-icon">
                           <div class="svg">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                              <g><path d="M19 2h-1V1a1 1 0 1 0-2 0v1H8V1a1 1 0 1 0-2 0v1H5C2.243 2 0 4.243 0 7v12c0 2.757 2.243 5 5 5h14c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5ZM5 4h14c1.654 0 3 1.346 3 3v1H2V7c0-1.654 1.346-3 3-3Zm14 18H5c-1.654 0-3-1.346-3-3v-9h20v9c0 1.654-1.346 3-3 3Zm0-8a1 1 0 0 1-1 1H6a1 1 0 1 1 0-2h12a1 1 0 0 1 1 1Zm-7 4a1 1 0 0 1-1 1H6a1 1 0 1 1 0-2h5a1 1 0 0 1 1 1Z"></path></g>
+                              <g><path d="M8 12H6c-1.103 0-2 .897-2 2v2c0 1.103.897 2 2 2h2c1.103 0 2-.897 2-2v-2c0-1.103-.897-2-2-2Zm-2 4v-2h2v2H6ZM19 2h-1V1a1 1 0 1 0-2 0v1H8V1a1 1 0 1 0-2 0v1H5C2.243 2 0 4.243 0 7v12c0 2.757 2.243 5 5 5h14c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5ZM5 4h14c1.654 0 3 1.346 3 3v1H2V7c0-1.654 1.346-3 3-3Zm14 18H5c-1.654 0-3-1.346-3-3v-9h20v9c0 1.654-1.346 3-3 3Z"></path></g>
                             </svg>
                           </div>
                         </div>
-                      </div>
-                      <div class="header-details">
-                        <div class="header-title">
-                          <span>Sunday</span>
-                        </div>
-                        <div class="header-des">
-                          <span>22-04-2025</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-main">
-                      <div class="card-overview">
-                        <span> ullamco enim est nostrud qui quis reprehenderit officia velit est aute duis do laborum voluptate magna eiusmod minim mollit pariatur mollit dolor ullamco dolore qui sunt cillum cupidatat pariatur laboris </span>
-                      </div>
-                    </div>
-                    <div class="card-footer">
-                      <div class="card-btn">
-                        <span>View Details</span>
-                      </div>
-                      <div class="card-tag">$123</div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="card-header">
-                      <div class="header-icon">
-                        <div class="icon">
-                          <div class="svg">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                              <g><path d="M19 2h-1V1a1 1 0 1 0-2 0v1H8V1a1 1 0 1 0-2 0v1H5C2.243 2 0 4.243 0 7v12c0 2.757 2.243 5 5 5h14c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5ZM5 4h14c1.654 0 3 1.346 3 3v1H2V7c0-1.654 1.346-3 3-3Zm14 18H5c-1.654 0-3-1.346-3-3v-9h20v9c0 1.654-1.346 3-3 3Zm0-8a1 1 0 0 1-1 1H6a1 1 0 1 1 0-2h12a1 1 0 0 1 1 1Zm-7 4a1 1 0 0 1-1 1H6a1 1 0 1 1 0-2h5a1 1 0 0 1 1 1Z"></path></g>
-                            </svg>
+                        <div class="header-info">
+                          <div class="tit">
+                            <span>Preferred Sources</span>
+                          </div>
+                          <div class="des">
+                            <span>New</span>
                           </div>
                         </div>
                       </div>
-                      <div class="header-details">
-                        <div class="header-title">
-                          <span>Sunday</span>
+                      <div class="card-main">
+                        <div class="card-heading">
+                          <span>Overview</span>
                         </div>
-                        <div class="header-des">
-                          <span>22-04-2025</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-main">
-                      <div class="card-overview">
-                        <span>magna eiusmod minim mollit pariatur mollit dolor ullamco dolore qui sunt cillum cupidatat pariatur laboris </span>
-                      </div>
-                    </div>
-                    <div class="card-footer">
-                      <div class="card-btn">
-                        <span>View Details</span>
-                      </div>
-                      <div class="card-tag">$123</div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="card-header">
-                      <div class="header-icon">
-                        <div class="icon">
-                          <div class="svg">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                              <g><path d="M19 2h-1V1a1 1 0 1 0-2 0v1H8V1a1 1 0 1 0-2 0v1H5C2.243 2 0 4.243 0 7v12c0 2.757 2.243 5 5 5h14c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5ZM5 4h14c1.654 0 3 1.346 3 3v1H2V7c0-1.654 1.346-3 3-3Zm14 18H5c-1.654 0-3-1.346-3-3v-9h20v9c0 1.654-1.346 3-3 3Zm0-8a1 1 0 0 1-1 1H6a1 1 0 1 1 0-2h12a1 1 0 0 1 1 1Zm-7 4a1 1 0 0 1-1 1H6a1 1 0 1 1 0-2h5a1 1 0 0 1 1 1Z"></path></g>
-                            </svg>
-                          </div>
+                        <div class="card-overview">
+                          <span>Hello...</span>
                         </div>
                       </div>
-                      <div class="header-details">
-                        <div class="header-title">
-                          <span>Sunday</span>
-                        </div>
-                        <div class="header-des">
-                          <span>22-04-2025</span>
+                      <div class="card-footer">
+                        <div class="card-tag">
+                          <span>$75,00</span>
                         </div>
                       </div>
-                    </div>
-                    <div class="card-main">
-                      <div class="card-overview">
-                        <span>mollit dolor ullamco dolore qui sunt cillum cupidatat pariatur laboris </span>
-                      </div>
-                    </div>
-                    <div class="card-footer">
-                      <div class="card-btn">
-                        <span>View Details</span>
-                      </div>
-                      <div class="card-tag">$123</div>
                     </div>
                   </div>
                 </div>
