@@ -422,8 +422,36 @@
         align-items: center;
       }
       .gen .card-tag span {
-        color: #fff;
+        color: #f7f9fd;
         font-size: 16px;
+      }
+      @media only screen and (prefers-color-scheme: dark) {
+        .gen-card {
+          background-color: #323640;
+        }
+        .gen-card .header-icon {
+          background-color: #404452;
+        }
+        .gen .card-header .svg,
+        .gen .card-header .tit span,
+        .gen .card-heading span {
+          color: #ffffff;
+          fill: #ffffff;
+        }
+        .gen .card-header .des span,
+        .gen .card-overview span {
+          color: #ffffff;
+          opacity: 70%;
+        }
+        .gen .card-overview {
+          border-left-color: #ffffff;
+        }
+        .gen .card-tag {
+          background-color: #fffffd;
+        }
+        .gen .card-tag span {
+          color: #323640;
+        }
       }
     </style>
   </head>
@@ -839,6 +867,12 @@
           }
         });
       });
+
+      const fetchData = () => {
+        const fetchColl = async () => {};
+        const fetchExp = async () => {};
+      };
+      fetchData();
 
       function loadFragment(index) {
         const fragments = document.querySelectorAll(".home > .main > .container > .fragment");
