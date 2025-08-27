@@ -1192,7 +1192,7 @@
           const isValid = date.getFullYear() === parseInt(String(id).slice(4), 10) && date.getMonth() === parseInt(String(id).slice(2, 4), 10) - 1 && date.getDate() === parseInt(String(id).slice(0, 2), 10);
           return { isValid, toDate: () => (isValid ? date : null) };
         };
-        const timeAgo = d => {
+        /*const timeAgo = d => {
           const s = Math.floor((new Date() - d) / 1000);
           const i = [
             ["year", 31536000],
@@ -1205,6 +1205,20 @@
           ];
           for (const [label, sec] of i) if (s >= sec) return Math.floor(s / sec) + " " + label + (Math.floor(s / sec) > 1 ? "s" : "") + " ago";
           return "just now";
+        };*/
+        const timeAgo = d => {
+          const s = Math.floor((new Date() - d) / 1000);
+          const intervals = [
+            ["y", 31536000],
+            ["mo", 2592000],
+            ["w", 604800],
+            ["d", 86400],
+            ["h", 3600],
+            ["m", 60],
+            ["s", 1]
+          ];
+          for (const [label, sec] of intervals) if (s >= sec) return Math.floor(s / sec) + label + " ago";
+          return "now";
         };
         const truncate = (text, max) => (text && text.length > max ? text.slice(0, max).trim() + "..." : text || "");
         const inrFormatter = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
@@ -1297,7 +1311,6 @@
           }
         });
       }
-      
     </script>
   </body>
 </html>
