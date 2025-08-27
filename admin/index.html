@@ -488,7 +488,10 @@
           color: #323640;
         }
       }
-      .app > .activity .editor {
+      .app > .activity {
+        width: 100%;
+      }
+      .activity .editor {
         width: 100%;
         height: 100%;
         background-color: var(--color-background);
@@ -502,48 +505,48 @@
         user-select: none;
         z-index: 101;
       }
-      .app > .activity .editor.active {
+      .activity .editor.active {
         pointer-events: auto;
         opacity: 1;
       }
-      .editor .header {
+      .editor .container {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+      }
+      .editor .heading {
         width: 100%;
         height: 100px;
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      .editor .heading {
+      .editor .heading span {
+        color: var(--color-text-primary);
         font-size: 18px;
         font-family: Charlotte;
       }
       .editor .fields {
         width: 100%;
-        max-width: 400px;
-        margin: 0 auto;
         padding: 0 50px;
         box-sizing: border-box;
+        margin: 10px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
       }
-      .editor .fields .id,
-      .editor .fields .title,
-      .editor .fields .tag,
-      .editor .fields .overview {
+      .editor .fields label {
         width: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        margin-bottom: 10px;
+        gap: 5px;
       }
-      .editor .fields .id label,
-      .editor .fields .title label,
-      .editor .fields .tag label,
-      .editor .fields .overview label {
-        color: var(--color-text-secondary);
-        margin: 10px 0;
+      .editor .fields label span {
+        color: var(--color-text-primary);
       }
-      .editor .fields .id input,
-      .editor .fields .title input,
-      .editor .fields .tag input {
+      .editor .fields label input {
         width: 100%;
         height: 45px;
         padding: 10px;
@@ -554,14 +557,10 @@
         line-height: 1.5em;
         font-size: 14px;
       }
-      .editor .fields .id input:focus,
-      .editor .fields .title input:focus,
-      .editor .fields .tag input:focus {
+      .editor .fields label input:focus {
         outline: none;
-        border-color: var(--color-devider);
       }
-
-      .editor .fields .overview .area {
+      .editor .fields label .area {
         width: 100%;
         padding: 10px;
         box-sizing: border-box;
@@ -569,7 +568,7 @@
         border: 2px solid var(--color-devider);
         background-color: var(--color-background);
       }
-      .editor .fields .overview .area > div {
+      .editor .fields .area > div {
         width: 100%;
         min-height: 3em;
         max-height: 7.5em;
@@ -578,20 +577,19 @@
         white-space: pre-wrap;
         overflow-y: auto;
       }
-      .editor .fields .overview > .area > div:focus {
+      .editor .fields .area > div:focus {
         outline: none;
       }
-      .editor .button {
+      .editor .btns {
         width: 100%;
-        max-width: 400px;
-        margin: 30px auto 0 auto;
         padding: 0 50px;
         box-sizing: border-box;
+        margin: 20px 0;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 5px;
       }
-      .editor .button .btn-submit {
+      .editor .btns .btn-positive {
         width: 100%;
         height: 45px;
         border-radius: 30px;
@@ -600,18 +598,17 @@
         justify-content: center;
         align-items: center;
       }
-      .editor .button .btn-submit span {
+      .editor .btns .btn-positive span {
         color: var(--color-background);
       }
-      .editor .button .btn-cancle {
+      .editor .btns .btn-negetive {
         width: 100%;
         height: 45px;
-        border-radius: 30px;
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      .editor .button .btn-cancle span {
+      .editor .btns .btn-negetive span {
         color: var(--color-text-secondary);
         font-size: 14px;
       }
@@ -703,37 +700,37 @@
       </div>
       <div class="activity">
         <div class="editor">
-          <div class="header">
+          <div class="container">
             <div class="heading">
               <span></span>
             </div>
-          </div>
-          <div class="fields">
-            <div class="id">
-              <label for="id"></label>
-              <input type="text" id="id" name="id" pattern="\d{8}" maxlength="8" inputmode="numeric" required />
+            <div class="fields">
+              <label for="id">
+                <span></span>
+                <input type="text" id="id" pattern="\d{8}" maxlength="8" inputmode="numeric" />
+              </label>
+              <label for="title">
+                <span></span>
+                <input type="text" id="title" />
+              </label>
+              <label for="tag">
+                <span></span>
+                <input type="text" id="tag" pattern="\d{8}" maxlength="8" inputmode="numeric" />
+              </label>
+              <label for="overview">
+                <span></span>
+                <div class="area">
+                  <div id="overview" contenteditable="true"></div>
+                </div>
+              </label>
             </div>
-            <div class="title">
-              <label for="title"></label>
-              <input type="text" name="title" id="title" />
-            </div>
-            <div class="tag">
-              <label for="tag"></label>
-              <input type="text" id="tag" name="tag" pattern="\d{8}" maxlength="6" inputmode="numeric" required />
-            </div>
-            <div class="overview">
-              <label for="overview"></label>
-              <div class="area">
-                <div id="overview" contenteditable="true"></div>
+            <div class="btns">
+              <div class="btn-positive">
+                <span></span>
               </div>
-            </div>
-          </div>
-          <div class="button">
-            <div class="btn-submit">
-              <span></span>
-            </div>
-            <div class="btn-cancle">
-              <span></span>
+              <div class="btn-negetive">
+                <span></span>
+              </div>
             </div>
           </div>
         </div>
@@ -909,8 +906,8 @@
         });
       });
 
-      const COLL = "https://script.google.com/macros/s/AKfycbzcIMuhAkmb1ZWjqc1Mrgpt2zePdFDuiEQtLLjkhFszBaqOPNKBWSDSmWtC8quXLT6J-A/exec";
-      const EXP = "https://script.google.com/macros/s/AKfycbwogEu8bdsMXeRm3VtiG9SytM9gE417eCXJOHxaZyKutCfN6Qb56B1trWoWOzab4E9yFQ/exec";
+      const collurl = "https://script.google.com/macros/s/AKfycbzcIMuhAkmb1ZWjqc1Mrgpt2zePdFDuiEQtLLjkhFszBaqOPNKBWSDSmWtC8quXLT6J-A/exec";
+      const expurl = "https://script.google.com/macros/s/AKfycbwogEu8bdsMXeRm3VtiG9SytM9gE417eCXJOHxaZyKutCfN6Qb56B1trWoWOzab4E9yFQ/exec";
       const fetchData = () => {
         fetchColl();
         async function fetchColl() {
@@ -918,7 +915,7 @@
           const preloader = document.querySelector(".dashboard > .main .coll .preloader");
           try {
             //preloader.classList.add("active");
-            const res = await fetch(COLL);
+            const res = await fetch(collurl);
             if (!res.ok) throw new Error();
             const data = await res.json();
             if (!data.data?.length) {
@@ -934,12 +931,12 @@
         }
 
         fetchExp();
-        async function fetchExp(exp) {
+        async function fetchExp() {
           sessionStorage.removeItem("application.data.exp");
           const preloader = document.querySelector(".dashboard > .main .exp .preloader");
           try {
             //preloader.classList.add("active");
-            const res = await fetch(EXP);
+            const res = await fetch(expurl);
             if (!res.ok) throw new Error();
             const data = await res.json();
             if (!data.data?.length) {
@@ -1040,7 +1037,6 @@
           for (const [label, sec] of intervals) if (s >= sec) return Math.floor(s / sec) + label + " ago";
           return "now";
         };
-        const truncate = (text, max) => (text && text.length > max ? text.slice(0, max).trim() + "..." : text || "");
         const inrFormatter = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
         const toInr = num => inrFormatter.format(num);
         data.forEach((data, index) => {
@@ -1086,7 +1082,7 @@
           menuItem.classList.add("menu-item");
           menuItem.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M22.853 1.148a3.626 3.626 0 0 0-5.124 0L1.465 17.412A4.968 4.968 0 0 0 0 20.947V23a1 1 0 0 0 1 1h2.053a4.966 4.966 0 0 0 3.535-1.464L22.853 6.271a3.626 3.626 0 0 0 0-5.123ZM5.174 21.122A3.022 3.022 0 0 1 3.053 22H2v-1.053a2.98 2.98 0 0 1 .879-2.121L15.222 6.483l2.3 2.3ZM21.438 4.857l-2.506 2.507-2.3-2.295 2.507-2.507a1.623 1.623 0 1 1 2.295 2.3Z"></path></g></svg>`;
           menuItem.addEventListener("click", e => {
-            writeData(index, data);
+            openEditor(index, data);
           });
           optionMenu.appendChild(menuItem);
           headerOption.appendChild(optionMenu);
@@ -1123,97 +1119,40 @@
       const writeBtn = document.querySelectorAll(".dashboard > .main .fragment .write-box");
       writeBtn.forEach((btn, index) => {
         btn.addEventListener("click", e => {
-          writeData(index);
+          openEditor(index);
         });
       });
 
-      function writeData(index, data) {
-        const sub = index ? "exp" : "coll";
-        const sub2 = data ? "edit" : "add";
-        history.pushState({}, "", `#/dashboard/${sub}/${sub2}`);
+      function openEditor(index, data) {
         const editor = document.querySelector(".app > .activity .editor");
-        editor.classList.add("active");
-        editor.role = data ? "update" : "add";
-        editor.dataset.for = index ? "exp" : "coll";
-        editor.querySelector(".header .heading").textContent = index ? "Expanse" : "Collection";
-        editor.querySelector(".fields .id label").textContent = index ? "Expanse Id" : "Collection Id";
-        editor.querySelector(".fields .title label").textContent = "Title (Optional)";
-        editor.querySelector(".fields .tag label").textContent = index ? "Expanse Tag" : "Collection Tag";
-        editor.querySelector(".fields .overview label").textContent = "Overview";
-        if (!data) {
-          editor.querySelector(".fields .id input").disabled = false;
-          editor.querySelector(".fields .id input").focus();
-          editor.querySelector(".fields .id input").value = "";
-          editor.querySelector(".fields .title input").value = "";
-          editor.querySelector(".fields .tag input").value = "";
-          editor.querySelector(".fields .overview .area > div").textContent = "";
-        } else {
-          editor.querySelector(".fields .id input").disabled = true;
-          editor.querySelector(".fields .id input").value = data.id;
-          editor.querySelector(".fields .title input").value = data.title || "";
-          editor.querySelector(".fields .tag input").value = data.tag;
-          editor.querySelector(".fields .overview .area > div").textContent = data.overview;
-        }
-        editor.querySelector(".button .btn-submit span").textContent = data ? "Update" : "Add";
-        editor.querySelector(".button .btn-cancle span").textContent = "Cancel";
         document.body.classList.add("scrollable");
         document.querySelectorAll(".scrollable").forEach(item => {
           item.classList.add("no-scroll");
         });
-        window.addEventListener("DOMContentLoaded", e => {
-          const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
-          const parts = hash.split("/").filter(Boolean);
-          if (["dashboard"].includes(parts[0])) {
-            if (["add", "edit"].includes(parts[2])) {
-              history.back();
-            }
-          }
-        });
-        window.addEventListener("hashchange", e => {
-          const hash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
-          const parts = hash.split("/").filter(Boolean);
-          if (["dashboard"].includes(parts[0])) {
-            if (["add", "edit"].includes(parts[2])) {
-              editor.classList.remove("active");
-              editor.querySelector(".fields .id input").blur();
-              editor.querySelector(".fields .tag input").blur();
-              editor.querySelector(".fields .overview .area > div").blur();
-              document.querySelectorAll(".scrollable").forEach(item => {
-                item.classList.remove("no-scroll");
-              });
-            }
-          }
-        });
-      }
-
-      const editor = document.querySelector(".app > .activity .editor");
-      const id = editor.querySelector(".fields .id input");
-      const title = editor.querySelector(".fields .title input");
-      const tag = editor.querySelector(".fields .tag input");
-      const overview = editor.querySelector(".fields .overview .area > div");
-      id.addEventListener("input", () => {
-        id.value = id.value.replace(/\D/g, "");
-        if (id.value.length > 8) {
-          id.value = id.value.slice(0, 8);
-        }
-      });
-      tag.addEventListener("input", () => {
-        tag.value = tag.value.replace(/\D/g, "");
-        if (tag.value.startsWith("0")) {
-          tag.value = tag.value.replace(/^0+/, "");
-        }
-        if (tag.value.length > 6) {
-          tag.value = tag.value.slice(0, 6);
-        }
-      });
-      const btnSubmit = editor.querySelector(".button .btn-submit");
-      const btnCancle = editor.querySelector(".button .btn-cancle span");
-      btnSubmit.addEventListener("click", e => {
-        if (!["update"].includes(editor.role)) {
+        editor.classList.add("active");
+        editor.querySelector(".heading span").textContent = index ? "Expanse" : "Collection";
+        editor.querySelector(".fields label[for='id'] span").textContent = index ? "Expanse Id" : "Collection Id";
+        editor.querySelector(".fields label[for='title'] span").textContent = "Title (Optional)";
+        editor.querySelector(".fields label[for='tag'] span").textContent = index ? "Expanse Tag" : "Collection Tag";
+        editor.querySelector(".fields label[for='overview'] span").textContent = "Overview";
+        history.pushState({}, "", `#/dashboard/${index ? "exp" : "coll"}/${data ? "edit" : "add"}`);
+        const id = editor.querySelector(".fields label #id");
+        const title = editor.querySelector(".fields label #title");
+        const tag = editor.querySelector(".fields label #tag");
+        const overview = editor.querySelector(".fields label .area #overview");
+        if (data) id.disabled = true;
+        else id.disabled = false;
+        id.value = data.id || "";
+        title.value = data.title || "";
+        tag.value = data.tag || "";
+        overview.textContent = data.overview || "";
+        const btnPositive = editor.querySelector(".btns .btn-positive");
+        btnPositive.querySelector("span").textContent = data ? "Update" : "Add";
+        const onPositive = () => {
           if (!id.value || id.value.length < 8) {
             id.focus();
             return;
-          } else if (!isValid(id.value)) {
+          } else if (!parseId(id.value).isValid) {
             id.value = "";
             id.focus();
             return;
@@ -1224,38 +1163,26 @@
             overview.focus();
             return;
           }
-          function isValid(id) {
-            if (!/^\d{8}$/.test(id)) return null;
-            const day = parseInt(id.slice(0, 2), 10);
-            const month = parseInt(id.slice(2, 4), 10);
-            const year = parseInt(id.slice(4), 10);
-            const date = new Date(year, month - 1, day);
-            if (date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) {
-              return null;
-            }
-            return date;
+          function parseId(id) {
+            if (!/^\d{8}$/.test(id)) return { isValid: false, toDate: () => null };
+            const date = new Date(parseInt(String(id).slice(4), 10), parseInt(String(id).slice(2, 4), 10) - 1, parseInt(String(id).slice(0, 2), 10));
+            const isValid = date.getFullYear() === parseInt(String(id).slice(4), 10) && date.getMonth() === parseInt(String(id).slice(2, 4), 10) - 1 && date.getDate() === parseInt(String(id).slice(0, 2), 10);
+            return { isValid, toDate: () => (isValid ? date : null) };
           }
-          const meta = {};
-          const now = isValid(id.value);
-          const data = {
-            id: id.value.trim(),
-            title: title.value?.trim(),
-            tag: tag.value.trim(),
-            overview: overview.textContent.trim(),
-            meta: meta
-          };
-
-          if (!["exp"].includes(editor.dataset.for)) {
-          } else {
-          }
-
-          fetch(EXP, {
+          const url = index ? expurl : collurl;
+          const query = data ? "EDIT" : "WRITE";
+          fetch(url, {
             method: "POST",
             body: JSON.stringify({
               query: "WRITEDATA",
               contents: {
-                query: "WRITE",
-                data: data
+                query,
+                data: {
+                  id: id.value.trim(),
+                  title: title.value?.trim() || "",
+                  tag: tag.value.trim(),
+                  overview: overview.textContent.trim()
+                }
               }
             })
           })
@@ -1266,19 +1193,40 @@
             .catch(err => {
               console.log(err);
             });
-        } else {
-          if (!tag.value) {
-            tag.focus();
-            return;
-          } else if (!overview.textContent) {
-            overview.focus();
-            return;
+        };
+        btnPositive.addEventListener("click", onPositive);
+        const btnNegetive = editor.querySelector(".btns .btn-negetive");
+        btnNegetive.querySelector("span").textContent = "Cancel";
+        const onNegetive = () => history.back();
+        btnNegetive.addEventListener("click", onNegetive);
+        const onHash = e => {
+          const hash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
+          const parts = hash.split("/").filter(Boolean);
+          if (["dashboard"].includes(parts[0])) {
+            if (["add", "edit"].includes(parts[2])) {
+              document.querySelectorAll(".scrollable").forEach(item => {
+                item.classList.remove("no-scroll");
+              });
+              editor.classList.remove("active");
+              btnPositive.removeEventListener("click", onPositive);
+              btnNegetive.addEventListener("click", onNegetive);
+            }
           }
-        }
-      });
-      btnCancle.addEventListener("click", e => {
-        history.back();
-      });
+          window.removeEventListener("hashchange", onHash);
+        };
+        window.addEventListener("hashchange", onHash);
+      }
+      const onLoad = () => {
+        const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
+        const parts = hash.split("/").filter(Boolean);
+        if (["dashboard"].includes(parts[0])) if (["add", "edit"].includes(parts[2])) history.back();
+        window.removeEventListener("DOMContentLoaded", onLoad);
+      };
+      window.addEventListener("DOMContentLoaded", onLoad);
+
+      function postData(bundle, data) {
+        console.log(data);
+      }
     </script>
   </body>
 </html>
