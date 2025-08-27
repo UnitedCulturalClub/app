@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark light" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="preload" href="/app/assets/fonts/Charlotte.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="/app/assets/fonts/GoogleSans-Regular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/app/assets/fonts/Charlotte.ttf" as="font" type="font/ttf" crossorigin />
     <title>Dashboard</title>
     <style type="text/css" media="all">
       @media only screen and (prefers-color-scheme: light) {
@@ -1040,7 +1041,7 @@
         };
         const inrFormatter = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
         const toInr = num => inrFormatter.format(num);
-        data.forEach((data, index) => {
+        data.forEach(data => {
           const date = parseId(data.id).toDate();
           const card = document.createElement("div");
           card.classList.add("gen-card");
@@ -1143,10 +1144,10 @@
         const overview = editor.querySelector(".fields label .area #overview");
         if (data) id.disabled = true;
         else id.disabled = false;
-        id.value = data.id || "";
-        title.value = data.title || "";
-        tag.value = data.tag || "";
-        overview.textContent = data.overview || "";
+        id.value = data?.id || "";
+        title.value = data?.title || "";
+        tag.value = data?.tag || "";
+        overview.textContent = data?.overview || "";
         const btnPositive = editor.querySelector(".btns .btn-positive");
         btnPositive.querySelector("span").textContent = data ? "Update" : "Add";
         const onPositive = () => {
@@ -1198,7 +1199,9 @@
         btnPositive.addEventListener("click", onPositive);
         const btnNegetive = editor.querySelector(".btns .btn-negetive");
         btnNegetive.querySelector("span").textContent = "Cancel";
-        const onNegetive = () => history.back();
+        const onNegetive = () => {
+          history.back();
+        };
         btnNegetive.addEventListener("click", onNegetive);
         const onHash = e => {
           const hash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
@@ -1224,10 +1227,6 @@
         window.removeEventListener("DOMContentLoaded", onLoad);
       };
       window.addEventListener("DOMContentLoaded", onLoad);
-
-      function postData(bundle, data) {
-        console.log(data);
-      }
     </script>
   </body>
 </html>
