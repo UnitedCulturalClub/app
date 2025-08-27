@@ -1049,6 +1049,7 @@
             const data = await res.json();
             if (!data.data?.length) {
               preloader.classList.remove("active");
+              localStorage.removeItem("application.data.coll");
               //
               return;
             }
@@ -1080,21 +1081,22 @@
 
         fetchExp();
         async function fetchExp() {
-          sessionStorage.removeItem("application.data.coll");
+          sessionStorage.removeItem("application.data.exp");
           const preloader = document.querySelector(".home > .main .exp .preloader");
           try {
             preloader.classList.add("active");
-            const res = await fetch("");
+            const res = await fetch("https://script.google.com/macros/s/AKfycbwogEu8bdsMXeRm3VtiG9SytM9gE417eCXJOHxaZyKutCfN6Qb56B1trWoWOzab4E9yFQ/exec");
             if (!res.ok) throw new Error();
             const data = await res.json();
             if (!data.data?.length) {
               preloader.classList.remove("active");
+              sessionStorage.removeItem("application.data.exp");
               //
               return;
             }
             preloader.classList.remove("active");
-            localStorage.setItem("application.data.exp", JSON.stringify(res.data));
-            sessionStorage.setItem("application.data.exp", JSON.stringify(res.data));
+            localStorage.setItem("application.data.exp", JSON.stringify(data.data));
+            sessionStorage.setItem("application.data.exp", JSON.stringify(data.data));
             renderExp();
           } catch (err) {
             let data;
@@ -1295,6 +1297,7 @@
           }
         });
       }
+      
     </script>
   </body>
 </html>
