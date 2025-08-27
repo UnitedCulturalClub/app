@@ -1199,9 +1199,7 @@
         btnPositive.addEventListener("click", onPositive);
         const btnNegetive = editor.querySelector(".btns .btn-negetive");
         btnNegetive.querySelector("span").textContent = "Cancel";
-        const onNegetive = () => {
-          history.back();
-        };
+        const onNegetive = () => history.back();
         btnNegetive.addEventListener("click", onNegetive);
         const onHash = e => {
           const hash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
@@ -1213,7 +1211,7 @@
               });
               editor.classList.remove("active");
               btnPositive.removeEventListener("click", onPositive);
-              btnNegetive.addEventListener("click", onNegetive);
+              btnNegetive.removeEventListener("click", onNegetive);
             }
           }
           window.removeEventListener("hashchange", onHash);
