@@ -261,34 +261,72 @@
         display: none;
       }
       .dashboard > .main > .container > .fragment.active {
-        display: block;
+        display: flex;
       }
       .dashboard > .main .coll,
       .dashboard > .main .exp {
         width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .dashboard > .main .coll .header,
+      .dashboard > .main .exp .header {
+        width: 100%;
+        background-color: var(--color-background);
+      }
+      .coll .header .nav,
+      .exp .header .nav {
+        width: 100%;
+        padding: 10px 8px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+      }
+      .coll .header .nav-item,
+      .exp .header .nav-item {
+        width: 40px;
+        height: 40px;
+        position: relative;
+      }
+      .dashboard > .main .coll .main,
+      .dashboard > .main .exp .main {
+        width: 100%;
+        flex: 1;
         padding: 8px;
         box-sizing: border-box;
+        position: relative;
+        overflow: scroll;
       }
-      /* Untouchable Code*/
-      .dashboard > .main .coll .write-box,
-      .dashboard > .main .exp .write-box {
+      .dashboard > .main .coll .preloader,
+      .dashboard > .main .exp .preloader {
         width: 100%;
-        height: 160px;
-        border-radius: 15px;
-        background-color: #f7f9fd;
-        margin-bottom: 8px;
-        display: flex;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
         justify-content: center;
         align-items: center;
-        cursor: pointer;
-        overflow: hidden;
+        pointer-events: none;
+        display: none;
       }
-      .dashboard > .main .coll .write-btn,
-      .dashboard > .main .exp .write-btn {
-        width: 50px;
-        height: 50px;
-        color: #0b284b;
-        fill: #0b284b;
+      .dashboard > .main .coll .preloader.active,
+      .dashboard > .main .exp .preloader.active {
+        display: flex;
+      }
+      .dashboard > .main .coll .preloader .loader,
+      .dashboard > .main .exp .preloader .loader {
+        width: 30px;
+        height: 30px;
+      }
+      .loader svg {
+        animation: progress 1s linear infinite;
+      }
+      @keyframes progress {
+        to {
+          transform: rotate(360deg);
+        }
       }
       .dashboard > .main .coll .gen,
       .dashboard > .main .exp .gen {
@@ -381,8 +419,8 @@
         border: 1px solid var(--color-devider);
         background-color: #f7f9fd;
         position: absolute;
-        top: 90%;
-        right: 90%;
+        top: 110%;
+        right: 70%;
         display: none;
       }
       .gen .card-header .three-dots.active ~ .option-menu {
@@ -416,7 +454,7 @@
       .gen .card-overview {
         width: 100%;
         padding: 10px;
-        border-left: 2px solid #0b284b;
+        border-left: 2px solid #1d9bf0;
         box-sizing: border-box;
         cursor: pointer;
       }
@@ -437,31 +475,28 @@
         flex: 1;
         height: 45px;
         border-radius: 10px;
-        background-color: #0b284b;
+        background-color: #1d9bf0;
         box-sizing: border-box;
         display: flex;
         justify-content: center;
         align-items: center;
       }
       .gen .card-tag span {
-        color: #f7f9fd;
+        color: #ffffff;
         font-size: 16px;
       }
       @media only screen and (prefers-color-scheme: dark) {
-        .dashboard > .main .coll .write-box,
-        .dashboard > .main .exp .write-box {
-          background-color: #323640;
-        }
-        .dashboard > .main .coll .write-btn,
-        .dashboard > .main .exp .write-btn {
-          color: #ffffff;
-          fill: #ffffff;
-        }
         .gen-card {
           background-color: #323640;
         }
         .gen-card .header-icon {
           background-color: #404452;
+        }
+        .gen .card-header .svg,
+        .gen .card-header .tit span,
+        .gen .card-heading span {
+          color: #ffffff;
+          fill: #ffffff;
         }
         .gen-card .header-option {
           color: #ffffff;
@@ -470,24 +505,9 @@
         .gen .card-header .option-menu {
           background-color: #323640;
         }
-        .gen .card-header .svg,
-        .gen .card-header .tit span,
-        .gen .card-heading span {
-          color: #ffffff;
-          fill: #ffffff;
-        }
         .gen .card-header .des span,
         .gen .card-overview span {
           color: rgba(255, 255, 255, 0.7);
-        }
-        .gen .card-overview {
-          border-left-color: #ffffff;
-        }
-        .gen .card-tag {
-          background-color: #ffffff;
-        }
-        .gen .card-tag span {
-          color: #323640;
         }
       }
       .app > .activity {
@@ -600,8 +620,19 @@
         justify-content: center;
         align-items: center;
       }
+      .editor .btns .btn-positive .loader {
+        width: 20px;
+        height: 20px;
+        display: none;
+      }
+      .editor .btns .btn-positive.active .loader {
+        display: block;
+      }
       .editor .btns .btn-positive span {
         color: var(--color-background);
+      }
+      .editor .btns .btn-positive.active span {
+        display: none;
       }
       .editor .btns .btn-negetive {
         width: 100%;
@@ -669,28 +700,46 @@
             <div class="main">
               <div class="container">
                 <div class="fragment coll">
-                  <div class="write-box">
-                    <div class="write-btn">
-                      <div class="btn-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                          <g><path d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0Zm0 23C5.935 23 1 18.065 1 12S5.935 1 12 1s11 4.935 11 11-4.935 11-11 11Zm5-11a.5.5 0 0 1-.5.5h-4v4a.5.5 0 0 1-1 0v-4h-4a.5.5 0 0 1 0-1h4v-4a.5.5 0 0 1 1 0v4h4a.5.5 0 0 1 .5.5Z"></path></g>
-                        </svg>
+                  <div class="header">
+                    <div class="nav">
+                      <div class="nav-item">
+                        <span></span>
+                        <span></span>
                       </div>
                     </div>
                   </div>
-                  <div class="gen"></div>
+                  <div class="main">
+                    <div class="preloader">
+                      <div class="loader">
+                        <svg height="100%" viewBox="0 0 32 32" width="100%">
+                          <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); opacity: 0.1"></circle>
+                          <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="gen"></div>
+                  </div>
                 </div>
                 <div class="fragment exp">
-                  <div class="write-box">
-                    <div class="write-btn">
-                      <div class="btn-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                          <g><path d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0Zm0 23C5.935 23 1 18.065 1 12S5.935 1 12 1s11 4.935 11 11-4.935 11-11 11Zm5-11a.5.5 0 0 1-.5.5h-4v4a.5.5 0 0 1-1 0v-4h-4a.5.5 0 0 1 0-1h4v-4a.5.5 0 0 1 1 0v4h4a.5.5 0 0 1 .5.5Z"></path></g>
-                        </svg>
+                  <div class="header">
+                    <div class="nav">
+                      <div class="nav-item">
+                        <span></span>
+                        <span></span>
                       </div>
                     </div>
                   </div>
-                  <div class="gen"></div>
+                  <div class="main">
+                    <div class="preloader">
+                      <div class="loader">
+                        <svg height="100%" viewBox="0 0 32 32" width="100%">
+                          <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); opacity: 0.1"></circle>
+                          <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="gen"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -728,6 +777,12 @@
             </div>
             <div class="btns">
               <div class="btn-positive">
+                <div class="loader">
+                  <svg height="100%" viewBox="0 0 32 32" width="100%">
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--color-background); opacity: 0.1"></circle>
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--color-background); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
+                  </svg>
+                </div>
                 <span></span>
               </div>
               <div class="btn-negetive">
@@ -916,16 +971,16 @@
           sessionStorage.removeItem("application.data.coll");
           const preloader = document.querySelector(".dashboard > .main .coll .preloader");
           try {
-            //preloader.classList.add("active");
+            preloader.classList.add("active");
             const res = await fetch(collurl);
             if (!res.ok) throw new Error();
             const data = await res.json();
             if (!data.data?.length) {
-              //preloader.classList.remove("active");
+              preloader.classList.remove("active");
               //
               return;
             }
-            //preloader.classList.remove("active");
+            preloader.classList.remove("active");
             localStorage.setItem("application.data.coll", JSON.stringify(data.data));
             sessionStorage.setItem("application.data.coll", JSON.stringify(data.data));
             renderColl();
@@ -937,16 +992,16 @@
           sessionStorage.removeItem("application.data.exp");
           const preloader = document.querySelector(".dashboard > .main .exp .preloader");
           try {
-            //preloader.classList.add("active");
+            preloader.classList.add("active");
             const res = await fetch(expurl);
             if (!res.ok) throw new Error();
             const data = await res.json();
             if (!data.data?.length) {
-              //preloader.classList.remove("active");
+              preloader.classList.remove("active");
               //
               return;
             }
-            //preloader.classList.remove("active");
+            preloader.classList.remove("active");
             localStorage.setItem("application.data.exp", JSON.stringify(data.data));
             sessionStorage.setItem("application.data.exp", JSON.stringify(data.data));
             renderExp();
@@ -1132,6 +1187,8 @@
           item.classList.add("no-scroll");
         });
         editor.classList.add("active");
+        editor.dataset.url = index ? expurl : collurl;
+        editor.dataset.query = data ? "EDIT" : "WRITE";
         editor.querySelector(".heading span").textContent = index ? "Expanse" : "Collection";
         editor.querySelector(".fields label[for='id'] span").textContent = index ? "Expanse Id" : "Collection Id";
         editor.querySelector(".fields label[for='title'] span").textContent = "Title (Optional)";
@@ -1171,29 +1228,32 @@
             const isValid = date.getFullYear() === parseInt(String(id).slice(4), 10) && date.getMonth() === parseInt(String(id).slice(2, 4), 10) - 1 && date.getDate() === parseInt(String(id).slice(0, 2), 10);
             return { isValid, toDate: () => (isValid ? date : null) };
           }
-          const url = index ? expurl : collurl;
-          const query = data ? "EDIT" : "WRITE";
-          fetch(url, {
-            method: "POST",
-            body: JSON.stringify({
-              query: "WRITEDATA",
-              contents: {
-                query,
-                data: {
-                  id: id.value.trim(),
-                  title: title.value?.trim() || "",
-                  tag: tag.value.trim(),
-                  overview: overview.textContent.trim()
-                }
-              }
-            })
-          })
+          const url = editor.dataset.url;
+          const query = editor.dataset.query;
+          const data = {
+            id: id.value.trim(),
+            title: title.value?.trim() || "",
+            tag: tag.value.trim(),
+            overview: overview.textContent.trim()
+          };
+          btnPositive.removeEventListener("click", onPositive);
+          btnPositive.classList.add("active");
+          fetch(url, { method: "POST", body: JSON.stringify({ query: "WRITEDATA", contents: { query, data } }) })
             .then(res => res.json())
             .then(res => {
-              console.log(res);
+              if (!res.status.isSuccess) return;
+              id.value = "";
+              title.value = "";
+              tag.value = "";
+              overview.textContent = "";
+              btnPositive.classList.remove("active");
+              btnPositive.addEventListener("click", onPositive);
+              fetchData();
+              history.back();
             })
             .catch(err => {
-              console.log(err);
+              btnPositive.classList.remove("active");
+              btnPositive.addEventListener(onPositive);
             });
         };
         btnPositive.addEventListener("click", onPositive);
