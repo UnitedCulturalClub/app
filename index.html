@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark light" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
+    <link rel="preload" href="/app/assets/fonts/GoogleSans-Regular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/app/assets/fonts/Charlotte.ttf" as="font" type="font/ttf" crossorigin />
     <title>OneClub</title>
     <style type="text/css" media="all">
       @media only screen and (prefers-color-scheme: light) {
@@ -16,6 +17,8 @@
           --color-on-background: rgba(0, 0, 0, 1);
           --color-surface: rgba(249, 250, 254, 1);
           --color-devider: rgba(0, 0, 0, 0.1);
+          --color-skeleton-base: rgba(0, 0, 0, 0.1);
+          --color-skeleton-highlight: rgba(0, 0, 0, 0.2);
         }
       }
       @media only screen and (prefers-color-scheme: dark) {
@@ -26,6 +29,8 @@
           --color-on-background: rgba(255, 255, 255, 1);
           --color-surface: rgba(53, 57, 68, 1);
           --color-devider: rgba(255, 255, 255, 0.1);
+          --color-skeleton-base: rgba(255, 255, 255, 0.1);
+          --color-skeleton-highlight: rgba(255, 255, 255, 0.2);
         }
       }
       /* Regular (400 normal) */
@@ -305,11 +310,32 @@
       }
       .home > .main .coll .preloader,
       .home > .main .exp .preloader {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
         display: none;
       }
       .home > .main .coll .preloader.active,
       .home > .main .exp .preloader.active {
-        display: block;
+        display: flex;
+      }
+      .home > .main .coll .preloader .loader,
+      .home > .main .exp .preloader .loader {
+        width: 30px;
+        height: 30px;
+      }
+      .loader svg {
+        animation: progress 1s linear infinite;
+      }
+      @keyframes progress {
+        to {
+          transform: rotate(360deg);
+        }
       }
       .home > .main .coll .gen,
       .home > .main .exp .gen {
@@ -410,7 +436,7 @@
       .gen .card-overview span {
         color: #546685;
         font-size: 14px;
-        font-style: italic;
+        font-style:;
       }
       .gen .card-footer {
         width: 100%;
@@ -449,8 +475,7 @@
         }
         .gen .card-header .des span,
         .gen .card-overview span {
-          color: #ffffff;
-          opacity: 70%;
+          color: rgba(255, 255, 255, 0.7);
         }
         .gen .card-overview {
           border-left-color: #ffffff;
@@ -498,11 +523,25 @@
             <div class="main">
               <div class="container">
                 <div class="fragment coll">
-                  <div class="preloader">Loading...</div>
+                  <div class="preloader">
+                    <div class="loader">
+                      <svg height="100%" viewBox="0 0 32 32" width="100%">
+                        <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); opacity: 0.1"></circle>
+                        <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
+                      </svg>
+                    </div>
+                  </div>
                   <div class="gen"></div>
                 </div>
                 <div class="fragment exp">
-                  <div class="preloader">Loading...</div>
+                  <div class="preloader">
+                    <div class="loader">
+                      <svg height="100%" viewBox="0 0 32 32" width="100%">
+                        <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); opacity: 0.1"></circle>
+                        <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
+                      </svg>
+                    </div>
+                  </div>
                   <div class="gen"></div>
                 </div>
               </div>
