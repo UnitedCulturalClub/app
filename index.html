@@ -9,6 +9,7 @@
     <style>
       :root {
         --text-primary: rgba(0, 0, 0, 1);
+        --text-primary-v: rgba(0, 0, 0, 0.7);
         --text-secondary: rgba(0, 0, 0, 0.5);
         --bg: rgba(255, 255, 255, 1);
         --on-bg: rgba(0, 0, 0, 1);
@@ -17,6 +18,7 @@
       @media only screen and (prefers-color-scheme: dark) {
         :root {
           --text-primary: rgba(255, 255, 255, 1);
+          --text-primary-v: rgba(255, 255, 255, 0.7);
           --text-secondary: rgba(190, 190, 190, 1);
           --bg: rgba(42, 45, 54, 1);
           --on-bg: rgba(255, 255, 255, 1);
@@ -539,59 +541,142 @@
         font-size: 14px;
         font-weight: bold;
       }
-      .app > .popup {
+
+      .app > .layout {
         width: 100%;
         height: 100%;
         position: fixed;
         top: 0;
+        pointer-events: none;
         display: none;
-        z-index: 1;
+        z-index: 99;
       }
-      .app > .popup.active {
+      .qbzythwit {
+        width: 100%;
+      }
+      .qbzythwit .validateotp {
+        display: none;
+      }
+      .qbzythwit[role="validateotp"] .reqotp {
+        display: none;
+      }
+      .qbzythwit[role="validateotp"] .validateotp {
         display: block;
       }
-      .app > .popup .backdrop {
+      .qbzythwit .reqotp {
         width: 100%;
-        height: 100%;
-        padding: 15px;
-        box-sizing: border-box;
-        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .qbzythwit .reqotp .header {
+        width: 100%;
+      }
+      .qbzythwit .reqotp .heading {
+        width: 100%;
+        height: 40px;
         display: flex;
         align-items: center;
       }
-      .app > .popup .main {
-        width: 100%;
-        min-height: 400px;
-        border-radius: 30px;
-        background-color: var(--bg);
+      .qbzythwit .reqotp .heading span {
+        color: var(--text-primary);
+        font-size: 18px;
+        font-weight: bold;
+        display: none;
       }
-      .app > .popup .main .header {
-        width: 100%;
-        position: relative;
-        border-bottom: 1px solid var(--devider);
+      .qbzythwit[role="login"] .heading span:nth-child(1) {
+        display: inline-block;
       }
-      .app > .popup .main .header .nav {
+      .qbzythwit .reqotp .fields {
         width: 100%;
-        padding: 10px 20px;
-        box-sizing: border-box;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 15px;
       }
-      .app > .popup .main .header .nav-item {
-        width: 40px;
-        height: 40px;
-        padding: 8px;
+      .qbzythwit[role="login"] .fields label {
+        display: none;
+      }
+      .qbzythwit[role="login"] .fields label:last-child {
+        display: block;
+      }
+      .qbzythwit .reqotp .fields input {
+        width: 100%;
+        height: 50px;
+        padding: 20px;
         box-sizing: border-box;
+        border-radius: 100px;
+        background-color: rgba(0, 0, 0, 0.07);
+        border: none;
+        outline: none;
+        line-height: 1.5em;
+        font-family: GoogleSans;
+        font-size: 15px;
+      }
+      .qbzythwit .reqotp .fields .select {
+        width: 100%;
+        height: 50px;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 100px;
+        background-color: rgba(0, 0, 0, 0.07);
+        display: flex;
+        align-items: center;
+      }
+      .qbzythwit .reqotp .fields .select span {
+        line-height: 1.5em;
+        font-family: GoogleSans;
+        font-size: 15px;
+        opacity: 0.5;
+      }
+      @media only screen and (prefers-color-scheme: dark) {
+        .qbzythwit .reqotp .fields input {
+          background-color: rgba(255, 255, 255, 0.07);
+        }
+      }
+      .qbzythwit .reqotp .btn {
+        width: 100%;
+        height: 50px;
+        border-radius: 100px;
+        background-color: var(--on-bg);
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      .app > .popup .main .header .nav-icon {
-        width: 100%;
-        height: 100%;
+      .qbzythwit .reqotp .btn span {
+        color: var(--bg);
+        font-weight: bold;
+        display: none;
       }
-      .app > .popup .main .heading {
-        position: absolute;
+      .qbzythwit[role="login"] .btn span:nth-child(1) {
+        display: inline-block;
+      }
+      .qbzythwit[role="signup"] .btn span:nth-child(2) {
+        display: inline-block;
+      }
+      .qbzythwit .reqotp .footer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+      .qbzythwit .reqotp .footer span {
+        color: var(--text-primary-v);
+        font-size: 12px;
+      }
+      .qbzythwit .reqotp .footer .link {
+        color: var(--text-primary);
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      .qbzythwit .reqotp .in-up > span {
+        display: none;
+      }
+      .qbzythwit[role="login"] .in-up > span:nth-child(1) {
+        display: inline-block;
+      }
+      .qbzythwit[role="signup"] .in-up > span:nth-child(2) {
+        display: inline-block;
       }
     </style>
   </head>
@@ -741,23 +826,39 @@
           </div>
         </div>
       </div>
-      <div class="popup">
-        <div class="backdrop">
-          <div class="main">
-            <div class="header">
-              <div class="nav">
-                <div class="nav-item">
-                  <div class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="enable-background: new 0 0 512 512" xml:space="preserve">
-                      <g><path d="M18 6a1 1 0 0 0-1.414 0L12 10.586 7.414 6A1 1 0 0 0 6 6a1 1 0 0 0 0 1.414L10.586 12 6 16.586A1 1 0 0 0 6 18a1 1 0 0 0 1.414 0L12 13.414 16.586 18A1 1 0 0 0 18 18a1 1 0 0 0 0-1.414L13.414 12 18 7.414A1 1 0 0 0 18 6Z"></path></g>
-                    </svg>
-                  </div>
-                </div>
+      <div class="layout">
+        <div class="qbzythwit">
+          <div class="reqotp">
+            <div class="fields">
+              <label>
+                <input type="text" id="name" placeholder="Name" />
+              </label>
+              <label>
+                <select name="" id="">
+                  <option value=""></option>
+                  <option value=""></option>
+                </select>
+              </label>
+              <label>
+                <input type="email" id="email" placeholder="Email" />
+              </label>
+            </div>
+            <div class="btn">
+              <span>Log in</span>
+              <span>Sign up</span>
+            </div>
+            <div class="footer">
+              <div class="privacy-policy">
+                <span>By continuing you agree to our <span class="link">Terms</span> and <span class="link">Privacy Policy</span></span>
               </div>
-              <div class="heading">
-                <span>OneClub</span>
+              <div class="in-up">
+                <span>Don't have an account? <span class="link">Sign up</span></span>
+                <span>Allready have an account? <span class="link">Sign in</span></span>
               </div>
             </div>
+          </div>
+          <div class="validateotp">
+            <div class="header"></div>
           </div>
         </div>
       </div>
@@ -810,6 +911,7 @@
         }
         setContentView(layout) {
           if (!layout) return;
+          this.container.innerHTML = "";
           if (layout instanceof HTMLElement) this.container.appendChild(layout);
           else if (typeof layout === "string") this.container.innerHTML = layout;
           else this.container.innerHTML = "";
@@ -1150,7 +1252,7 @@
           } catch (err) {
             const data = (() => {
               try {
-                return JSON.parse(sessionStorage.getItem("application.data.coll")) || [];
+                return JSON.parse(localStorage.getItem("application.data.coll")) || [];
               } catch (err) {
                 return [];
               }
@@ -1192,7 +1294,7 @@
           } catch (err) {
             const data = (() => {
               try {
-                return JSON.parse(sessionStorage.getItem("application.data.exp")) || [];
+                return JSON.parse(localStorage.getItem("application.data.exp")) || [];
               } catch (err) {
                 return [];
               }
@@ -1391,47 +1493,89 @@
           return;
         }
       }
-      const dialog = new BottomSheetDialog(document.body);
-      const authentication = index => {
-        const layout = document.createElement("div");
-        layout.innerHTML = "Duis sint anim officia enim laboris sit eu. Culpa ad officia aliqua aliquip irure. Adipisicing labore ad eiusmod enim consectetur amet fugiat ad quis mollit ea dolor id laborum. Ullamco ad pariatur consequat enim elit laborum nisi proident laboris eu consectetur consequat ullamco amet. Aute qui voluptate ullamco ullamco minim irure eiusmod irure anim Lorem incididunt fugiat cillum officia. Irure ipsum sunt in qui quis duis qui ea. Ut quis officia nisi esse consectetur veniam excepteur consectetur commodo velit officia ullamco dolor esse. Id duis sint laborum labore qui excepteur occaecat. Eu fugiat consectetur sit ullamco reprehenderit ipsum. Ipsum incididunt est ut fugiat qui.";
-        dialog.showDragHandle(true);
-        dialog.setContentView(layout);
-        dialog.setOnShowListener(() => {
-          if (!history.state.sheet?.isShow) history.pushState({ sheet: { isShow: true } }, "", "#/auth");
-          document.body.classList.add("scrollable");
-          document.querySelectorAll(".scrollable").forEach(item => {
-            item.classList.add("no-scroll");
-          });
+      (() => {
+        const dialog = new BottomSheetDialog(document.body);
+        const qbzythwit = document.querySelector(".qbzythwit");
+        const reqBtn = qbzythwit.querySelector(".reqotp .btn");
+        const onReq = e => {
+          const index = ["login", "signup"].indexOf(qbzythwit.getAttribute("role"));
+          switch (index) {
+            case 0:
+              alert("login");
+              break;
+            case 1:
+              alert("signup");
+              break;
+          }
+        };
+        reqBtn.addEventListener("click", onReq);
+        const priLink = qbzythwit.querySelectorAll(".reqotp .footer .privacy-policy .link");
+        const onPri = e => {};
+        priLink.forEach(link => {
+          link.addEventListener("click", onPri);
         });
-        dialog.setOnDismissListener(() => {
-          if (history.state.sheet?.isShow) history.back();
-          document.querySelectorAll(".scrollable").forEach(item => {
-            item.classList.remove("no-scroll");
-          });
+        const swiLink = qbzythwit.querySelectorAll(".reqotp .footer .in-up .link");
+        const onSwi = e => {
+          const qbzythwit = document.querySelector(".qbzythwit");
+          if (Object.is(qbzythwit.getAttribute("role"), "login")) {
+            qbzythwit.setAttribute("role", "signup");
+          } else {
+            qbzythwit.setAttribute("role", "login");
+          }
+        };
+        swiLink.forEach(link => {
+          link.addEventListener("click", onSwi);
         });
-        dialog.show();
-      };
-      const btnLogin = document.querySelector(".auth > .header .nav-item");
-      btnLogin.addEventListener("click", e => {
-        authentication("login");
-      });
-      const btnSignup = document.querySelector(".auth > .main .btn");
-      btnSignup.addEventListener("click", e => {
-        authentication("signup");
-      });
-      window.addEventListener("hashchange", e => {
-        const newHash = new URL(e.newURL).hash.replace(/^#\/?/, "");
-        const oldHash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
-        const newParts = newHash.split("/").filter(Boolean);
-        const oldParts = oldHash.split("/").filter(Boolean);
-        if (["auth"].includes(oldParts[0])) {
-          dialog.dismiss();
-        }
-        if (["auth"].includes(newParts[0])) {
+        const authentication = query => {
+          const index = ["login", "signup"].indexOf(query);
+          const qbzythwit = document.querySelector(".qbzythwit");
+          qbzythwit.setAttribute("role", ["login", "signup"][index]);
+          dialog.showDragHandle(true);
+          dialog.setContentView(qbzythwit);
+          dialog.setOnShowListener(() => {
+            if (!history.state.sheet?.isShow) history.pushState({ sheet: { isShow: true } }, "", "#/auth");
+            document.body.classList.add("scrollable");
+            document.querySelectorAll(".scrollable").forEach(item => {
+              item.classList.add("no-scroll");
+            });
+          });
+          dialog.setOnDismissListener(() => {
+            if (history.state.sheet?.isShow) history.back();
+            document.querySelectorAll(".scrollable").forEach(item => {
+              item.classList.remove("no-scroll");
+            });
+          });
+          dialog.show();
+        };
+        const btnLogin = document.querySelector(".auth > .header .nav-item");
+        btnLogin.addEventListener("click", e => {
           authentication("login");
-        }
-      });
+        });
+        const btnSignup = document.querySelector(".auth > .main .btn");
+        btnSignup.addEventListener("click", e => {
+          authentication("signup");
+        });
+        window.addEventListener("DOMContentLoaded", e => {});
+        window.addEventListener("hashchange", e => {
+          const newHash = new URL(e.newURL).hash.replace(/^#\/?/, "");
+          const oldHash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
+          const newParts = newHash.split("/").filter(Boolean);
+          const oldParts = oldHash.split("/").filter(Boolean);
+          if (["auth"].includes(oldParts[0])) {
+            dialog.dismiss();
+            reqBtn.removeEventListener("click", onReq);
+            priLink.forEach(link => {
+              link.removeEventListener("click", onPri);
+            });
+            swiLink.forEach(link => {
+              link.removeEventListener("click", onSwi);
+            });
+          }
+          if (["auth"].includes(newParts[0])) {
+            authentication("login");
+          }
+        });
+      })();
     </script>
   </body>
 </html>
