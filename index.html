@@ -5,70 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark light" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="preload" href="/app/assets/fonts/GoogleSans-Regular.ttf" as="font" type="font/ttf" crossorigin />
-    <link rel="preload" href="/app/assets/fonts/Charlotte.ttf" as="font" type="font/ttf" crossorigin />
     <title>OneClub</title>
-    <style type="text/css" media="all">
-      @media only screen and (prefers-color-scheme: light) {
-        :root {
-          --color-text-primary: rgba(0, 0, 0, 1);
-          --color-text-secondary: rgba(0, 0, 0, 0.5);
-          --color-background: rgba(255, 255, 255, 1);
-          --color-on-background: rgba(0, 0, 0, 1);
-          --color-surface: rgba(249, 250, 254, 1);
-          --color-devider: rgba(0, 0, 0, 0.1);
-          --color-skeleton-base: rgba(0, 0, 0, 0.1);
-          --color-skeleton-highlight: rgba(0, 0, 0, 0.2);
-        }
+    <style>
+      :root {
+        --text-primary: rgba(0, 0, 0, 1);
+        --text-secondary: rgba(0, 0, 0, 0.5);
+        --bg: rgba(255, 255, 255, 1);
+        --on-bg: rgba(0, 0, 0, 1);
+        --devider: rgba(0, 0, 0, 0.1);
       }
       @media only screen and (prefers-color-scheme: dark) {
         :root {
-          --color-text-primary: rgba(255, 255, 255, 1);
-          --color-text-secondary: rgba(190, 190, 190, 1);
-          --color-background: rgba(42, 45, 54, 1);
-          --color-on-background: rgba(255, 255, 255, 1);
-          --color-surface: rgba(53, 57, 68, 1);
-          --color-devider: rgba(255, 255, 255, 0.1);
-          --color-skeleton-base: rgba(255, 255, 255, 0.1);
-          --color-skeleton-highlight: rgba(255, 255, 255, 0.2);
+          --text-primary: rgba(255, 255, 255, 1);
+          --text-secondary: rgba(190, 190, 190, 1);
+          --bg: rgba(42, 45, 54, 1);
+          --on-bg: rgba(255, 255, 255, 1);
+          --devider: rgba(255, 255, 255, 0.1);
         }
       }
-      /* Regular (400 normal) */
       @font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-Regular.ttf") format("truetype");
         font-weight: 400;
         font-style: normal;
       }
-      /* Italic (400 italic) */
       @font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-Italic.ttf") format("truetype");
         font-weight: 400;
         font-style: italic;
       }
-      /* Medium (500 normal) */
       @font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-Medium.ttf") format("truetype");
         font-weight: 500;
         font-style: normal;
       }
-      /* Medium Italic (500 italic) */
       @font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-MediumItalic.ttf") format("truetype");
         font-weight: 500;
         font-style: italic;
       }
-      /* Bold (700 normal) */
       @font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-Bold.ttf") format("truetype");
         font-weight: 700;
         font-style: normal;
       }
-      /* Bold Italic (700 italic) */
       @font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-BoldItalic.ttf") format("truetype");
@@ -79,7 +63,7 @@
         margin: 0;
         padding: 0;
         font-family: GoogleSans;
-        background-color: var(--color-background);
+        background-color: var(--bg);
       }
       .scrollable.no-scroll {
         overflow-y: hidden;
@@ -92,20 +76,17 @@
         padding-bottom: 65px;
         box-sizing: border-box;
       }
-      .app > .main > .container {
-        width: 100%;
-      }
-      .app > .main > .container > .fragment {
+      .app > .main > .fragment {
         display: none;
       }
-      .app > .main > .container > .fragment.active {
+      .app > .main > .fragment.active {
         display: block;
       }
       .app > .footer {
         width: 100%;
         height: 65px;
-        background-color: var(--color-background);
-        border-top: 1px solid var(--color-devider);
+        border-top: 1px solid var(--devider);
+        background-color: var(--bg);
         position: fixed;
         left: 0;
         bottom: 0;
@@ -126,14 +107,7 @@
       .app > .footer .nav-btn .wrapper {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-        color: var(--color-text-secondary);
-        fill: var(--color-text-secondary);
-      }
-      .app > .footer .nav-btn.active .wrapper {
-        color: var(--color-text-primary);
-        fill: var(--color-text-primary);
       }
       .app > .footer .nav-icon {
         width: 24px;
@@ -142,18 +116,13 @@
         justify-content: center;
         align-items: center;
       }
-      .app > .footer .nav .icon {
-        width: 100%;
-        height: 100%;
+      .app > .footer .nav-icon svg {
+        fill: var(--text-secondary);
+        color: var(--text-secondary);
       }
-      .app > .footer .nav .ic-solid {
-        display: none;
-      }
-      .app > .footer .nav-btn.active .ic-regular {
-        /*display: none;*/
-      }
-      .app > .footer .nav-btn.active .ic-solid {
-        /*display: block;*/
+      .app > .footer .nav-btn.active svg {
+        fill: var(--text-primary);
+        color: var(--text-primary);
       }
       .app > .footer .nav-title {
         width: 100%;
@@ -161,27 +130,27 @@
         margin-bottom: 2px;
         display: flex;
         justify-content: center;
-        color: var(--color-text-primary);
+      }
+      .app > .footer .nav-title span {
+        color: var(--text-primary);
         font-size: 10px;
       }
       .app > .footer .nav-btn .active-bar {
         width: 25px;
         height: 2px;
         border-radius: 100px;
-        background-color: var(--color-on-background);
+        background-color: var(--on-bg);
         visibility: hidden;
       }
       .app > .footer .nav-btn.active .active-bar {
         visibility: visible;
       }
-      /* Home */
       .home {
         width: 100%;
       }
       .home > .header {
         width: 100%;
-        /*box-shadow: 0px 0px 10px 15px var(--color-background);*/
-        background-color: var(--color-background);
+        background-color: var(--bg);
         position: sticky;
         top: 0;
         user-select: none;
@@ -209,7 +178,7 @@
         width: 100%;
         height: 2px;
         border-radius: 100px;
-        background-color: var(--color-on-background);
+        background-color: var(--on-bg);
         transition: all 0.1s ease;
       }
       .home > .header .nav .hamburg span:nth-child(2) {
@@ -251,7 +220,7 @@
         height: 100%;
         padding: 60px 28px 0px 28px;
         box-sizing: border-box;
-        background-color: var(--color-background);
+        background-color: var(--bg);
         position: fixed;
         top: 0;
         left: 0;
@@ -266,7 +235,7 @@
       .home > .header .menu-item {
         width: 100%;
         margin: 20px 0;
-        color: var(--color-text-primary);
+        color: var(--text-primary);
         font-size: 20px;
         font-weight: 500;
         opacity: 0;
@@ -294,13 +263,10 @@
         padding: 10px 20px;
         box-sizing: border-box;
       }
-      .home > .main > .container {
-        width: 100%;
-      }
-      .home > .main > .container > .fragment {
+      .home > .main > .fragment {
         display: none;
       }
-      .home > .main > .container > .fragment.active {
+      .home > .main > .fragment.active {
         display: block;
       }
       .home > .main .coll,
@@ -479,94 +445,189 @@
           color: rgba(255, 255, 255, 0.7);
         }
       }
-
-      /* Search */
-      .search {
-        width: 100%;
-        height: 100%;
-        background-color: var(--color-background);
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1;
-      }
-      /* Updates */
-      .updates {
-        width: 100%;
-        height: 100%;
-        background-color: var(--color-background);
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1;
-      }
-      /* Profile */
       .profile {
         width: 100%;
+      }
+      .profile > .auth {
+        width: 100%;
+        height: 100%;
+        display: none;
+      }
+      .profile[role="auth"] {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+      }
+      .profile[role="auth"] > .user {
+        display: none;
+      }
+      .profile[role="auth"] > .auth {
+        display: block;
+      }
+      .auth > .header {
+        width: 100%;
+        position: absolute;
+      }
+      .auth > .header .nav {
+        width: 100%;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: end;
+      }
+      .auth > .header .nav-item {
+        height: 40px;
+        padding: 0 25px;
+        box-sizing: border-box;
+        border-radius: 100px;
+        background-color: var(--on-bg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .auth > .header .nav-item span {
+        color: var(--bg);
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .auth > .main {
+        width: 100%;
+        height: 100%;
+        padding: 65px 25px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-y: scroll;
+      }
+      .auth > .main .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+      .auth > .main .avatar {
+        width: 120px;
+      }
+      .auth > .main .avatar img {
+        width: 100%;
+        pointer-events: none;
+        -webkit-user-drag: none;
+        -webkit-touch-callout: none;
+      }
+      .auth > .main .heading span {
+        color: var(--text-primary);
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .auth > .main .des span {
+        color: var(--text-primary);
+        font-size: 14px;
+      }
+      .auth > .main .btn {
+        height: 40px;
+        padding: 0 25px;
+        box-sizing: border-box;
+        border-radius: 100px;
+        background-color: var(--on-bg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .auth > .main .btn span {
+        color: var(--bg);
+        font-size: 14px;
+        font-weight: bold;
       }
     </style>
   </head>
   <body>
     <div class="app">
       <div class="main">
-        <div class="container">
-          <div class="fragment home">
-            <div class="header">
-              <div class="nav">
-                <div class="hamburg">
-                  <span></span>
-                  <span></span>
-                </div>
-                <div>
-                  <div class="nav-item">
-                    <div class="nav-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" fill="none" r="8.635" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle>
-                        <path d="M14.232 3.656a1.269 1.269 0 0 1-.796-.66L12.93 2h-1.86l-.505.996a1.269 1.269 0 0 1-.796.66m-.001 16.688a1.269 1.269 0 0 1 .796.66l.505.996h1.862l.505-.996a1.269 1.269 0 0 1 .796-.66M3.656 9.768a1.269 1.269 0 0 1-.66.796L2 11.07v1.862l.996.505a1.269 1.269 0 0 1 .66.796m16.688-.001a1.269 1.269 0 0 1 .66-.796L22 12.93v-1.86l-.996-.505a1.269 1.269 0 0 1-.66-.796M7.678 4.522a1.269 1.269 0 0 1-1.03.096l-1.06-.348L4.27 5.587l.348 1.062a1.269 1.269 0 0 1-.096 1.03m11.8 11.799a1.269 1.269 0 0 1 1.03-.096l1.06.348 1.318-1.317-.348-1.062a1.269 1.269 0 0 1 .096-1.03m-14.956.001a1.269 1.269 0 0 1 .096 1.03l-.348 1.06 1.317 1.318 1.062-.348a1.269 1.269 0 0 1 1.03.096m11.799-11.8a1.269 1.269 0 0 1-.096-1.03l.348-1.06-1.317-1.318-1.062.348a1.269 1.269 0 0 1-1.03-.096" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path>
-                      </svg>
-                    </div>
+        <div class="fragment home">
+          <div class="header">
+            <div class="nav">
+              <div class="hamburg">
+                <span></span>
+                <span></span>
+              </div>
+              <div>
+                <div class="nav-item">
+                  <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" fill="none" r="8.635" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle>
+                      <path d="M14.232 3.656a1.269 1.269 0 0 1-.796-.66L12.93 2h-1.86l-.505.996a1.269 1.269 0 0 1-.796.66m-.001 16.688a1.269 1.269 0 0 1 .796.66l.505.996h1.862l.505-.996a1.269 1.269 0 0 1 .796-.66M3.656 9.768a1.269 1.269 0 0 1-.66.796L2 11.07v1.862l.996.505a1.269 1.269 0 0 1 .66.796m16.688-.001a1.269 1.269 0 0 1 .66-.796L22 12.93v-1.86l-.996-.505a1.269 1.269 0 0 1-.66-.796M7.678 4.522a1.269 1.269 0 0 1-1.03.096l-1.06-.348L4.27 5.587l.348 1.062a1.269 1.269 0 0 1-.096 1.03m11.8 11.799a1.269 1.269 0 0 1 1.03-.096l1.06.348 1.318-1.317-.348-1.062a1.269 1.269 0 0 1 .096-1.03m-14.956.001a1.269 1.269 0 0 1 .096 1.03l-.348 1.06 1.317 1.318 1.062-.348a1.269 1.269 0 0 1 1.03.096m11.799-11.8a1.269 1.269 0 0 1-.096-1.03l.348-1.06-1.317-1.318-1.062.348a1.269 1.269 0 0 1-1.03-.096" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
                   </div>
                 </div>
               </div>
-              <div class="menu">
-                <div class="menu-item">
-                  <span>Collections</span>
+            </div>
+            <div class="menu">
+              <div class="menu-item">
+                <span>Collections</span>
+              </div>
+              <div class="menu-item">
+                <span>Expanses</span>
+              </div>
+            </div>
+          </div>
+          <div class="main">
+            <div class="fragment coll">
+              <div class="preloader">
+                <div class="loader">
+                  <svg height="100%" viewBox="0 0 32 32" width="100%">
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); opacity: 0.1"></circle>
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
+                  </svg>
                 </div>
-                <div class="menu-item">
-                  <span>Expanses</span>
+              </div>
+              <div class="gen"></div>
+            </div>
+            <div class="fragment exp">
+              <div class="preloader">
+                <div class="loader">
+                  <svg height="100%" viewBox="0 0 32 32" width="100%">
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); opacity: 0.1"></circle>
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
+                  </svg>
+                </div>
+              </div>
+              <div class="gen"></div>
+            </div>
+          </div>
+        </div>
+        <div class="fragment search">
+          <span>Search</span>
+        </div>
+        <div class="fragment updates">
+          <span>Updates</span>
+        </div>
+        <div class="fragment profile">
+          <div class="auth">
+            <div class="header">
+              <div class="nav">
+                <div class="nav-item">
+                  <span>Log in</span>
                 </div>
               </div>
             </div>
             <div class="main">
               <div class="container">
-                <div class="fragment coll">
-                  <div class="preloader">
-                    <div class="loader">
-                      <svg height="100%" viewBox="0 0 32 32" width="100%">
-                        <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); opacity: 0.1"></circle>
-                        <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="gen"></div>
+                <div class="avatar">
+                  <img src="/app/assets/img/avatar.png" alt="" />
                 </div>
-                <div class="fragment exp">
-                  <div class="preloader">
-                    <div class="loader">
-                      <svg height="100%" viewBox="0 0 32 32" width="100%">
-                        <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); opacity: 0.1"></circle>
-                        <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="gen"></div>
+                <div class="heading">
+                  <span>Become a member!</span>
+                </div>
+                <div class="des">
+                  <span>It only takes a minute to create your account.</span>
+                </div>
+                <div class="btn">
+                  <span>Signup to OneClub</span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="fragment search"></div>
-          <div class="fragment updates"></div>
-          <div class="fragment profile"></div>
         </div>
       </div>
       <div class="footer">
@@ -574,20 +635,11 @@
           <div class="nav-btn">
             <div class="wrapper">
               <div class="nav-icon">
-                <div class="icon ic-regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <g>
-                      <path d="M13.819 4.666a2.815 2.815 0 0 0-3.638 0L4.795 9.12C4.305 9.526 4 10.167 4 10.866v6.945C4 19.078 4.952 20 6 20h2v-3.252c0-2.255 1.734-4.19 4-4.19s4 1.935 4 4.19V20h2c1.048 0 2-.922 2-2.19v-6.944c0-.699-.304-1.34-.795-1.746zm1.274-1.541 5.386 4.453c.97.803 1.521 2.019 1.521 3.288v6.945C22 20.066 20.266 22 18 22h-2a2 2 0 0 1-2-2v-3.252c0-1.268-.952-2.19-2-2.19s-2 .922-2 2.19V20a2 2 0 0 1-2 2H6c-2.266 0-4-1.934-4-4.19v-6.944c0-1.269.55-2.485 1.521-3.288l5.386-4.453a4.814 4.814 0 0 1 6.186 0z"></path>
-                    </g>
-                  </svg>
-                </div>
-                <div class="icon ic-solid">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <g>
-                      <path d="m20.479 7.578-5.386-4.453a4.814 4.814 0 0 0-6.186 0L3.521 7.578C2.551 8.381 2 9.597 2 10.866v6.945C2 20.066 3.734 22 6 22h2a2 2 0 0 0 2-2v-3.252c0-1.268.952-2.19 2-2.19s2 .922 2 2.19V20a2 2 0 0 0 2 2h2c2.266 0 4-1.934 4-4.19v-6.944c0-1.269-.55-2.485-1.521-3.288z" clip-rule="evenodd" opacity="1" data-original="#000000"></path>
-                    </g>
-                  </svg>
-                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <g>
+                    <path d="M13.819 4.666a2.815 2.815 0 0 0-3.638 0L4.795 9.12C4.305 9.526 4 10.167 4 10.866v6.945C4 19.078 4.952 20 6 20h2v-3.252c0-2.255 1.734-4.19 4-4.19s4 1.935 4 4.19V20h2c1.048 0 2-.922 2-2.19v-6.944c0-.699-.304-1.34-.795-1.746zm1.274-1.541 5.386 4.453c.97.803 1.521 2.019 1.521 3.288v6.945C22 20.066 20.266 22 18 22h-2a2 2 0 0 1-2-2v-3.252c0-1.268-.952-2.19-2-2.19s-2 .922-2 2.19V20a2 2 0 0 1-2 2H6c-2.266 0-4-1.934-4-4.19v-6.944c0-1.269.55-2.485 1.521-3.288l5.386-4.453a4.814 4.814 0 0 1 6.186 0z"></path>
+                  </g>
+                </svg>
               </div>
               <div class="nav-title">
                 <span>Home</span>
@@ -598,18 +650,10 @@
           <div class="nav-btn">
             <div class="wrapper">
               <div class="nav-icon">
-                <div class="icon ic-regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                    <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
-                  </svg>
-                </div>
-                <div class="icon ic-solid">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M18.5 10.5a8 8 0 1 1-8-8 8 8 0 0 1 8 8Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
-                    <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" x1="16.511" x2="21.643" y1="16.511" y2="21.643"></line>
-                  </svg>
-                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                  <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="16.511" x2="22" y1="16.511" y2="22"></line>
+                </svg>
               </div>
               <div class="nav-title">
                 <span>Search</span>
@@ -620,18 +664,11 @@
           <div class="nav-btn">
             <div class="wrapper">
               <div class="nav-icon">
-                <div class="icon ic-regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <g>
-                      <path d="M13.5 12a1.5 1.5 0 1 1-3.001-.001A1.5 1.5 0 0 1 13.5 12Zm3.5-1.5a1.5 1.5 0 1 0 .001 3.001A1.5 1.5 0 0 0 17 10.5Zm-10 0a1.5 1.5 0 1 0 .001 3.001A1.5 1.5 0 0 0 7 10.5Zm17 1.84V19c0 2.757-2.243 5-5 5h-5.917C6.082 24 .47 19.208.03 12.854c-.241-3.476 1.027-6.878 3.479-9.333S9.363-.206 12.836.029C19.096.454 24 5.862 24 12.341Zm-2 0c0-5.431-4.084-9.962-9.299-10.316a10.015 10.015 0 0 0-7.777 2.91 10.019 10.019 0 0 0-2.899 7.782c.373 5.38 5.024 9.285 11.059 9.285h5.917c1.654 0 3-1.346 3-3v-6.66Z"></path>
-                    </g>
-                  </svg>
-                </div>
-                <div class="icon ic-solid">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <g><path d="M12.836.029C9.362-.206 5.961 1.065 3.508 3.521S-.211 9.378.03 12.854C.47 19.208 6.082 24 13.084 24h5.917c2.757 0 5-2.243 5-5v-6.66C24 5.862 19.096.454 12.836.029ZM7 13.5a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 7 13.5Zm5 0a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 12 13.5Zm5 0a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 17 13.5Z"></path></g>
-                  </svg>
-                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <g>
+                    <path d="M13.5 12a1.5 1.5 0 1 1-3.001-.001A1.5 1.5 0 0 1 13.5 12Zm3.5-1.5a1.5 1.5 0 1 0 .001 3.001A1.5 1.5 0 0 0 17 10.5Zm-10 0a1.5 1.5 0 1 0 .001 3.001A1.5 1.5 0 0 0 7 10.5Zm17 1.84V19c0 2.757-2.243 5-5 5h-5.917C6.082 24 .47 19.208.03 12.854c-.241-3.476 1.027-6.878 3.479-9.333S9.363-.206 12.836.029C19.096.454 24 5.862 24 12.341Zm-2 0c0-5.431-4.084-9.962-9.299-10.316a10.015 10.015 0 0 0-7.777 2.91 10.019 10.019 0 0 0-2.899 7.782c.373 5.38 5.024 9.285 11.059 9.285h5.917c1.654 0 3-1.346 3-3v-6.66Z"></path>
+                  </g>
+                </svg>
               </div>
               <div class="nav-title">
                 <span>Updates</span>
@@ -642,19 +679,9 @@
           <div class="nav-btn">
             <div class="wrapper">
               <div class="nav-icon">
-                <div class="icon ic-regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <g><path d="M12 12a6 6 0 1 0-6-6 6.006 6.006 0 0 0 6 6Zm0-10a4 4 0 1 1-4 4 4 4 0 0 1 4-4ZM12 14a9.01 9.01 0 0 0-9 9 1 1 0 0 0 2 0 7 7 0 0 1 14 0 1 1 0 0 0 2 0 9.01 9.01 0 0 0-9-9Z"></path></g>
-                  </svg>
-                </div>
-                <div class="icon ic-solid">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <g>
-                      <circle cx="256" cy="128" r="128" opacity="1" data-original="#000000"></circle>
-                      <path d="M256 298.667c-105.99.118-191.882 86.01-192 192C64 502.449 73.551 512 85.333 512h341.333c11.782 0 21.333-9.551 21.333-21.333-.117-105.99-86.009-191.883-191.999-192z"></path>
-                    </g>
-                  </svg>
-                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <g><path d="M12 12a6 6 0 1 0-6-6 6.006 6.006 0 0 0 6 6Zm0-10a4 4 0 1 1-4 4 4 4 0 0 1 4-4ZM12 14a9.01 9.01 0 0 0-9 9 1 1 0 0 0 2 0 7 7 0 0 1 14 0 1 1 0 0 0 2 0 9.01 9.01 0 0 0-9-9Z"></path></g>
+                </svg>
               </div>
               <div class="nav-title">
                 <span>Profile</span>
@@ -665,7 +692,7 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" charset="utf-8">
+    <script>
       class BottomSheetDialog {
         constructor(context) {
           this.context = context || document.body;
@@ -741,8 +768,8 @@
               cursor: "grab"
             });
             this.dragHandleView.appendChild(this.dragHandle);
-            this.dragHandle.addEventListener("mousedown", this.startDrag.bind(this));
-            this.dragHandle.addEventListener("touchstart", this.startDrag.bind(this), { passive: false });
+            if (this.cancelable) this.dragHandle.addEventListener("mousedown", this.startDrag.bind(this));
+            if (this.cancelable) this.dragHandle.addEventListener("touchstart", this.startDrag.bind(this), { passive: false });
             if (this.sheet.firstChild) this.sheet.insertBefore(this.dragHandleView, this.sheet.firstChild);
           } else if (!flag && this.dragHandleView) {
             this.dragHandleView.remove();
@@ -854,56 +881,12 @@
         }
       }
     </script>
-    <script type="text/javascript" charset="utf-8">
-      const fetchUser = async user => {
-        const status = { success: false };
-        while (!status.success) {
-          try {
-            const res = await fetch("https://script.google.com/macros/s/AKfycbwEy3EAl_MQqzQ_iYuWdGk1a3AC3Dl-0_clayU3nG7MjiO85yQF_KD9INmJffq-ekxu/exec", {
-              method: "POST",
-              body: JSON.stringify({
-                query: "CHECKUSER",
-                contents: {
-                  query: "CHECK",
-                  user: user
-                }
-              })
-            });
-            status.success = true;
-            const data = await res.json();
-            return data;
-          } catch (err) {
-            await new Promise(resolve => setTimeout(resolve, 3000));
-          }
-        }
-      };
-
-      const rawUser = localStorage.getItem("application.user");
-      const user = rawUser ? JSON.parse(rawUser) : null;
-      if (user && user.auth.isLoggedIn) {
-      } else {
-        window.addEventListener("pageshow", e => {
-          const rawStack = sessionStorage.getItem("application.auth.nav.stack");
-          const stack = rawStack ? JSON.parse(rawStack) : [];
-          if (stack.includes(window.location.pathname)) {
-            const newStack = stack.filter(stack => stack !== location.pathname);
-            if (newStack.length > 0) sessionStorage.setItem("application.auth.nav.stack", JSON.stringify(newStack));
-            else sessionStorage.removeItem("application.auth.nav.stack");
-          }
-          const rawUser = localStorage.getItem("application.user");
-          const user = rawUser ? JSON.parse(rawUser) : null;
-          if (user && user.auth.isLoggedIn) {
-            window.location.reload();
-          }
-        });
-      }
-
+    <script>
       window.addEventListener("DOMContentLoaded", e => {
         const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
         const parts = hash.split("/").filter(Boolean);
-        const main = parts[0] || "home";
-        if (["home", "search", "updates", "profile"].includes(main)) {
-          const index = ["home", "search", "updates", "profile"].indexOf(main);
+        if (["home", "search", "updates", "profile"].includes(parts[0] || "home")) {
+          const index = ["home", "search", "updates", "profile"].indexOf(parts[0] || "home");
           onCreate(index);
         }
       });
@@ -914,19 +897,6 @@
           if (!btn.classList.contains("active")) {
             const fragments = ["home", "search", "updates", "profile"];
             if (navBtn[0].classList.contains("active")) {
-              if ([3].includes(index)) {
-                const user = (() => {
-                  try {
-                    return JSON.parse(localStorage.getItem("application.user")) || {};
-                  } catch {
-                    return {};
-                  }
-                })();
-                if (!user.auth?.isLoggedIn) {
-                  location.href = "auth/";
-                  return;
-                }
-              }
               history.pushState({}, "", `#/${fragments[index]}`);
             } else {
               switch (index) {
@@ -937,46 +907,29 @@
               history.replaceState({}, "", `#/${fragments[index]}`);
             }
             onCreate(index);
-          } else {
           }
         });
       });
 
       window.addEventListener("hashchange", e => {
-        const oldHash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
-        const newHash = new URL(e.newURL).hash.replace(/^#\/?/, "");
-        const oldParts = oldHash.split("/").filter(Boolean);
-        const newParts = newHash.split("/").filter(Boolean);
-        const validPaths = {
-          home: { menu: {}, coll: {}, exp: {} },
-          search: {},
-          updates: {},
-          profile: {}
-        };
-        function isValidRoute(parts, validTree) {
-          if (parts.length === 0) return true;
-          const [head, ...tail] = parts;
-          if (!validTree[head]) return false;
-          return isValidRoute(tail, validTree[head]);
-        }
-        if (["home"].includes(oldParts[0])) {
-          const index = ["home"].indexOf(oldParts[0]);
-          switch (index) {
-            case 0:
-              if (["menu"].includes(oldParts[1])) {
-                const menu = document.querySelector(".home > .header .menu");
-                const hamburg = document.querySelector(".home > .header .nav .hamburg");
-                hamburg.classList.remove("active");
-                menu.classList.remove("active");
-                document.querySelectorAll(".scrollable").forEach(item => {
-                  item.classList.remove("no-scroll");
-                });
-              }
-              break;
+        const hash = new URL(e.newURL).hash.replace(/^#\/?/, "");
+        const parts = hash.split("/").filter(Boolean);
+        const isValid = parts => {
+          const paths = {
+            home: { menu: {}, coll: {}, exp: {} },
+            search: {},
+            updates: {},
+            profile: {}
+          };
+          let current = paths;
+          for (const part of parts) {
+            if (!(part in current)) return false;
+            current = current[part];
           }
-        }
-        if (["home", "search", "updates", "profile"].includes(newParts[0]) && isValidRoute(newParts, validPaths)) {
-          const index = ["home", "search", "updates", "profile"].indexOf(newParts[0]);
+          return true;
+        };
+        if (["home", "search", "updates", "profile"].includes(parts[0]) && isValid(parts)) {
+          const index = ["home", "search", "updates", "profile"].indexOf(parts[0]);
           onCreate(index);
           return;
         }
@@ -1002,7 +955,7 @@
       }
 
       function onCreate(index) {
-        const fragments = document.querySelectorAll(".app > .main > .container > .fragment");
+        const fragments = document.querySelectorAll(".app > .main > .fragment");
         fragments.forEach(fragment => fragment.classList.remove("active"));
         fragments[index].classList.add("active");
         navBtn.forEach(btn => btn.classList.remove("active"));
@@ -1011,50 +964,30 @@
           case 0:
             renderHome();
             break;
-          case 1:
-            //renderSearch();
-            break;
-          case 2:
-            //renderBroadcast();
-            break;
           case 3:
-            //renderProfile();
+            renderProfile();
             break;
         }
-      }
-
-      function recreate(index) {
-        switch (index) {
-          case 0:
-            break;
-          case 1:
-            break;
-          case 2:
-            break;
-          case 3:
-            break;
-        }
-        onCreate(index);
       }
 
       function renderHome() {
         const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
         const parts = hash.split("/").filter(Boolean);
-        const sub = parts[1] || "coll";
-        if (["menu"].includes(sub)) {
+        if (["menu"].includes(parts[1])) {
           hamburg.classList.add("active");
           menu.classList.add("active");
           document.querySelectorAll(".scrollable").forEach(item => {
             item.classList.add("no-scroll");
           });
-        } else if (["coll", "exp"].includes(sub)) {
-          const index = ["coll", "exp"].indexOf(sub);
+        } else if (["coll", "exp"].includes(parts[1] || "coll")) {
+          const index = ["coll", "exp"].indexOf(parts[1] || "coll");
           switch (index) {
             case 0:
               if (!history.state) history.replaceState({}, "", "#/home/coll");
               break;
           }
           sessionStorage.setItem("app[0][1][fragment]", ["coll", "exp"][index]);
+          if (["overview"].includes(parts[2])) if (history.state.sheet?.isShow) history.back();
         }
         const fragment = sessionStorage.getItem("app[0][1][fragment]") || "coll";
         const index = ["coll", "exp"].indexOf(fragment);
@@ -1077,10 +1010,29 @@
         }
       });
 
+      window.addEventListener("hashchange", e => {
+        const hash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
+        const parts = hash.split("/").filter(Boolean);
+        if (["home"].includes(parts[0])) {
+          const index = ["home"].indexOf(parts[0]);
+          switch (index) {
+            case 0:
+              if (["menu"].includes(parts[1])) {
+                hamburg.classList.remove("active");
+                menu.classList.remove("active");
+                document.querySelectorAll(".scrollable").forEach(item => {
+                  item.classList.remove("no-scroll");
+                });
+              }
+              break;
+          }
+        }
+      });
+
       const menuItem = document.querySelectorAll(".home > .header .menu-item");
       menuItem.forEach((item, index) => {
         item.addEventListener("click", e => {
-          if (!menuItem[index].classList.contains("active")) {
+          if (!item.classList.contains("active")) {
             const fragments = ["coll", "exp"];
             if (menuItem[0].classList.contains("active")) {
               history.replaceState({}, "", "#/home/exp");
@@ -1121,12 +1073,13 @@
             sessionStorage.setItem("application.data.coll", JSON.stringify(data.data));
             renderColl();
           } catch (err) {
-            let data;
-            try {
-              data = JSON.parse(localStorage.getItem("application.data.coll")) || [];
-            } catch (e) {
-              data = [];
-            }
+            const data = (() => {
+              try {
+                return JSON.parse(sessionStorage.getItem("application.data.coll")) || [];
+              } catch (err) {
+                return [];
+              }
+            })();
             if (!data?.length) {
               setTimeout(() => {
                 preloader.classList.remove("active");
@@ -1162,12 +1115,13 @@
             sessionStorage.setItem("application.data.exp", JSON.stringify(data.data));
             renderExp();
           } catch (err) {
-            let data;
-            try {
-              data = JSON.parse(localStorage.getItem("application.data.exp")) || [];
-            } catch (err) {
-              data = [];
-            }
+            const data = (() => {
+              try {
+                return JSON.parse(sessionStorage.getItem("application.data.exp")) || [];
+              } catch (err) {
+                return [];
+              }
+            })();
             if (!data?.length) {
               setTimeout(() => {
                 preloader.classList.remove("active");
@@ -1186,10 +1140,9 @@
       fetchData();
 
       function loadFragment(index) {
-        const fragments = document.querySelectorAll(".home > .main > .container > .fragment");
+        const fragments = document.querySelectorAll(".home > .main > .fragment");
         fragments.forEach(fragment => fragment.classList.remove("active"));
         fragments[index].classList.add("active");
-        const menuItem = document.querySelectorAll(".home > .header .menu-item");
         menuItem.forEach(item => item.classList.remove("active"));
         menuItem[index].classList.add("active");
         switch (index) {
@@ -1203,49 +1156,32 @@
       }
 
       function renderColl() {
-        const parseData = () => {
+        const data = (() => {
           try {
-            return JSON.parse(sessionStorage.getItem("application.data.coll"));
+            return JSON.parse(sessionStorage.getItem("application.data.coll")) || [];
           } catch (err) {
             return [];
           }
-        };
-        const data = parseData();
-        if (!data) return;
-        genCard(0, true);
+        })();
+        if (!data?.length) return;
+        const root = document.querySelector(".home > .main .coll .gen");
+        genCard(data, root, true);
       }
 
       function renderExp() {
-        const parseData = () => {
+        const data = (() => {
           try {
-            return JSON.parse(sessionStorage.getItem("application.data.exp"));
+            return JSON.parse(sessionStorage.getItem("application.data.exp")) || [];
           } catch (err) {
             return [];
           }
-        };
-        const data = parseData();
-        if (!data) return;
-        genCard(1, true);
+        })();
+        if (!data?.length) return;
+        const root = document.querySelector(".home > .main .exp .gen");
+        genCard(data, root, true);
       }
 
-      function genCard(index, flag) {
-        const getRoot = index => {
-          const items = [".home > .main .coll .gen", ".home > .main .exp .gen"];
-          return document.querySelector(items[index]);
-        };
-        const parseData = index => {
-          const items = ["application.data.coll", "application.data.exp"];
-          try {
-            return JSON.parse(sessionStorage.getItem(items[index]));
-          } catch (err) {
-            return [];
-          }
-        };
-        const root = getRoot(index);
-        const data = parseData(index);
-        root.querySelectorAll(".gen-card").forEach(card => {
-          card.remove();
-        });
+      function genCard(data, root, flag) {
         const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         const daysEn = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         const daysBn = ["রবিবার", "সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার", "শুক্রবার", "শনিবার"];
@@ -1255,20 +1191,6 @@
           const isValid = date.getFullYear() === parseInt(String(id).slice(4), 10) && date.getMonth() === parseInt(String(id).slice(2, 4), 10) - 1 && date.getDate() === parseInt(String(id).slice(0, 2), 10);
           return { isValid, toDate: () => (isValid ? date : null) };
         };
-        /*const timeAgo = d => {
-          const s = Math.floor((new Date() - d) / 1000);
-          const i = [
-            ["year", 31536000],
-            ["month", 2592000],
-            ["week", 604800],
-            ["day", 86400],
-            ["hour", 3600],
-            ["minute", 60],
-            ["second", 1]
-          ];
-          for (const [label, sec] of i) if (s >= sec) return Math.floor(s / sec) + " " + label + (Math.floor(s / sec) > 1 ? "s" : "") + " ago";
-          return "just now";
-        };*/
         const timeAgo = d => {
           const s = Math.floor((new Date() - d) / 1000);
           const intervals = [
@@ -1286,6 +1208,9 @@
         const truncate = (text, max) => (text && text.length > max ? text.slice(0, max).trim() + "..." : text || "");
         const inrFormatter = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
         const toInr = num => inrFormatter.format(num);
+        root.querySelectorAll(".gen-card").forEach(card => {
+          card.remove();
+        });
         data.forEach((data, index) => {
           const date = parseId(data.id).toDate();
           const card = document.createElement("div");
@@ -1364,15 +1289,32 @@
           });
           dialog.show();
         }
-        window.addEventListener("hashchange", e => {
-          const oldHash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
-          const oldParts = oldHash.split("/").filter(Boolean);
-          if (["home"].includes(oldParts[0])) {
-            if (["overview"].includes(oldParts[2])) {
+        const onHash = e => {
+          const hash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
+          const parts = hash.split("/").filter(Boolean);
+          if (["home"].includes(parts[0])) {
+            if (["overview"].includes(parts[2])) {
               dialog.dismiss();
             }
           }
-        });
+          window.removeEventListener("hashchange", onHash);
+        };
+        window.addEventListener("hashchange", onHash);
+      }
+
+      function renderProfile() {
+        const user = (() => {
+          try {
+            return JSON.parse(localStorage.getItem("application.user")) || {};
+          } catch {
+            return {};
+          }
+        })();
+        if (!user.auth?.isLoggedIn) {
+          const profile = document.querySelector(".app > .main > .profile");
+          profile.setAttribute("role", "auth");
+          return;
+        }
       }
     </script>
   </body>
