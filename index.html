@@ -29,7 +29,7 @@
         font-weight: 400;
         font-style: normal;
       }
-      /*@font-face {
+      @font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-Italic.ttf") format("truetype");
         font-weight: 400;
@@ -58,7 +58,7 @@
         src: url("/app/assets/fonts/GoogleSans-BoldItalic.ttf") format("truetype");
         font-weight: 700;
         font-style: italic;
-      }*/
+      }
       body {
         margin: 0;
         padding: 0;
@@ -539,6 +539,60 @@
         font-size: 14px;
         font-weight: bold;
       }
+      .app > .popup {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        display: none;
+        z-index: 1;
+      }
+      .app > .popup.active {
+        display: block;
+      }
+      .app > .popup .backdrop {
+        width: 100%;
+        height: 100%;
+        padding: 15px;
+        box-sizing: border-box;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+      }
+      .app > .popup .main {
+        width: 100%;
+        min-height: 400px;
+        border-radius: 30px;
+        background-color: var(--bg);
+      }
+      .app > .popup .main .header {
+        width: 100%;
+        position: relative;
+        border-bottom: 1px solid var(--devider);
+      }
+      .app > .popup .main .header .nav {
+        width: 100%;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+      }
+      .app > .popup .main .header .nav-item {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .app > .popup .main .header .nav-icon {
+        width: 100%;
+        height: 100%;
+      }
+      .app > .popup .main .heading {
+        position: absolute;
+      }
     </style>
   </head>
   <body>
@@ -596,12 +650,8 @@
             </div>
           </div>
         </div>
-        <div class="fragment search">
-          <span>Search</span>
-        </div>
-        <div class="fragment updates">
-          <span>Updates</span>
-        </div>
+        <div class="fragment search"></div>
+        <div class="fragment updates"></div>
         <div class="fragment profile">
           <div class="auth">
             <div class="header">
@@ -687,6 +737,26 @@
                 <span>Profile</span>
               </div>
               <div class="active-bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="popup">
+        <div class="backdrop">
+          <div class="main">
+            <div class="header">
+              <div class="nav">
+                <div class="nav-item">
+                  <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="enable-background: new 0 0 512 512" xml:space="preserve">
+                      <g><path d="M18 6a1 1 0 0 0-1.414 0L12 10.586 7.414 6A1 1 0 0 0 6 6a1 1 0 0 0 0 1.414L10.586 12 6 16.586A1 1 0 0 0 6 18a1 1 0 0 0 1.414 0L12 13.414 16.586 18A1 1 0 0 0 18 18a1 1 0 0 0 0-1.414L13.414 12 18 7.414A1 1 0 0 0 18 6Z"></path></g>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="heading">
+                <span>OneClub</span>
+              </div>
             </div>
           </div>
         </div>
@@ -799,7 +869,7 @@
             };
           } else {
             return {
-              backdropColor: "rgba(0, 0, 0, 0.4)",
+              backdropColor: "rgba(0, 0, 0, 0.5)",
               backgroundColor: "rgba(255, 255, 255, 1)",
               dragHandleColor: "rgba(0, 0, 0, 0.3)"
             };
@@ -919,7 +989,8 @@
             home: { menu: {}, coll: {}, exp: {} },
             search: {},
             updates: {},
-            profile: {}
+            profile: {},
+            auth: {}
           };
           let current = paths;
           for (const part of parts) {
@@ -928,13 +999,17 @@
           }
           return true;
         };
-        if (["home", "search", "updates", "profile"].includes(parts[0]) && isValid(parts)) {
+
+        if (!isValid(parts)) {
+          if (history.length > 1) history.back();
+          else window.location.hash = "#/home/coll";
+          return;
+        }
+        if (["home", "search", "updates", "profile"].includes(parts[0])) {
           const index = ["home", "search", "updates", "profile"].indexOf(parts[0]);
           onCreate(index);
           return;
         }
-        if (history.length > 1) history.back();
-        else window.location.hash = "#/home/coll";
       });
 
       function onBackPressed() {
@@ -1316,6 +1391,47 @@
           return;
         }
       }
+      const dialog = new BottomSheetDialog(document.body);
+      const authentication = index => {
+        const layout = document.createElement("div");
+        layout.innerHTML = "Duis sint anim officia enim laboris sit eu. Culpa ad officia aliqua aliquip irure. Adipisicing labore ad eiusmod enim consectetur amet fugiat ad quis mollit ea dolor id laborum. Ullamco ad pariatur consequat enim elit laborum nisi proident laboris eu consectetur consequat ullamco amet. Aute qui voluptate ullamco ullamco minim irure eiusmod irure anim Lorem incididunt fugiat cillum officia. Irure ipsum sunt in qui quis duis qui ea. Ut quis officia nisi esse consectetur veniam excepteur consectetur commodo velit officia ullamco dolor esse. Id duis sint laborum labore qui excepteur occaecat. Eu fugiat consectetur sit ullamco reprehenderit ipsum. Ipsum incididunt est ut fugiat qui.";
+        dialog.showDragHandle(true);
+        dialog.setContentView(layout);
+        dialog.setOnShowListener(() => {
+          if (!history.state.sheet?.isShow) history.pushState({ sheet: { isShow: true } }, "", "#/auth");
+          document.body.classList.add("scrollable");
+          document.querySelectorAll(".scrollable").forEach(item => {
+            item.classList.add("no-scroll");
+          });
+        });
+        dialog.setOnDismissListener(() => {
+          if (history.state.sheet?.isShow) history.back();
+          document.querySelectorAll(".scrollable").forEach(item => {
+            item.classList.remove("no-scroll");
+          });
+        });
+        dialog.show();
+      };
+      const btnLogin = document.querySelector(".auth > .header .nav-item");
+      btnLogin.addEventListener("click", e => {
+        authentication("login");
+      });
+      const btnSignup = document.querySelector(".auth > .main .btn");
+      btnSignup.addEventListener("click", e => {
+        authentication("signup");
+      });
+      window.addEventListener("hashchange", e => {
+        const newHash = new URL(e.newURL).hash.replace(/^#\/?/, "");
+        const oldHash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
+        const newParts = newHash.split("/").filter(Boolean);
+        const oldParts = oldHash.split("/").filter(Boolean);
+        if (["auth"].includes(oldParts[0])) {
+          dialog.dismiss();
+        }
+        if (["auth"].includes(newParts[0])) {
+          authentication("login");
+        }
+      });
     </script>
   </body>
 </html>
