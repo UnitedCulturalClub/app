@@ -31,7 +31,7 @@
         font-weight: 400;
         font-style: normal;
       }
-      @font-face {
+      /*@font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-Italic.ttf") format("truetype");
         font-weight: 400;
@@ -60,7 +60,7 @@
         src: url("/app/assets/fonts/GoogleSans-BoldItalic.ttf") format("truetype");
         font-weight: 700;
         font-style: italic;
-      }
+      }*/
       body {
         margin: 0;
         padding: 0;
@@ -599,7 +599,8 @@
       .qbzythwit[role="login"] .fields label:last-child {
         display: block;
       }
-      .qbzythwit .reqotp .fields input {
+      .qbzythwit .reqotp .fields input,
+      .qbzythwit .reqotp .fields select {
         width: 100%;
         height: 50px;
         padding: 20px;
@@ -612,25 +613,39 @@
         font-family: GoogleSans;
         font-size: 15px;
       }
-      .qbzythwit .reqotp .fields .select {
-        width: 100%;
-        height: 50px;
-        padding: 20px;
-        box-sizing: border-box;
-        border-radius: 100px;
-        background-color: rgba(0, 0, 0, 0.07);
-        display: flex;
-        align-items: center;
+      .qbzythwit .reqotp .fields input::placeholder {
+        color: rgba(0, 0, 0, 0.5);
       }
-      .qbzythwit .reqotp .fields .select span {
-        line-height: 1.5em;
-        font-family: GoogleSans;
-        font-size: 15px;
-        opacity: 0.5;
+      .qbzythwit .reqotp .fields input.invalid {
+        text-decoration-line: underline;
+        text-decoration-style: wavy;
+        text-decoration-color: red;
+      }
+      .qbzythwit .reqotp .fields select {
+        padding: 0 20px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        color: rgba(0, 0, 0, 0.5);
+        background-image: url("data:image/svg+xml;utf8,<svg fill='%23333' xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 20px center;
+        background-size: 16px;
+      }
+      .reqotp .fields select:has(option:checked:not([disabled])) {
+        color: var(--text-primary);
       }
       @media only screen and (prefers-color-scheme: dark) {
-        .qbzythwit .reqotp .fields input {
+        .qbzythwit .reqotp .fields input,
+        .qbzythwit .reqotp .fields select {
           background-color: rgba(255, 255, 255, 0.07);
+        }
+        .qbzythwit .reqotp .fields input::placeholder {
+          color: rgba(255, 255, 255, 0.5);
+        }
+        .qbzythwit .reqotp .fields select {
+          color: rgba(255, 255, 255, 0.5);
+          background-image: url("data:image/svg+xml;utf8,<svg fill='%23fff' xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>");
         }
       }
       .qbzythwit .reqotp .btn {
@@ -834,9 +849,10 @@
                 <input type="text" id="name" placeholder="Name" />
               </label>
               <label>
-                <select name="" id="">
-                  <option value=""></option>
-                  <option value=""></option>
+                <select id="gender">
+                  <option value="" selected disabled hidden>Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
                 </select>
               </label>
               <label>
@@ -1496,25 +1512,50 @@
       (() => {
         const dialog = new BottomSheetDialog(document.body);
         const qbzythwit = document.querySelector(".qbzythwit");
-        const reqBtn = qbzythwit.querySelector(".reqotp .btn");
+        const name = qbzythwit.querySelector(".reqotp .fields #name");
+        const gender = qbzythwit.querySelector(".reqotp .fields #gender");
+        const email = qbzythwit.querySelector(".reqotp .fields #email");
+        name.addEventListener("input", () => {});
+        email.addEventListener("input", e => {
+          if (email.classList.contains("invalid")) email.classList.remove("invalid");
+        });
         const onReq = e => {
           const index = ["login", "signup"].indexOf(qbzythwit.getAttribute("role"));
           switch (index) {
             case 0:
-              alert("login");
+              if (!email.value?.trim()) {
+                email.focus();
+                return;
+              } else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email.value?.trim())) {
+                email.classList.add("invalid");
+                email.focus();
+                return;
+              }
               break;
             case 1:
-              alert("signup");
+              if (email.value && !/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email.value?.trim())) {
+                email.classList.add("invalid");
+                email.focus();
+                return;
+              } else if (!name.value?.trim()) {
+                name.focus();
+                return;
+              } else if (!gender.value?.trim()) {
+                gender.showPicker();
+                return;
+              } else if (!email.value?.trim()) {
+                email.focus();
+                return;
+              } else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email.value?.trim())) {
+                email.classList.add("invalid");
+                email.focus();
+                return;
+              }
               break;
           }
+          qbzythwit.setAttribute("role", "validateotp");
         };
-        reqBtn.addEventListener("click", onReq);
-        const priLink = qbzythwit.querySelectorAll(".reqotp .footer .privacy-policy .link");
         const onPri = e => {};
-        priLink.forEach(link => {
-          link.addEventListener("click", onPri);
-        });
-        const swiLink = qbzythwit.querySelectorAll(".reqotp .footer .in-up .link");
         const onSwi = e => {
           const qbzythwit = document.querySelector(".qbzythwit");
           if (Object.is(qbzythwit.getAttribute("role"), "login")) {
@@ -1523,13 +1564,20 @@
             qbzythwit.setAttribute("role", "login");
           }
         };
-        swiLink.forEach(link => {
-          link.addEventListener("click", onSwi);
-        });
         const authentication = query => {
           const index = ["login", "signup"].indexOf(query);
           const qbzythwit = document.querySelector(".qbzythwit");
           qbzythwit.setAttribute("role", ["login", "signup"][index]);
+          const reqBtn = qbzythwit.querySelector(".reqotp .btn");
+          reqBtn.addEventListener("click", onReq);
+          const priLink = qbzythwit.querySelectorAll(".reqotp .footer .privacy-policy .link");
+          priLink.forEach(link => {
+            link.addEventListener("click", onPri);
+          });
+          const swiLink = qbzythwit.querySelectorAll(".reqotp .footer .in-up .link");
+          swiLink.forEach(link => {
+            link.addEventListener("click", onSwi);
+          });
           dialog.showDragHandle(true);
           dialog.setContentView(qbzythwit);
           dialog.setOnShowListener(() => {
@@ -1555,7 +1603,13 @@
         btnSignup.addEventListener("click", e => {
           authentication("signup");
         });
-        window.addEventListener("DOMContentLoaded", e => {});
+        window.addEventListener("DOMContentLoaded", e => {
+          const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
+          const parts = hash.split("/").filter(Boolean);
+          if (["auth"].includes(parts[0])) {
+            if (history.state.sheet?.isShow) history.back();
+          }
+        });
         window.addEventListener("hashchange", e => {
           const newHash = new URL(e.newURL).hash.replace(/^#\/?/, "");
           const oldHash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
@@ -1563,10 +1617,13 @@
           const oldParts = oldHash.split("/").filter(Boolean);
           if (["auth"].includes(oldParts[0])) {
             dialog.dismiss();
+            const reqBtn = qbzythwit.querySelector(".reqotp .btn");
             reqBtn.removeEventListener("click", onReq);
+            const priLink = qbzythwit.querySelectorAll(".reqotp .footer .privacy-policy .link");
             priLink.forEach(link => {
               link.removeEventListener("click", onPri);
             });
+            const swiLink = qbzythwit.querySelectorAll(".reqotp .footer .in-up .link");
             swiLink.forEach(link => {
               link.removeEventListener("click", onSwi);
             });
