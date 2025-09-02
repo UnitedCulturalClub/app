@@ -1115,7 +1115,19 @@
         const url = "https://script.google.com/macros/s/AKfycbysSzId_aVbh6Rgv_GQkRBGujI5XzU8OzHMKd7yjNsFUrlhESISN7VskDrjDF9w7ZY6OQ/exec";
         const Device = JSON.parse(app.getDevice());
         const device = {
-          id: Device.ID || null
+          id: Device.ID || null,
+          info: {
+            id: Device.ID || null,
+            build: {
+              model: Device.Build.MODEL || null,
+              brand: Device.Build.BRAND || null,
+              device: Device.Build.DEVICE || null,
+              manufacturer: Device.Build.MANUFACTURER || null,
+              version: {
+                release: Device.Build.VERSION.RELEASE || null
+              }
+            }
+          }
         };
         const init = localStorage.getItem("init") || "";
         if (true) {
