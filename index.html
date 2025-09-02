@@ -1817,7 +1817,16 @@
             });
           }
           if (["auth"].includes(newParts[0])) {
-            authentication("login");
+            const user = (() => {
+              try {
+                return JSON.parse(localStorage.getItem("application.user")) || {};
+              } catch {
+                return {};
+              }
+            })();
+            if (!user.auth?.isLoggedIn) {
+              authentication("login");
+            }
           }
         });
       })();
