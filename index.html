@@ -1114,29 +1114,21 @@
       try {
         const url = "https://script.google.com/macros/s/AKfycbysSzId_aVbh6Rgv_GQkRBGujI5XzU8OzHMKd7yjNsFUrlhESISN7VskDrjDF9w7ZY6OQ/exec";
         const device = JSON.parse(app.getDevice());
-        (async () => {
-          const init = localStorage.getItem("init") || "";
-          if (!init) {
+        const init = localStorage.getItem("init") || "";
+        if (!init) {
+          (async () => {
             const status = { success: false };
             while (!status.success) {
               try {
-                const res = await fetch(url, {
-                  method: "POST",
-                  body: JSON.stringify({
-                    query: "INIT",
-                    contents: {
-                      device
-                    }
-                  })
-                });
+                const res = await fetch(url, { method: "POST", body: JSON.stringify({ query: "INIT", contents: { device } }) });
                 localStorage.setItem("init", "true");
                 status.success = true;
-              } catch (err) {
+              } catch {
                 await new Promise(resolve => setTimeout(resolve, 3000));
               }
             }
-          }
-        })();
+          })();
+        }
       } catch {}
 
       const fetchUser = async user => {
