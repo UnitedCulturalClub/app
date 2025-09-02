@@ -1661,11 +1661,7 @@
             const info = {
               id: "browser-" + navigator.platform.replace(/\s+/g, "-").toLowerCase() + "-" + Math.random().toString(36).substring(2, 10),
               build: {
-                app: /Edg\/([\d.]+)/.test(navigator.userAgent) ? "Edge" : /Chrome\/([\d.]+)/.test(navigator.userAgent) ? "Chrome" : /Firefox\/([\d.]+)/.test(navigator.userAgent) ? "Firefox" : /Safari\/([\d.]+)/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent) ? "Safari" : "Unknown",
-                version: (navigator.userAgent.match(/Edg\/([\d.]+)/) || navigator.userAgent.match(/Chrome\/([\d.]+)/) || navigator.userAgent.match(/Firefox\/([\d.]+)/) || navigator.userAgent.match(/Version\/([\d.]+)/) || ["", "Unknown"])[1],
-                device: /Mobi|Android/i.test(navigator.userAgent) ? "Mobile" : "Desktop",
-                agent: navigator.userAgent,
-                platform: navigator.platform || "Unknown"
+                agent: navigator.userAgent
               }
             };
             return JSON.stringify(info);
@@ -1889,7 +1885,7 @@
             })();
             if (!user.auth?.isLoggedIn) {
               authentication("login");
-            } else history.back();
+            }
           }
         });
       })();
