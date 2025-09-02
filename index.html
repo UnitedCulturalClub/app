@@ -1586,7 +1586,9 @@
         const gender = qbzythwit.querySelector(".reqotp .fields #gender");
         const email = qbzythwit.querySelector(".reqotp .fields #email");
         const otp = qbzythwit.querySelector(".validateotp .fields #otp");
-        name.addEventListener("input", () => {});
+        name.addEventListener("input", e => {
+          if (name.classList.contains("invalid")) name.classList.remove("invalid");
+        });
         email.addEventListener("input", e => {
           if (email.classList.contains("invalid")) email.classList.remove("invalid");
         });
@@ -1641,6 +1643,11 @@
                 return;
               } else if (!name.value?.trim()) {
                 name.focus();
+                name.classList.add("invalid");
+                return;
+              } else if (name.value?.trim() && !/^(?!.*[ .]{2,})(?![ .])(?!.*[ .]$)[A-Za-z. ]{3,}$/.test(name.value.trim())) {
+                name.focus();
+                name.classList.add("invalid");
                 return;
               } else if (!gender.value?.trim()) {
                 gender.showPicker();
@@ -1666,6 +1673,9 @@
           };
           reqBtn.removeEventListener("click", onReq);
           reqBtn.classList.add("active");
+          swiLink.forEach(link => {
+            link.removeEventListener("click", onSwi);
+          });
           fetch(url, {
             method: "POST",
             body: JSON.stringify({
@@ -1683,6 +1693,9 @@
                 if (query.includes("LOGIN") && !res.user?.isExist) swiLink[1].click();
                 else if (query.includes("SIGNUP") && res.user?.isExist) swiLink[0].click();
                 reqBtn.addEventListener("click", onReq);
+                swiLink.forEach(link => {
+                  link.addEventListener("click", onSwi);
+                });
                 return;
               }
               if (res.otp.isSent) {
@@ -1691,6 +1704,7 @@
               }
             })
             .catch(err => {
+              reqBtn.classList.remove("active");
               reqBtn.addEventListener("click", onReq);
             });
         };
