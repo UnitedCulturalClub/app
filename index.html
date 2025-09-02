@@ -1734,6 +1734,7 @@
               valBtn.classList.remove("active");
               if (!res.status.isSuccess) return;
               if (!res.otp.isValid) {
+                valBtn.addEventListener("click", onVal);
                 otp.classList.add("invalid");
                 otp.focus();
                 return;
