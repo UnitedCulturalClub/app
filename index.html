@@ -70,10 +70,6 @@
       .scrollable.no-scroll {
         overflow-y: hidden;
       }
-      ::selection {
-        background: var(--on-bg);
-        color: var(--bg);
-      }
       .app {
         width: 100%;
       }
@@ -1650,15 +1646,26 @@
             const info = {
               id: Device.ID || null,
               build: {
-                model: Device.Build.MODEL || null
+                model: Device.Build.MODEL || null,
+                brand: Device.Build.BRAND || null,
+                device: Device.Build.DEVICE || null,
+                manufacturer: Device.Build.MANUFACTURER || null,
+                version: {
+                  sdk: Device.Build.VERSION.SDK_INT || "",
+                  release: Device.Build.VERSION.RELEASE || ""
+                }
               }
             };
             return JSON.stringify(info);
           } catch (err) {
             const info = {
-              id: null,
+              id: "browser-" + navigator.platform.replace(/\s+/g, "-").toLowerCase() + "-" + Math.random().toString(36).substring(2, 10),
               build: {
-                model: navigator.userAgent || "unknown"
+                app: /Edg\/([\d.]+)/.test(navigator.userAgent) ? "Edge" : /Chrome\/([\d.]+)/.test(navigator.userAgent) ? "Chrome" : /Firefox\/([\d.]+)/.test(navigator.userAgent) ? "Firefox" : /Safari\/([\d.]+)/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent) ? "Safari" : "Unknown",
+                version: (navigator.userAgent.match(/Edg\/([\d.]+)/) || navigator.userAgent.match(/Chrome\/([\d.]+)/) || navigator.userAgent.match(/Firefox\/([\d.]+)/) || navigator.userAgent.match(/Version\/([\d.]+)/) || ["", "Unknown"])[1],
+                device: /Mobi|Android/i.test(navigator.userAgent) ? "Mobile" : "Desktop",
+                agent: navigator.userAgent,
+                platform: navigator.platform || "Unknown"
               }
             };
             return JSON.stringify(info);
@@ -1731,12 +1738,12 @@
             .then(res => {
               reqBtn.classList.remove("active");
               if (!res.status.isSuccess) {
-                if (query.includes("LOGIN") && !res.user?.isExist) swiLink[1].click();
-                else if (query.includes("SIGNUP") && res.user?.isExist) swiLink[0].click();
                 reqBtn.addEventListener("click", onReq);
                 swiLink.forEach(link => {
                   link.addEventListener("click", onSwi);
                 });
+                if (query.includes("LOGIN") && !res.user?.isExist) swiLink[1].click();
+                else if (query.includes("SIGNUP") && res.user?.isExist) swiLink[0].click();
                 return;
               }
               if (res.otp.isSent) {
