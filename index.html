@@ -1147,6 +1147,10 @@
         }
       })();
       if (user && user.auth?.isLoggedIn) {
+        (async () => {
+          const res = await fetchUser(user);
+          console.log(res);
+        })();
       }
       window.addEventListener("DOMContentLoaded", e => {
         const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
