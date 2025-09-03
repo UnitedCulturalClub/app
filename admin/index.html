@@ -8,61 +8,55 @@
     <link rel="preload" href="/app/assets/fonts/GoogleSans-Regular.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preload" href="/app/assets/fonts/Charlotte.ttf" as="font" type="font/ttf" crossorigin />
     <title>Dashboard</title>
-    <style type="text/css" media="all">
-      @media only screen and (prefers-color-scheme: light) {
-        :root {
-          --color-text-primary: rgba(0, 0, 0, 1);
-          --color-text-secondary: rgba(0, 0, 0, 0.5);
-          --color-background: rgba(255, 255, 255, 1);
-          --color-on-background: rgba(0, 0, 0, 1);
-          --color-devider: rgba(0, 0, 0, 0.1);
-        }
+    <style>
+      :root {
+        --text-primary: rgba(0, 0, 0, 1);
+        --text-primary-v: rgba(0, 0, 0, 0.7);
+        --text-secondary: rgba(0, 0, 0, 0.5);
+        --bg: rgba(255, 255, 255, 1);
+        --on-bg: rgba(0, 0, 0, 1);
+        --devider: rgba(0, 0, 0, 0.1);
       }
       @media only screen and (prefers-color-scheme: dark) {
         :root {
-          --color-text-primary: rgba(255, 255, 255, 1);
-          --color-text-secondary: rgba(190, 190, 190, 1);
-          --color-background: rgba(42, 45, 54, 1);
-          --color-on-background: rgba(255, 255, 255, 1);
-          --color-devider: rgba(255, 255, 255, 0.1);
+          --text-primary: rgba(255, 255, 255, 1);
+          --text-primary-v: rgba(255, 255, 255, 0.7);
+          --text-secondary: rgba(190, 190, 190, 1);
+          --bg: rgba(42, 45, 54, 1);
+          --on-bg: rgba(255, 255, 255, 1);
+          --devider: rgba(255, 255, 255, 0.1);
         }
       }
-      /* Regular (400 normal) */
       @font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-Regular.ttf") format("truetype");
         font-weight: 400;
         font-style: normal;
       }
-      /* Italic (400 italic) */
       @font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-Italic.ttf") format("truetype");
         font-weight: 400;
         font-style: italic;
       }
-      /* Medium (500 normal) */
       @font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-Medium.ttf") format("truetype");
         font-weight: 500;
         font-style: normal;
       }
-      /* Medium Italic (500 italic) */
       @font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-MediumItalic.ttf") format("truetype");
         font-weight: 500;
         font-style: italic;
       }
-      /* Bold (700 normal) */
       @font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-Bold.ttf") format("truetype");
         font-weight: 700;
         font-style: normal;
       }
-      /* Bold Italic (700 italic) */
       @font-face {
         font-family: "GoogleSans";
         src: url("/app/assets/fonts/GoogleSans-BoldItalic.ttf") format("truetype");
@@ -79,7 +73,7 @@
         margin: 0;
         padding: 0;
         font-family: GoogleSans;
-        background-color: var(--color-background);
+        background-color: var(--bg);
       }
       .scrollable.no-scroll {
         overflow-y: hidden;
@@ -90,8 +84,7 @@
       .app > .side {
         width: 80px;
         height: 100%;
-        border-right: 1px solid var(--color-devider);
-        background-color: var(--color-background);
+        border-right: 1px solid var(--devider);
         position: fixed;
         top: 0;
         left: 0;
@@ -123,7 +116,7 @@
         width: 100%;
         height: 2px;
         border-radius: 100px;
-        background-color: var(--color-on-background);
+        background-color: var(--on-bg);
         transition: all 0.1s ease;
       }
       .app > .side .header .nav .hamburg span:nth-child(2) {
@@ -147,13 +140,14 @@
         height: 100%;
         padding: 60px 28px 0px 28px;
         box-sizing: border-box;
-        background-color: var(--color-background);
+        background-color: var(--bg);
         position: fixed;
         top: 0;
         left: 0;
         pointer-events: none;
         opacity: 0;
         transition: opacity 0.1s ease;
+        user-select: none;
         z-index: 1;
       }
       .app > .side .header .menu.active {
@@ -163,7 +157,7 @@
       .app > .side .header .menu-item {
         width: 100%;
         margin: 20px 0;
-        color: var(--color-text-primary);
+        color: var(--text-primary);
         font-size: 20px;
         font-weight: 500;
         opacity: 0;
@@ -204,12 +198,12 @@
       .app > .side .nav-icon {
         width: 20px;
         height: 20px;
-        color: var(--color-text-secondary);
-        fill: var(--color-text-secondary);
+        color: var(--text-secondary);
+        fill: var(--text-secondary);
       }
       .app > .side .nav-item.active .nav-icon {
-        color: var(--color-text-primary);
-        fill: var(--color-text-primary);
+        color: var(--text-primary);
+        fill: var(--text-primary);
       }
       .app > .side .nav-icon .ic {
         width: 100%;
@@ -218,17 +212,37 @@
       .app > .side .nav-icon .ic-solid {
         display: none;
       }
+      .app > .side .btn {
+        width: 100%;
+        padding: 10px 20px;
+        box-sizing: border-box;
+      }
+      .app > .side .btn-write {
+        width: 40px;
+        height: 40px;
+        border-radius: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1d9bf0;
+      }
+      .app > .side .btn-icon {
+        width: 20px;
+        height: 20px;
+        color: #ffffff;
+        fill: #ffffff;
+      }
       .app > .side .footer .nav-icon {
         width: 32px;
         height: 32px;
         border-radius: 100%;
-        background-color: var(--color-background);
+        background-color: var(--bg);
         overflow: hidden;
       }
       .app > .side .footer .nav-item.active .nav-icon {
-        border: 2px solid var(--color-background);
+        border: 2px solid var(--bg);
         box-sizing: border-box;
-        outline: 2px solid var(--color-on-background);
+        outline: 2px solid var(--on-bg);
       }
       .app > .side .footer .nav-icon img {
         width: 100%;
@@ -239,13 +253,10 @@
         padding-left: 80px;
         box-sizing: border-box;
       }
-      .app > .main > .container {
-        width: 100%;
-      }
-      .app > .main > .container > .fragment {
+      .app > .main > .fragment {
         display: none;
       }
-      .app > .main > .container > .fragment.active {
+      .app > .main > .fragment.active {
         display: block;
       }
       .dashboard {
@@ -254,55 +265,23 @@
       .dashboard > .main {
         width: 100%;
       }
-      .dashboard > .main > .container {
-        width: 100%;
-      }
-      .dashboard > .main > .container > .fragment {
-        display: none;
-      }
-      .dashboard > .main > .container > .fragment.active {
-        display: flex;
-      }
-      .dashboard > .main .coll,
-      .dashboard > .main .exp {
+      .dashboard > .main > .fragment {
         width: 100%;
         height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
-      .dashboard > .main .coll .header,
-      .dashboard > .main .exp .header {
-        width: 100%;
-        background-color: var(--color-background);
-      }
-      .coll .header .nav,
-      .exp .header .nav {
-        width: 100%;
-        padding: 10px 8px;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: end;
-      }
-      .coll .header .nav-item,
-      .exp .header .nav-item {
-        width: 40px;
-        height: 40px;
-        position: relative;
-      }
-      .dashboard > .main .coll .main,
-      .dashboard > .main .exp .main {
-        width: 100%;
-        flex: 1;
         padding: 8px;
         box-sizing: border-box;
         position: relative;
+        display: none;
+        flex-direction: column;
         overflow: scroll;
       }
-      .dashboard > .main .coll .preloader,
-      .dashboard > .main .exp .preloader {
+      .dashboard > .main > .fragment.active {
+        display: flex;
+      }
+      .dashboard > .main .fragment .preloader {
         width: 100%;
         height: 100%;
+        background-color: var(--color-background);
         position: absolute;
         top: 0;
         left: 0;
@@ -310,13 +289,12 @@
         align-items: center;
         pointer-events: none;
         display: none;
+        z-index: 1;
       }
-      .dashboard > .main .coll .preloader.active,
-      .dashboard > .main .exp .preloader.active {
+      .dashboard > .main .fragment .preloader.active {
         display: flex;
       }
-      .dashboard > .main .coll .preloader .loader,
-      .dashboard > .main .exp .preloader .loader {
+      .dashboard > .main .fragment .preloader .loader {
         width: 30px;
         height: 30px;
       }
@@ -328,8 +306,7 @@
           transform: rotate(360deg);
         }
       }
-      .dashboard > .main .coll .gen,
-      .dashboard > .main .exp .gen {
+      .dashboard > .main .fragment .gen {
         width: 100%;
         display: flex;
         justify-content: start;
@@ -405,35 +382,15 @@
         width: 15px;
         display: flex;
         align-items: center;
-        position: relative;
+      }
+      .gen .card-header .option {
         color: #0b284b;
         fill: #0b284b;
-      }
-      .gen .card-header .three-dots {
         width: 100%;
       }
-      .gen .card-header .option-menu {
-        width: 35px;
-        height: 35px;
-        border-radius: 10px;
-        border: 1px solid var(--color-devider);
-        background-color: #f7f9fd;
-        position: absolute;
-        top: 110%;
-        right: 70%;
-        display: none;
-      }
-      .gen .card-header .three-dots.active ~ .option-menu {
-        display: block;
-      }
-      .gen .card-header .menu-item {
-        width: 100%;
-        height: 100%;
-        padding: 10px;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        gap: 8px;
+      .gen .card-header .option.disabled {
+        color: #546685;
+        fill: #546685;
       }
       .gen .card-main {
         width: 100%;
@@ -461,7 +418,7 @@
       .gen .card-overview span {
         color: #546685;
         font-size: 14px;
-        font-style: italic;
+        font-style:;
       }
       .gen .card-footer {
         width: 100%;
@@ -494,29 +451,24 @@
         }
         .gen .card-header .svg,
         .gen .card-header .tit span,
-        .gen .card-heading span {
+        .gen .card-heading span,
+        .gen .card-header .option {
           color: #ffffff;
           fill: #ffffff;
         }
-        .gen-card .header-option {
-          color: #ffffff;
-          fill: #ffffff;
-        }
-        .gen .card-header .option-menu {
-          background-color: #323640;
+        .gen .card-header .option.disabled {
+          color: rgba(255, 255, 255, 0.5);
+          fill: rgba(255, 255, 255, 0.5);
         }
         .gen .card-header .des span,
         .gen .card-overview span {
           color: rgba(255, 255, 255, 0.7);
         }
       }
-      .app > .activity {
-        width: 100%;
-      }
-      .activity .editor {
+      .editor {
         width: 100%;
         height: 100%;
-        background-color: var(--color-background);
+        background-color: var(--bg);
         position: fixed;
         top: 0;
         left: 0;
@@ -527,34 +479,30 @@
         user-select: none;
         z-index: 101;
       }
-      .activity .editor.active {
+      .editor.active {
         pointer-events: auto;
         opacity: 1;
-      }
-      .editor .container {
-        width: 100%;
-        max-width: 400px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
       }
       .editor .heading {
         width: 100%;
         height: 100px;
+        max-width: 400px;
+        margin: 0 auto;
         display: flex;
         justify-content: center;
         align-items: center;
       }
       .editor .heading span {
-        color: var(--color-text-primary);
+        color: var(--text-primary);
         font-size: 18px;
         font-family: Charlotte;
       }
       .editor .fields {
         width: 100%;
+        max-width: 400px;
         padding: 0 50px;
         box-sizing: border-box;
-        margin: 10px 0;
+        margin: 10px auto;
         display: flex;
         flex-direction: column;
         gap: 15px;
@@ -566,7 +514,7 @@
         gap: 5px;
       }
       .editor .fields label span {
-        color: var(--color-text-primary);
+        color: var(--text-primary);
       }
       .editor .fields label input {
         width: 100%;
@@ -574,75 +522,78 @@
         padding: 10px;
         box-sizing: border-box;
         border-radius: 10px;
-        border: 2px solid var(--color-devider);
-        background-color: var(--color-background);
+        border: 2px solid var(--devider);
+        background-color: var(--bg);
+        outline: none;
         line-height: 1.5em;
         font-size: 14px;
       }
-      .editor .fields label input:focus {
-        outline: none;
+      .editor .fields label input.invalid {
+        text-decoration-line: underline;
+        text-decoration-style: wavy;
+        text-decoration-color: red;
       }
       .editor .fields label .area {
         width: 100%;
         padding: 10px;
         box-sizing: border-box;
         border-radius: 10px;
-        border: 2px solid var(--color-devider);
-        background-color: var(--color-background);
+        border: 2px solid var(--devider);
+        background-color: var(--bg);
       }
       .editor .fields .area > div {
         width: 100%;
         min-height: 6em;
         max-height: 9em;
+        border: none;
+        outline: none;
         line-height: 1.5em;
         font-size: 14px;
         white-space: pre-wrap;
         overflow-y: auto;
       }
-      .editor .fields .area > div:focus {
-        outline: none;
-      }
       .editor .btns {
         width: 100%;
+        max-width: 400px;
         padding: 0 50px;
         box-sizing: border-box;
-        margin: 20px 0;
+        margin: 20px auto;
         display: flex;
         flex-direction: column;
         gap: 5px;
       }
-      .editor .btns .btn-positive {
+      .editor .btn-positive {
         width: 100%;
         height: 45px;
         border-radius: 30px;
-        background-color: var(--color-on-background);
+        background-color: var(--on-bg);
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      .editor .btns .btn-positive .loader {
+      .editor .btn-positive .loader {
         width: 20px;
         height: 20px;
         display: none;
       }
-      .editor .btns .btn-positive.active .loader {
+      .editor .btn-positive.active .loader {
         display: block;
       }
-      .editor .btns .btn-positive span {
-        color: var(--color-background);
+      .editor .btn-positive span {
+        color: var(--bg);
       }
-      .editor .btns .btn-positive.active span {
+      .editor .btn-positive.active span {
         display: none;
       }
-      .editor .btns .btn-negetive {
+      .editor .btn-negetive {
         width: 100%;
         height: 45px;
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      .editor .btns .btn-negetive span {
-        color: var(--color-text-secondary);
+      .editor .btn-negetive span {
+        color: var(--text-primary-v);
         font-size: 14px;
       }
     </style>
@@ -682,6 +633,15 @@
             </div>
           </div>
         </div>
+        <div class="btn">
+          <div class="btn-write">
+            <div class="btn-icon">
+              <svg viewBox="0 0 24 24">
+                <g><path d="M23 3c-6.62-.1-10.38 2.421-13.05 6.03C7.29 12.61 6 17.331 6 22h2c0-1.007.07-2.012.19-3H12c4.1 0 7.48-3.082 7.94-7.054C22.79 10.147 23.17 6.359 23 3zm-7 8h-1.5v2H16c.63-.016 1.2-.08 1.72-.188C16.95 15.24 14.68 17 12 17H8.55c.57-2.512 1.57-4.851 3-6.78 2.16-2.912 5.29-4.911 9.45-5.187C20.95 8.079 19.9 11 16 11zM4 9V6H1V4h3V1h2v3h3v2H6v3H4z"></path></g>
+              </svg>
+            </div>
+          </div>
+        </div>
         <div class="footer">
           <div class="nav">
             <div class="nav-item">
@@ -695,95 +655,82 @@
         </div>
       </div>
       <div class="main">
-        <div class="container">
-          <div class="fragment dashboard">
-            <div class="main">
-              <div class="container">
-                <div class="fragment coll">
-                  <div class="main">
-                    <div class="preloader">
-                      <div class="loader">
-                        <svg height="100%" viewBox="0 0 32 32" width="100%">
-                          <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); opacity: 0.1"></circle>
-                          <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="gen"></div>
-                  </div>
-                </div>
-                <div class="fragment exp">
-                  <div class="main">
-                    <div class="preloader">
-                      <div class="loader">
-                        <svg height="100%" viewBox="0 0 32 32" width="100%">
-                          <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); opacity: 0.1"></circle>
-                          <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="gen"></div>
-                  </div>
+        <div class="fragment dashboard">
+          <div class="main">
+            <div class="fragment coll">
+              <div class="preloader">
+                <div class="loader">
+                  <svg height="100%" viewBox="0 0 32 32" width="100%">
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); opacity: 0.1"></circle>
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
+                  </svg>
                 </div>
               </div>
+              <div class="gen"></div>
+            </div>
+            <div class="fragment exp">
+              <div class="preloader">
+                <div class="loader">
+                  <svg height="100%" viewBox="0 0 32 32" width="100%">
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); opacity: 0.1"></circle>
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: rgb(29, 155, 240); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
+                  </svg>
+                </div>
+              </div>
+              <div class="gen"></div>
             </div>
           </div>
-          <div class="fragment">
-            <span>Profile</span>
-          </div>
         </div>
+        <div class="fragment"></div>
       </div>
       <div class="activity">
         <div class="editor">
-          <div class="container">
-            <div class="heading">
+          <div class="heading">
+            <span></span>
+          </div>
+          <div class="fields">
+            <label for="id">
               <span></span>
-            </div>
-            <div class="fields">
-              <label for="id">
-                <span></span>
-                <input type="text" id="id" pattern="\d{8}" maxlength="8" inputmode="numeric" />
-              </label>
-              <label for="title">
-                <span></span>
-                <input type="text" id="title" />
-              </label>
-              <label for="tag">
-                <span></span>
-                <input type="text" id="tag" pattern="\d{8}" maxlength="8" inputmode="numeric" />
-              </label>
-              <label for="overview">
-                <span></span>
-                <div class="area">
-                  <div id="overview" contenteditable="true"></div>
-                </div>
-              </label>
-            </div>
-            <div class="btns">
-              <div class="btn-positive">
-                <div class="loader">
-                  <svg height="100%" viewBox="0 0 32 32" width="100%">
-                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--color-background); opacity: 0.1"></circle>
-                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--color-background); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
-                  </svg>
-                </div>
-                <span></span>
+              <input type="text" id="id" pattern="\d{8}" maxlength="8" inputmode="numeric" />
+            </label>
+            <label for="title">
+              <span></span>
+              <input type="text" id="title" />
+            </label>
+            <label for="tag">
+              <span></span>
+              <input type="text" id="tag" pattern="\d{8}" maxlength="8" inputmode="numeric" />
+            </label>
+            <label for="overview">
+              <span></span>
+              <div class="area">
+                <div id="overview" contenteditable="true"></div>
               </div>
-              <div class="btn-negetive">
-                <span></span>
+            </label>
+          </div>
+          <div class="btns">
+            <div class="btn-positive">
+              <span></span>
+              <div class="loader">
+                <svg height="100%" viewBox="0 0 32 32" width="100%">
+                  <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--bg); opacity: 0.1"></circle>
+                  <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--bg); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
+                </svg>
               </div>
+            </div>
+            <div class="btn-negetive">
+              <span></span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <script type="text/javascript" charset="utf-8">
+    <script>
       window.addEventListener("DOMContentLoaded", e => {
         const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
         const parts = hash.split("/").filter(Boolean);
-        const main = parts[0] || "dashboard";
-        if (["dashboard", "profile"].includes(main)) {
-          const index = ["dashboard", "profile"].indexOf(main);
+        if (["dashboard", "profile"].includes(parts[0] || "dashboard")) {
+          const index = ["dashboard", "profile"].indexOf(parts[0] || "dashboard");
           onCreate(index);
         }
       });
@@ -810,43 +757,30 @@
       });
 
       window.addEventListener("hashchange", e => {
-        const oldHash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
-        const newHash = new URL(e.newURL).hash.replace(/^#\/?/, "");
-        const oldParts = oldHash.split("/").filter(Boolean);
-        const newParts = newHash.split("/").filter(Boolean);
-        const validPaths = {
-          dashboard: { menu: {}, coll: {}, exp: {} },
-          profile: {}
-        };
-        function isValidRoute(parts, validTree) {
-          if (parts.length === 0) return true;
-          const [head, ...tail] = parts;
-          if (!validTree[head]) return false;
-          return isValidRoute(tail, validTree[head]);
-        }
-        if (["dashboard"].includes(oldParts[0])) {
-          const index = ["dashboard"].indexOf(oldParts[0]);
-          switch (index) {
-            case 0:
-              if (["menu"].includes(oldParts[1])) {
-                const menu = document.querySelector(".app > .side .header .menu");
-                const hamburg = document.querySelector(".app > .side .header .nav .hamburg");
-                hamburg.classList.remove("active");
-                menu.classList.remove("active");
-                document.querySelectorAll(".scrollable").forEach(item => {
-                  item.classList.remove("no-scroll");
-                });
-              }
-              break;
+        const hash = new URL(e.newURL).hash.replace(/^#\/?/, "");
+        const parts = hash.split("/").filter(Boolean);
+        const isValid = parts => {
+          const paths = {
+            dashboard: { menu: {}, coll: {}, exp: {} },
+            profile: {}
+          };
+          let current = paths;
+          for (const part of parts) {
+            if (!(part in current)) return false;
+            current = current[part];
           }
+          return true;
+        };
+        if (!isValid(parts)) {
+          if (history.length > 1) history.back();
+          else window.location.hash = "#/dashboard/coll";
+          return;
         }
-        if (["dashboard", "profile"].includes(newParts[0]) && isValidRoute(newParts, validPaths)) {
-          const index = ["dashboard", "profile"].indexOf(newParts[0]);
+        if (["dashboard", "profile"].includes(parts[0])) {
+          const index = ["dashboard", "profile"].indexOf(parts[0]);
           onCreate(index);
           return;
         }
-        if (history.length > 1) history.back();
-        else window.location.hash = "#/dashboard/coll";
       });
 
       function onBackPressed() {
@@ -867,7 +801,7 @@
       }
 
       function onCreate(index) {
-        const fragments = document.querySelectorAll(".app > .main > .container > .fragment");
+        const fragments = document.querySelectorAll(".app > .main > .fragment");
         fragments.forEach(fragment => fragment.classList.remove("active"));
         fragments[index].classList.add("active");
         navItem.forEach(item => item.classList.remove("active"));
@@ -885,25 +819,24 @@
       function renderDashboard() {
         const hash = new URL(window.location.href).hash.replace(/^#\/?/, "");
         const parts = hash.split("/").filter(Boolean);
-        const sub = parts[1] || "coll";
-        if (["menu"].includes(sub)) {
-          const menu = document.querySelector(".app > .side .header .menu");
-          const hamburg = document.querySelector(".app > .side .header .nav .hamburg");
+        if (["menu"].includes(parts[1])) {
           hamburg.classList.add("active");
           menu.classList.add("active");
+          document.body.classList.add("scrollable");
           document.querySelectorAll(".scrollable").forEach(item => {
             item.classList.add("no-scroll");
           });
-        } else if (["coll", "exp"].includes(sub)) {
-          const index = ["coll", "exp"].indexOf(sub);
+        } else if (["coll", "exp"].includes(parts[1] || "coll")) {
+          const index = ["coll", "exp"].indexOf(parts[1] || "coll");
           switch (index) {
             case 0:
               if (!history.state) history.replaceState({}, "", "#/dashboard/coll");
               break;
           }
-          sessionStorage.setItem("app[0][1][fragment]", ["coll", "exp"][index]);
+          sessionStorage.setItem("app[0][1][fragment][admin]", ["coll", "exp"][index]);
+          if (["overview"].includes(parts[2])) if (history.state.sheet?.isShow) history.back();
         }
-        const fragment = sessionStorage.getItem("app[0][1][fragment]") || "coll";
+        const fragment = sessionStorage.getItem("app[0][1][fragment][admin]") || "coll";
         const index = ["coll", "exp"].indexOf(fragment);
         loadFragment(index);
       }
@@ -924,10 +857,29 @@
         }
       });
 
+      window.addEventListener("hashchange", e => {
+        const hash = new URL(e.oldURL).hash.replace(/^#\/?/, "");
+        const parts = hash.split("/").filter(Boolean);
+        if (["dashboard"].includes(parts[0])) {
+          const index = ["dashboard"].indexOf(parts[0]);
+          switch (index) {
+            case 0:
+              if (["menu"].includes(parts[1])) {
+                hamburg.classList.remove("active");
+                menu.classList.remove("active");
+                document.querySelectorAll(".scrollable").forEach(item => {
+                  item.classList.remove("no-scroll");
+                });
+              }
+              break;
+          }
+        }
+      });
+
       const menuItem = document.querySelectorAll(".app > .side .header .menu-item");
       menuItem.forEach((item, index) => {
         item.addEventListener("click", e => {
-          if (!menuItem[index].classList.contains("active")) {
+          if (!item.classList.contains("active")) {
             const fragments = ["coll", "exp"];
             if (menuItem[0].classList.contains("active")) {
               history.replaceState({}, "", "#/dashboard/exp");
@@ -939,7 +891,7 @@
             } else {
               history.go(-2);
             }
-            sessionStorage.setItem("app[0][1][fragment]", fragments[index]);
+            sessionStorage.setItem("app[0][1][fragment][admin]", fragments[index]);
             loadFragment(index);
           } else {
             history.back();
@@ -947,8 +899,6 @@
         });
       });
 
-      const collurl = "https://script.google.com/macros/s/AKfycbzcIMuhAkmb1ZWjqc1Mrgpt2zePdFDuiEQtLLjkhFszBaqOPNKBWSDSmWtC8quXLT6J-A/exec";
-      const expurl = "https://script.google.com/macros/s/AKfycbwogEu8bdsMXeRm3VtiG9SytM9gE417eCXJOHxaZyKutCfN6Qb56B1trWoWOzab4E9yFQ/exec";
       const fetchData = () => {
         fetchColl();
         async function fetchColl() {
@@ -956,11 +906,12 @@
           const preloader = document.querySelector(".dashboard > .main .coll .preloader");
           try {
             preloader.classList.add("active");
-            const res = await fetch(collurl);
+            const res = await fetch("https://script.google.com/macros/s/AKfycbzcIMuhAkmb1ZWjqc1Mrgpt2zePdFDuiEQtLLjkhFszBaqOPNKBWSDSmWtC8quXLT6J-A/exec");
             if (!res.ok) throw new Error();
             const data = await res.json();
             if (!data.data?.length) {
               preloader.classList.remove("active");
+              localStorage.removeItem("application.data.coll");
               //
               return;
             }
@@ -968,7 +919,7 @@
             localStorage.setItem("application.data.coll", JSON.stringify(data.data));
             sessionStorage.setItem("application.data.coll", JSON.stringify(data.data));
             renderColl();
-          } catch (err) {}
+          } catch {}
         }
 
         fetchExp();
@@ -977,11 +928,12 @@
           const preloader = document.querySelector(".dashboard > .main .exp .preloader");
           try {
             preloader.classList.add("active");
-            const res = await fetch(expurl);
+            const res = await fetch("https://script.google.com/macros/s/AKfycbwogEu8bdsMXeRm3VtiG9SytM9gE417eCXJOHxaZyKutCfN6Qb56B1trWoWOzab4E9yFQ/exec");
             if (!res.ok) throw new Error();
             const data = await res.json();
             if (!data.data?.length) {
               preloader.classList.remove("active");
+              sessionStorage.removeItem("application.data.exp");
               //
               return;
             }
@@ -989,16 +941,15 @@
             localStorage.setItem("application.data.exp", JSON.stringify(data.data));
             sessionStorage.setItem("application.data.exp", JSON.stringify(data.data));
             renderExp();
-          } catch (err) {}
+          } catch {}
         }
       };
       fetchData();
 
       function loadFragment(index) {
-        const fragments = document.querySelectorAll(".dashboard > .main > .container > .fragment");
+        const fragments = document.querySelectorAll(".dashboard > .main > .fragment");
         fragments.forEach(fragment => fragment.classList.remove("active"));
         fragments[index].classList.add("active");
-        const menuItem = document.querySelectorAll(".app > .side .header .menu-item");
         menuItem.forEach(item => item.classList.remove("active"));
         menuItem[index].classList.add("active");
         switch (index) {
@@ -1006,55 +957,38 @@
             renderColl();
             break;
           case 1:
-            renderExp();
+            //renderExp();
             break;
         }
       }
 
       function renderColl() {
-        const parseData = () => {
+        const data = (() => {
           try {
-            return JSON.parse(sessionStorage.getItem("application.data.coll"));
+            return JSON.parse(sessionStorage.getItem("application.data.coll")) || [];
           } catch (err) {
             return [];
           }
-        };
-        const data = parseData();
-        if (!data) return;
-        genCard(0, true);
+        })();
+        if (!data?.length) return;
+        const root = document.querySelector(".dashboard > .main .coll .gen");
+        genCard(data, root, true);
       }
 
       function renderExp() {
-        const parseData = () => {
+        const data = (() => {
           try {
-            return JSON.parse(sessionStorage.getItem("application.data.exp"));
+            return JSON.parse(sessionStorage.getItem("application.data.exp")) || [];
           } catch (err) {
             return [];
           }
-        };
-        const data = parseData();
-        if (!data) return;
-        genCard(1, true);
+        })();
+        if (!data?.length) return;
+        const root = document.querySelector(".dashboard > .main .exp .gen");
+        genCard(data, root, true);
       }
 
-      function genCard(index, flag) {
-        const getRoot = index => {
-          const items = [".dashboard > .main .coll .gen", ".dashboard > .main .exp .gen"];
-          return document.querySelector(items[index]);
-        };
-        const parseData = index => {
-          const items = ["application.data.coll", "application.data.exp"];
-          try {
-            return JSON.parse(sessionStorage.getItem(items[index]));
-          } catch (err) {
-            return [];
-          }
-        };
-        const root = getRoot(index);
-        const data = parseData(index);
-        root.querySelectorAll(".gen-card").forEach(card => {
-          card.remove();
-        });
+      function genCard(data, root, flag) {
         const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         const daysEn = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         const daysBn = ["রবিবার", "সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার", "শুক্রবার", "শনিবার"];
@@ -1078,10 +1012,16 @@
           for (const [label, sec] of intervals) if (s >= sec) return Math.floor(s / sec) + label + " ago";
           return "now";
         };
+        const truncate = (text, max) => (text && text.length > max ? text.slice(0, max).trim() + "..." : text || "");
         const inrFormatter = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
         const toInr = num => inrFormatter.format(num);
+        root.querySelectorAll(".gen-card").forEach(card => {
+          card.remove();
+        });
         data.forEach(data => {
           const date = parseId(data.id).toDate();
+          const timestamp = new Date(data.timestamp);
+          const now = new Date();
           const card = document.createElement("div");
           card.classList.add("gen-card");
           const cardHeader = document.createElement("div");
@@ -1107,26 +1047,24 @@
           //
           const headerOption = document.createElement("div");
           headerOption.classList.add("header-option");
-          const threeDots = document.createElement("div");
-          threeDots.classList.add("three-dots");
-          threeDots.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><circle cx="256" cy="53.333" r="53.333"></circle><circle cx="256" cy="256" r="53.333"></circle><circle cx="256" cy="458.667" r="53.333"></circle></g></svg>`;
-          threeDots.addEventListener("click", e => {
-            threeDots.classList.toggle("active");
-            setTimeout(() => {
-              if (threeDots.classList.contains("active")) threeDots.classList.remove("active");
-            }, 1500);
-          });
-          headerOption.appendChild(threeDots);
-          const optionMenu = document.createElement("div");
-          optionMenu.classList.add("option-menu");
-          const menuItem = document.createElement("div");
-          menuItem.classList.add("menu-item");
-          menuItem.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M22.853 1.148a3.626 3.626 0 0 0-5.124 0L1.465 17.412A4.968 4.968 0 0 0 0 20.947V23a1 1 0 0 0 1 1h2.053a4.966 4.966 0 0 0 3.535-1.464L22.853 6.271a3.626 3.626 0 0 0 0-5.123ZM5.174 21.122A3.022 3.022 0 0 1 3.053 22H2v-1.053a2.98 2.98 0 0 1 .879-2.121L15.222 6.483l2.3 2.3ZM21.438 4.857l-2.506 2.507-2.3-2.295 2.507-2.507a1.623 1.623 0 1 1 2.295 2.3Z"></path></g></svg>`;
-          menuItem.addEventListener("click", e => {
-            openEditor(index, data);
-          });
-          optionMenu.appendChild(menuItem);
-          headerOption.appendChild(optionMenu);
+          const option = document.createElement("div");
+          option.classList.add("option");
+          if (now - timestamp <= 86400000) {
+            option.addEventListener("click", e => {
+              const fragment = sessionStorage.getItem("app[0][1][fragment][admin]") || "coll";
+              const index = ["coll", "exp"].indexOf(fragment);
+              const query = "edit";
+              openEditor(index, query, data);
+            });
+          } else {
+            option.classList.add("disabled");
+          }
+          const optionIcon = document.createElement("div");
+          optionIcon.classList.add("option-icon");
+          optionIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><circle cx="256" cy="53.333" r="53.333"></circle><circle cx="256" cy="256" r="53.333"></circle><circle cx="256" cy="458.667" r="53.333"></circle></g></svg>`;
+          //optionIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M22.853 1.148a3.626 3.626 0 0 0-5.124 0L1.465 17.412A4.968 4.968 0 0 0 0 20.947V23a1 1 0 0 0 1 1h2.053a4.966 4.966 0 0 0 3.535-1.464L22.853 6.271a3.626 3.626 0 0 0 0-5.123ZM5.174 21.122A3.022 3.022 0 0 1 3.053 22H2v-1.053a2.98 2.98 0 0 1 .879-2.121L15.222 6.483l2.3 2.3ZM21.438 4.857l-2.506 2.507-2.3-2.295 2.507-2.507a1.623 1.623 0 1 1 2.295 2.3Z"></path></g></svg>`;
+          option.appendChild(optionIcon);
+          headerOption.appendChild(option);
           cardHeader.appendChild(headerOption);
           //
           card.appendChild(cardHeader);
@@ -1157,53 +1095,64 @@
         });
       }
 
-      const writeBtn = document.querySelectorAll(".dashboard > .main .fragment .write-box");
-      writeBtn.forEach((btn, index) => {
-        btn.addEventListener("click", e => {
-          openEditor(index);
-        });
+      document.querySelector(".app > .side .btn-write").addEventListener("click", e => {
+        const fragment = sessionStorage.getItem("app[0][1][fragment][admin]") || "coll";
+        const index = ["coll", "exp"].indexOf(fragment);
+        openEditor(index);
       });
 
-      function openEditor(index, data) {
+      function openEditor(i, q, d) {
+        const subO = ["coll", "exp"][i];
+        const subT = ["add", "edit"][["", "edit"].indexOf(q)] ?? "add";
+        const collurl = "https://script.google.com/macros/s/AKfycbzcIMuhAkmb1ZWjqc1Mrgpt2zePdFDuiEQtLLjkhFszBaqOPNKBWSDSmWtC8quXLT6J-A/exec";
+        const expurl = "https://script.google.com/macros/s/AKfycbwogEu8bdsMXeRm3VtiG9SytM9gE417eCXJOHxaZyKutCfN6Qb56B1trWoWOzab4E9yFQ/exec";
+        history.pushState({}, "", `#/dashboard/${subO}/${subT}`);
         const editor = document.querySelector(".app > .activity .editor");
         document.body.classList.add("scrollable");
         document.querySelectorAll(".scrollable").forEach(item => {
           item.classList.add("no-scroll");
         });
         editor.classList.add("active");
-        editor.dataset.url = index ? expurl : collurl;
-        editor.dataset.query = data ? "EDIT" : "WRITE";
-        editor.querySelector(".heading span").textContent = index ? "Expanse" : "Collection";
-        editor.querySelector(".fields label[for='id'] span").textContent = index ? "Expanse Id" : "Collection Id";
+        editor.setAttribute("data-url", [collurl, expurl][i]);
+        editor.setAttribute("data-query", ["WRITE", "EDIT"][["", "edit"].indexOf(q)] ?? "WRITE");
+        editor.querySelector(".heading span").textContent = ["Collection", "Expanse"][i];
+        editor.querySelector(".fields label[for='id'] span").textContent = ["Collection Id", "Expanse Id"][i];
         editor.querySelector(".fields label[for='title'] span").textContent = "Title (Optional)";
-        editor.querySelector(".fields label[for='tag'] span").textContent = index ? "Expanse Tag" : "Collection Tag";
+        editor.querySelector(".fields label[for='tag'] span").textContent = ["Collection Tag", "Expanse Tag"][i];
         editor.querySelector(".fields label[for='overview'] span").textContent = "Overview";
-        history.pushState({}, "", `#/dashboard/${index ? "exp" : "coll"}/${data ? "edit" : "add"}`);
-        const id = editor.querySelector(".fields label #id");
-        const title = editor.querySelector(".fields label #title");
-        const tag = editor.querySelector(".fields label #tag");
-        const overview = editor.querySelector(".fields label .area #overview");
-        if (data) id.disabled = true;
-        else id.disabled = false;
-        id.value = data?.id || "";
-        title.value = data?.title || "";
-        tag.value = data?.tag || "";
-        overview.textContent = data?.overview || "";
+        editor.querySelector(".btns .btn-positive span").textContent = q ? "Update" : "Add";
+        editor.querySelector(".btns .btn-negetive span").textContent = "Cancel";
+        const idIn = editor.querySelector(".fields #id");
+        idIn.disabled = [false, true][["", "edit"].indexOf(q)] ?? false;
+        idIn.value = d?.id || "";
+        idIn.addEventListener("input", e => {
+          if (idIn.classList.contains("invalid")) idIn.classList.remove("invalid");
+          idIn.value = idIn.value.replace(/\D/g, "");
+          if (idIn.value.length > 8) {
+            idIn.value = idIn.value.slice(0, 8);
+          }
+        });
+        const titleIn = editor.querySelector(".fields #title");
+        titleIn.value = d?.title || "";
+        const tagIn = editor.querySelector(".fields #tag");
+        tagIn.value = d?.tag || "";
+        tagIn.addEventListener("input", e => {});
+        const overviewIn = editor.querySelector(".fields #overview");
+        overviewIn.textContent = d?.overview || "";
         const btnPositive = editor.querySelector(".btns .btn-positive");
-        btnPositive.querySelector("span").textContent = data ? "Update" : "Add";
         const onPositive = () => {
-          if (!id.value || id.value.length < 8) {
-            id.focus();
+          if (!idIn.value || idIn.value.length < 8) {
+            idIn.focus();
             return;
-          } else if (!parseId(id.value).isValid) {
-            id.value = "";
-            id.focus();
+          } else if (!parseId(idIn.value).isValid) {
+            idIn.classList.add("invalid");
+            idIn.focus();
             return;
-          } else if (!tag.value) {
-            tag.focus();
+          } else if (!tagIn.value) {
+            tagIn.focus();
             return;
-          } else if (!overview.textContent) {
-            overview.focus();
+          } else if (!overviewIn.textContent) {
+            overviewIn.focus();
             return;
           }
           function parseId(id) {
@@ -1212,28 +1161,52 @@
             const isValid = date.getFullYear() === parseInt(String(id).slice(4), 10) && date.getMonth() === parseInt(String(id).slice(2, 4), 10) - 1 && date.getDate() === parseInt(String(id).slice(0, 2), 10);
             return { isValid, toDate: () => (isValid ? date : null) };
           }
+          const user = (() => {
+            try {
+              return JSON.parse(localStorage.getItem("application.user")) || {};
+            } catch {
+              return {};
+            }
+          })();
+          const meta = (() => {
+            if (!user.auth.isLoggedIn) return {};
+            return {
+              author: {
+                account: user.account || "",
+                device: user.device || "",
+                profile: user.profile || ""
+              },
+              timestamp: new Date()
+            };
+          })();
           const url = editor.dataset.url;
           const query = editor.dataset.query;
           const data = {
-            id: id.value.trim(),
-            title: title.value?.trim() || "",
-            tag: tag.value.trim(),
-            overview: overview.textContent.trim()
+            id: idIn.value.trim(),
+            title: titleIn.value?.trim() || "",
+            tag: tagIn.value.trim(),
+            overview: overviewIn.textContent.trim(),
+            meta: meta
           };
           btnPositive.removeEventListener("click", onPositive);
           btnPositive.classList.add("active");
           fetch(url, { method: "POST", body: JSON.stringify({ query: "WRITEDATA", contents: { query, data } }) })
             .then(res => res.json())
             .then(res => {
-              if (!res.status.isSuccess) return;
-              id.value = "";
-              title.value = "";
-              tag.value = "";
-              overview.textContent = "";
               btnPositive.classList.remove("active");
               btnPositive.addEventListener("click", onPositive);
+              if (!res.status.isSuccess) {
+                if ((query.includes("WRITE") && res.data?.isExist) || (query.includes("EDIT") && !res.data?.isExist)) {
+                  idIn.classList.add("invalid");
+                  idIn.focus();
+                  return;
+                }
+              }
+              idIn.value = "";
+              titleIn.value = "";
+              tagIn.value = "";
+              overviewIn.textContent = "";
               fetchData();
-              history.back();
             })
             .catch(err => {
               btnPositive.classList.remove("active");
@@ -1242,7 +1215,6 @@
         };
         btnPositive.addEventListener("click", onPositive);
         const btnNegetive = editor.querySelector(".btns .btn-negetive");
-        btnNegetive.querySelector("span").textContent = "Cancel";
         const onNegetive = () => history.back();
         btnNegetive.addEventListener("click", onNegetive);
         const onHash = e => {
