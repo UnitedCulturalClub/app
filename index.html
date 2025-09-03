@@ -266,19 +266,15 @@
         box-sizing: border-box;
       }
       .home > .main > .fragment {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
         display: none;
       }
       .home > .main > .fragment.active {
         display: block;
       }
-      .home > .main .coll,
-      .home > .main .exp {
-        width: 100%;
-        padding: 8px;
-        box-sizing: border-box;
-      }
-      .home > .main .coll .preloader,
-      .home > .main .exp .preloader {
+      .home > .main .fragment .preloader {
         width: 100%;
         height: 100%;
         position: fixed;
@@ -289,12 +285,10 @@
         pointer-events: none;
         display: none;
       }
-      .home > .main .coll .preloader.active,
-      .home > .main .exp .preloader.active {
+      .home > .main .fragment .preloader.active {
         display: flex;
       }
-      .home > .main .coll .preloader .loader,
-      .home > .main .exp .preloader .loader {
+      .home > .main .fragment .preloader .loader {
         width: 30px;
         height: 30px;
       }
@@ -306,8 +300,7 @@
           transform: rotate(360deg);
         }
       }
-      .home > .main .coll .gen,
-      .home > .main .exp .gen {
+      .home > .main .fragment .gen {
         width: 100%;
         display: flex;
         justify-content: center;
@@ -541,21 +534,20 @@
         font-size: 14px;
         font-weight: bold;
       }
-
       .app > .layout {
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        top: 0;
         pointer-events: none;
         display: none;
-        z-index: 99;
       }
       .qbzythwit {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
       }
-      .qbzythwit .reqotp,
-      .qbzythwit .validateotp {
+      .qbzythwit .main {
+        width: 100%;
+      }
+      .qbzythwit .fragment {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -570,7 +562,7 @@
       .qbzythwit[role="validateotp"] .validateotp {
         display: flex;
       }
-      .qbzythwit .reqotp .fields {
+      .qbzythwit .fragment .fields {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -582,9 +574,8 @@
       .qbzythwit[data-query="login"] .fields label:last-child {
         display: block;
       }
-      .qbzythwit .reqotp .fields input,
-      .qbzythwit .validateotp .fields input,
-      .qbzythwit .reqotp .fields select {
+      .qbzythwit .fragment input,
+      .qbzythwit .fragment select {
         width: 100%;
         height: 50px;
         padding: 20px;
@@ -597,17 +588,15 @@
         font-family: GoogleSans;
         font-size: 15px;
       }
-      .qbzythwit .reqotp .fields input::placeholder,
-      .qbzythwit .validateotp .fields input::placeholder {
+      .qbzythwit .fragment input::placeholder {
         color: rgba(0, 0, 0, 0.5);
       }
-      .qbzythwit .reqotp .fields input.invalid,
-      .qbzythwit .validateotp .fields input.invalid {
+      .qbzythwit .fragment input.invalid {
         text-decoration-line: underline;
         text-decoration-style: wavy;
         text-decoration-color: red;
       }
-      .qbzythwit .reqotp .fields select {
+      .qbzythwit .fragment select {
         padding: 0 20px;
         appearance: none;
         -webkit-appearance: none;
@@ -618,24 +607,23 @@
         background-position: right 20px center;
         background-size: 16px;
       }
-      .reqotp .fields select:has(option:checked:not([disabled])) {
+      .qbzythwit .fragment select:has(option:checked:not([disabled])) {
         color: var(--text-primary);
       }
       @media only screen and (prefers-color-scheme: dark) {
-        .qbzythwit .reqotp .fields input,
-        .qbzythwit .reqotp .fields select {
+        .qbzythwit .fragment input,
+        .qbzythwit .fragment select {
           background-color: rgba(255, 255, 255, 0.07);
         }
-        .qbzythwit .reqotp .fields input::placeholder {
+        .qbzythwit .fragment input::placeholder {
           color: rgba(255, 255, 255, 0.5);
         }
-        .qbzythwit .reqotp .fields select {
+        .qbzythwit .fragment select {
           color: rgba(255, 255, 255, 0.5);
           background-image: url("data:image/svg+xml;utf8,<svg fill='%23fff' xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>");
         }
       }
-      .qbzythwit .reqotp .btn,
-      .qbzythwit .validateotp .btn {
+      .qbzythwit .fragment .btn {
         width: 100%;
         height: 50px;
         border-radius: 100px;
@@ -644,24 +632,18 @@
         justify-content: center;
         align-items: center;
       }
-      .qbzythwit .reqotp .btn .loader,
-      .qbzythwit .validateotp .btn .loader {
+      .qbzythwit .fragment .btn .loader {
         width: 24px;
         height: 24px;
         display: none;
       }
-      .qbzythwit .reqotp .btn.active .loader,
-      .qbzythwit .validateotp .btn.active .loader {
+      .qbzythwit .fragment .btn.active .loader {
         display: block;
       }
-      .qbzythwit .reqotp .btn span {
+      .qbzythwit .fragment .btn span {
         color: var(--bg);
         font-weight: bold;
         display: none;
-      }
-      .qbzythwit .validateotp .btn span {
-        color: var(--bg);
-        font-weight: bold;
       }
       .qbzythwit[data-query="login"] .btn span:nth-child(1) {
         display: inline-block;
@@ -669,37 +651,35 @@
       .qbzythwit[data-query="signup"] .btn span:nth-child(2) {
         display: inline-block;
       }
-      .qbzythwit .reqotp .btn.active span,
-      .qbzythwit .validateotp .btn.active span {
+      .qbzythwit .validateotp .btn span {
+        display: block;
+      }
+      .qbzythwit .fragment .btn.active .text {
         display: none;
       }
-      .qbzythwit .reqotp .footer,
-      .qbzythwit .validateotp .footer {
+      .qbzythwit .footer {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 15px;
       }
-      .qbzythwit .reqotp .footer span,
-      .qbzythwit .validateotp .footer span {
+      .qbzythwit .footer span {
         color: var(--text-primary-v);
         font-size: 12px;
       }
-      .qbzythwit .reqotp .footer .link,
-      .qbzythwit .validateotp .footer .link {
+      .qbzythwit .footer span.link {
         color: var(--text-primary);
         cursor: pointer;
         text-decoration: underline;
       }
-      .qbzythwit .reqotp .in-up > span,
-      .qbzythwit .validateotp .in-up > span {
+      .qbzythwit .footer .auth > span {
         display: none;
       }
-      .qbzythwit[data-query="login"] .in-up > span:nth-child(1) {
+      .qbzythwit[data-query="login"] .auth span:nth-child(1) {
         display: inline-block;
       }
-      .qbzythwit[data-query="signup"] .in-up > span:nth-child(2) {
+      .qbzythwit[data-query="signup"] .auth span:nth-child(2) {
         display: inline-block;
       }
     </style>
@@ -852,65 +832,62 @@
       </div>
       <div class="layout">
         <div class="qbzythwit">
-          <div class="reqotp">
-            <div class="fields">
-              <label>
-                <input type="text" id="name" placeholder="Name" />
-              </label>
-              <label>
-                <select id="gender">
-                  <option value="" selected disabled hidden>Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </label>
-              <label>
-                <input type="email" id="email" placeholder="Email" />
-              </label>
-            </div>
-            <div class="btn">
-              <span>Log in</span>
-              <span>Sign up</span>
-              <div class="loader">
-                <svg height="100%" viewBox="0 0 32 32" width="100%">
-                  <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--bg); opacity: 0.1"></circle>
-                  <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--bg); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
-                </svg>
+          <div class="main">
+            <div class="fragment reqotp">
+              <div class="fields">
+                <label>
+                  <input type="text" id="name" placeholder="Name" />
+                </label>
+                <label>
+                  <select id="gender">
+                    <option value="" selected disabled hidden>Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </label>
+                <label>
+                  <input type="email" id="email" placeholder="Email" />
+                </label>
+              </div>
+              <div class="btn">
+                <div class="loader">
+                  <svg height="100%" viewBox="0 0 32 32" width="100%">
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--bg); opacity: 0.1"></circle>
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--bg); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
+                  </svg>
+                </div>
+                <div class="text">
+                  <span>Log in</span>
+                  <span>Sign up</span>
+                </div>
               </div>
             </div>
-            <div class="footer">
-              <div class="privacy-policy">
-                <span>By continuing you agree to our <span class="link">Terms</span> and <span class="link">Privacy Policy</span></span>
+            <div class="fragment validateotp">
+              <div class="fields">
+                <label>
+                  <input type="text" id="otp" pattern="\d{8}" maxlength="8" inputmode="numeric" placeholder="OTP" />
+                </label>
               </div>
-              <div class="in-up">
-                <span>Don't have an account? <span class="link">Sign up</span></span>
-                <span>Allready have an account? <span class="link">Sign in</span></span>
+              <div class="btn">
+                <div class="loader">
+                  <svg height="100%" viewBox="0 0 32 32" width="100%">
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--bg); opacity: 0.1"></circle>
+                    <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--bg); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
+                  </svg>
+                </div>
+                <div class="text">
+                  <span>Verify OTP</span>
+                </div>
               </div>
             </div>
           </div>
-          <div class="validateotp">
-            <div class="fields">
-              <label>
-                <input type="text" id="otp" pattern="\d{8}" maxlength="8" inputmode="numeric" placeholder="OTP" />
-              </label>
+          <div class="footer">
+            <div class="terms">
+              <span>By continuing you agree to our <span class="link">Terms</span> and <span class="link">Privacy Policy</span></span>
             </div>
-            <div class="btn">
-              <span>Verify OTP</span>
-              <div class="loader">
-                <svg height="100%" viewBox="0 0 32 32" width="100%">
-                  <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--bg); opacity: 0.1"></circle>
-                  <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke: var(--bg); stroke-dasharray: 80; stroke-dashoffset: 60"></circle>
-                </svg>
-              </div>
-            </div>
-            <div class="footer">
-              <div class="privacy-policy">
-                <span>By continuing you agree to our <span class="link">Terms</span> and <span class="link">Privacy Policy</span></span>
-              </div>
-              <div class="in-up">
-                <span>Don't have an account? <span class="link">Sign up</span></span>
-                <span>Allready have an account? <span class="link">Sign in</span></span>
-              </div>
+            <div class="auth">
+              <span>Don't have an account? <span class="link">Sign up</span></span>
+              <span>Allready have an account? <span class="link">Sign in</span></span>
             </div>
           </div>
         </div>
@@ -1614,32 +1591,29 @@
           return;
         }
       }
+
       (() => {
-        const url = "https://script.google.com/macros/s/AKfycbwEy3EAl_MQqzQ_iYuWdGk1a3AC3Dl-0_clayU3nG7MjiO85yQF_KD9INmJffq-ekxu/exec";
         const dialog = new BottomSheetDialog(document.body);
         const qbzythwit = document.querySelector(".qbzythwit");
-        const validateotp = qbzythwit.querySelector(".validateotp");
-        const name = qbzythwit.querySelector(".reqotp .fields #name");
-        const gender = qbzythwit.querySelector(".reqotp .fields #gender");
-        const email = qbzythwit.querySelector(".reqotp .fields #email");
-        const otp = qbzythwit.querySelector(".validateotp .fields #otp");
-        name.addEventListener("input", e => {
-          if (name.classList.contains("invalid")) name.classList.remove("invalid");
+        const nameIn = qbzythwit.querySelector("#name");
+        nameIn.addEventListener("input", e => {
+          if (nameIn.classList.contains("invalid")) nameIn.classList.remove("invalid");
         });
-        email.addEventListener("input", e => {
-          if (email.classList.contains("invalid")) email.classList.remove("invalid");
+        const genderIn = qbzythwit.querySelector("#gender");
+        const emailIn = qbzythwit.querySelector("#email");
+        emailIn.addEventListener("input", e => {
+          if (emailIn.classList.contains("invalid")) emailIn.classList.remove("invalid");
         });
-        otp.addEventListener("input", () => {
-          if (otp.classList.contains("invalid")) otp.classList.remove("invalid");
-          otp.value = otp.value.replace(/\D/g, "");
-          if (otp.value.length > 6) {
-            otp.value = otp.value.slice(0, 6);
+        const otpIn = qbzythwit.querySelector("#otp");
+        otpIn.addEventListener("input", () => {
+          if (otpIn.classList.contains("invalid")) otpIn.classList.remove("invalid");
+          otpIn.value = otpIn.value.replace(/\D/g, "");
+          if (otpIn.value.length > 6) {
+            otpIn.value = otpIn.value.slice(0, 6);
           }
         });
         const reqBtn = qbzythwit.querySelector(".reqotp .btn");
-        const valBtn = qbzythwit.querySelector(".validateotp .btn");
-        const priLink = qbzythwit.querySelectorAll(".reqotp .footer .privacy-policy .link");
-        const swiLink = qbzythwit.querySelectorAll(".reqotp .footer .in-up .link");
+        const url = "https://script.google.com/macros/s/AKfycbwEy3EAl_MQqzQ_iYuWdGk1a3AC3Dl-0_clayU3nG7MjiO85yQF_KD9INmJffq-ekxu/exec";
         const info = (() => {
           try {
             const Device = JSON.parse(app.getDevice());
@@ -1649,11 +1623,7 @@
                 model: Device.Build.MODEL || null,
                 brand: Device.Build.BRAND || null,
                 device: Device.Build.DEVICE || null,
-                manufacturer: Device.Build.MANUFACTURER || null,
-                version: {
-                  sdk: Device.Build.VERSION.SDK_INT || "",
-                  release: Device.Build.VERSION.RELEASE || ""
-                }
+                manufacturer: Device.Build.MANUFACTURER || null
               }
             };
             return JSON.stringify(info);
@@ -1671,37 +1641,36 @@
           const index = ["login", "signup"].indexOf(qbzythwit.getAttribute("data-query"));
           switch (index) {
             case 0:
-              if (!email.value?.trim()) {
-                email.focus();
+              if (!emailIn.value?.trim()) {
+                emailIn.focus();
                 return;
-              } else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email.value?.trim())) {
-                email.classList.add("invalid");
-                email.focus();
+              } else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(emailIn.value?.trim())) {
+                emailIn.classList.add("invalid");
+                emailIn.focus();
                 return;
               }
               break;
             case 1:
-              if (email.value && !/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email.value?.trim())) {
-                email.classList.add("invalid");
-                email.focus();
+              if (emailIn.value && !/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(emailIn.value?.trim())) {
+                emailIn.classList.add("invalid");
+                emailIn.focus();
                 return;
-              } else if (!name.value?.trim()) {
-                name.focus();
-                name.classList.add("invalid");
+              } else if (!nameIn.value?.trim()) {
+                nameIn.focus();
                 return;
-              } else if (name.value?.trim() && !/^(?!.*[ .]{2,})(?![ .])(?!.*[ .]$)[A-Za-z. ]{3,}$/.test(name.value.trim())) {
-                name.focus();
-                name.classList.add("invalid");
+              } else if (nameIn.value?.trim() && !/^(?!.*[ .]{2,})(?![ .])(?!.*[ .]$)[A-Za-z. ]{3,}$/.test(nameIn.value.trim())) {
+                nameIn.focus();
+                nameIn.classList.add("invalid");
                 return;
-              } else if (!gender.value?.trim()) {
-                gender.showPicker();
+              } else if (!genderIn.value?.trim()) {
+                genderIn.showPicker();
                 return;
-              } else if (!email.value?.trim()) {
-                email.focus();
+              } else if (!emailIn.value?.trim()) {
+                emailIn.focus();
                 return;
-              } else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email.value?.trim())) {
-                email.classList.add("invalid");
-                email.focus();
+              } else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(emailIn.value?.trim())) {
+                emailIn.classList.add("invalid");
+                emailIn.focus();
                 return;
               }
               break;
@@ -1715,21 +1684,12 @@
               info: info
             }
           };
-          reqBtn.removeEventListener("click", onReq);
           reqBtn.classList.add("active");
+          reqBtn.removeEventListener("click", onReq);
           swiLink.forEach(link => {
             link.removeEventListener("click", onSwi);
           });
-          fetch(url, {
-            method: "POST",
-            body: JSON.stringify({
-              query: "REQOTP",
-              contents: {
-                query,
-                user
-              }
-            })
-          })
+          fetch(url, { method: "POST", body: JSON.stringify({ query: "REQOTP", contents: { query, user } }) })
             .then(res => res.json())
             .then(res => {
               reqBtn.classList.remove("active");
@@ -1744,60 +1704,53 @@
               }
               if (res.otp.isSent) {
                 qbzythwit.setAttribute("role", "validateotp");
-                validateotp.setAttribute("role", query.toLowerCase());
               }
             })
             .catch(err => {
               reqBtn.classList.remove("active");
               reqBtn.addEventListener("click", onReq);
+              swiLink.forEach(link => {
+                link.addEventListener("click", onSwi);
+              });
             });
         };
+        const valBtn = qbzythwit.querySelector(".validateotp .btn");
         const onVal = e => {
-          if (!otp.value) {
-            otp.focus();
+          if (!otpIn.value?.trim()) {
+            otpIn.focus();
             return;
-          } else if (otp.value.length < 6) {
-            otp.classList.add("invalid");
-            otp.focus();
+          } else if (otpIn.value?.trim().length < 6) {
+            otpIn.classList.add("invalid");
+            otpIn.focus();
             return;
           }
           const query = qbzythwit.dataset.query.toUpperCase();
           const user = {
             account: {
-              email: email.value?.trim()
+              email: emailIn.value?.trim()
             },
             device: {
               info: info
             },
             profile: {
-              name: name.value.trim(),
-              gender: gender.value.trim()
+              name: nameIn.value.trim(),
+              gender: genderIn.value.trim()
             }
           };
-          valBtn.removeEventListener("click", onVal);
           valBtn.classList.add("active");
-          fetch(url, {
-            method: "POST",
-            body: JSON.stringify({
-              query: "VALIDATEOTP",
-              contents: {
-                query,
-                otp: otp.value.trim(),
-                user
-              }
-            })
-          })
+          valBtn.removeEventListener("click", onVal);
+          fetch(url, { method: "POST", body: JSON.stringify({ query: "VALIDATEOTP", contents: { query, otp: otp.value.trim(), user } }) })
             .then(res => res.json())
             .then(res => {
               valBtn.classList.remove("active");
               if (!res.status.isSuccess) return;
               if (!res.otp.isValid) {
+                otpIn.classList.add("invalid");
+                otpIn.focus();
                 valBtn.addEventListener("click", onVal);
-                otp.classList.add("invalid");
-                otp.focus();
                 return;
               }
-              otp.value = "";
+              otpIn.value = "";
               localStorage.setItem("application.user", JSON.stringify(res.getUser));
               window.location.reload();
             })
@@ -1806,9 +1759,10 @@
               valBtn.addEventListener("click", onVal);
             });
         };
+        const priLink = qbzythwit.querySelectorAll(".footer .terms .link");
         const onPri = e => {};
+        const swiLink = qbzythwit.querySelectorAll(".footer .auth .link");
         const onSwi = e => {
-          const qbzythwit = document.querySelector(".qbzythwit");
           if (Object.is(qbzythwit.getAttribute("data-query"), "login")) {
             qbzythwit.setAttribute("data-query", "signup");
           } else {
@@ -1816,9 +1770,8 @@
           }
         };
         const authentication = query => {
-          const index = ["login", "signup"].indexOf(query);
-          const qbzythwit = document.querySelector(".qbzythwit");
-          qbzythwit.setAttribute("data-query", ["login", "signup"][index]);
+          const i = ["login", "signup"].indexOf(query);
+          qbzythwit.setAttribute("data-query", ["login", "signup"][i]);
           reqBtn.addEventListener("click", onReq);
           valBtn.addEventListener("click", onVal);
           priLink.forEach(link => {
