@@ -906,18 +906,18 @@
           const preloader = document.querySelector(".dashboard > .main .coll .preloader");
           try {
             preloader.classList.add("active");
-            const res = await fetch("https://script.google.com/macros/s/AKfycbzzvCPKVCipQmze4YTP6DcjFCq5yBwYHqyqZHtp0a-iarlF1mZ8ND_TD4orbHy1r2kqOQ/exec?t=coll");
+            const res = await fetch("https://script.google.com/macros/s/AKfycbzzvCPKVCipQmze4YTP6DcjFCq5yBwYHqyqZHtp0a-iarlF1mZ8ND_TD4orbHy1r2kqOQ/exec");
             if (!res.ok) throw new Error();
             const data = await res.json();
-            if (!data.data?.length) {
+            if (!data.data[0]?.length) {
               preloader.classList.remove("active");
               localStorage.removeItem("application.data.coll");
               //
               return;
             }
             preloader.classList.remove("active");
-            localStorage.setItem("application.data.coll", JSON.stringify(data.data));
-            sessionStorage.setItem("application.data.coll", JSON.stringify(data.data));
+            localStorage.setItem("application.data.coll", JSON.stringify(data.data[0]));
+            sessionStorage.setItem("application.data.coll", JSON.stringify(data.data[0]));
             renderColl();
           } catch {}
         }
@@ -928,18 +928,18 @@
           const preloader = document.querySelector(".dashboard > .main .exp .preloader");
           try {
             preloader.classList.add("active");
-            const res = await fetch("https://script.google.com/macros/s/AKfycbzzvCPKVCipQmze4YTP6DcjFCq5yBwYHqyqZHtp0a-iarlF1mZ8ND_TD4orbHy1r2kqOQ/exec?t=exp");
+            const res = await fetch("https://script.google.com/macros/s/AKfycbzzvCPKVCipQmze4YTP6DcjFCq5yBwYHqyqZHtp0a-iarlF1mZ8ND_TD4orbHy1r2kqOQ/exec");
             if (!res.ok) throw new Error();
             const data = await res.json();
-            if (!data.data?.length) {
+            if (!data.data[1]?.length) {
               preloader.classList.remove("active");
               sessionStorage.removeItem("application.data.exp");
               //
               return;
             }
             preloader.classList.remove("active");
-            localStorage.setItem("application.data.exp", JSON.stringify(data.data));
-            sessionStorage.setItem("application.data.exp", JSON.stringify(data.data));
+            localStorage.setItem("application.data.exp", JSON.stringify(data.data[1]));
+            sessionStorage.setItem("application.data.exp", JSON.stringify(data.data[1]));
             renderExp();
           } catch {}
         }
