@@ -906,7 +906,7 @@
           const preloader = document.querySelector(".dashboard > .main .coll .preloader");
           try {
             preloader.classList.add("active");
-            const res = await fetch("https://script.google.com/macros/s/AKfycbzcIMuhAkmb1ZWjqc1Mrgpt2zePdFDuiEQtLLjkhFszBaqOPNKBWSDSmWtC8quXLT6J-A/exec");
+            const res = await fetch("https://script.google.com/macros/s/AKfycbzzvCPKVCipQmze4YTP6DcjFCq5yBwYHqyqZHtp0a-iarlF1mZ8ND_TD4orbHy1r2kqOQ/exec?t=coll");
             if (!res.ok) throw new Error();
             const data = await res.json();
             if (!data.data?.length) {
@@ -928,7 +928,7 @@
           const preloader = document.querySelector(".dashboard > .main .exp .preloader");
           try {
             preloader.classList.add("active");
-            const res = await fetch("https://script.google.com/macros/s/AKfycbwogEu8bdsMXeRm3VtiG9SytM9gE417eCXJOHxaZyKutCfN6Qb56B1trWoWOzab4E9yFQ/exec");
+            const res = await fetch("https://script.google.com/macros/s/AKfycbzzvCPKVCipQmze4YTP6DcjFCq5yBwYHqyqZHtp0a-iarlF1mZ8ND_TD4orbHy1r2kqOQ/exec?t=exp");
             if (!res.ok) throw new Error();
             const data = await res.json();
             if (!data.data?.length) {
@@ -1104,8 +1104,6 @@
       function openEditor(i, q, d) {
         const subO = ["coll", "exp"][i];
         const subT = ["add", "edit"][["", "edit"].indexOf(q)] ?? "add";
-        const collurl = "https://script.google.com/macros/s/AKfycbzcIMuhAkmb1ZWjqc1Mrgpt2zePdFDuiEQtLLjkhFszBaqOPNKBWSDSmWtC8quXLT6J-A/exec";
-        const expurl = "https://script.google.com/macros/s/AKfycbwogEu8bdsMXeRm3VtiG9SytM9gE417eCXJOHxaZyKutCfN6Qb56B1trWoWOzab4E9yFQ/exec";
         history.pushState({}, "", `#/dashboard/${subO}/${subT}`);
         const editor = document.querySelector(".app > .activity .editor");
         document.body.classList.add("scrollable");
@@ -1113,8 +1111,8 @@
           item.classList.add("no-scroll");
         });
         editor.classList.add("active");
-        editor.setAttribute("data-url", [collurl, expurl][i]);
         editor.setAttribute("data-query", ["WRITE", "EDIT"][["", "edit"].indexOf(q)] ?? "WRITE");
+        editor.setAttribute("data-type", ["COLL", "EXP"][i]);
         editor.querySelector(".heading span").textContent = ["Collection", "Expanse"][i];
         editor.querySelector(".fields label[for='id'] span").textContent = ["Collection Id", "Expanse Id"][i];
         editor.querySelector(".fields label[for='title'] span").textContent = "Title (Optional)";
@@ -1179,7 +1177,7 @@
               timestamp: new Date()
             };
           })();
-          const url = editor.dataset.url;
+          const url = "https://script.google.com/macros/s/AKfycbzzvCPKVCipQmze4YTP6DcjFCq5yBwYHqyqZHtp0a-iarlF1mZ8ND_TD4orbHy1r2kqOQ/exec";
           const query = editor.dataset.query;
           const data = {
             id: idIn.value.trim(),
@@ -1188,9 +1186,10 @@
             overview: overviewIn.textContent.trim(),
             meta: meta
           };
+          const type = editor.dataset.type;
           btnPositive.removeEventListener("click", onPositive);
           btnPositive.classList.add("active");
-          fetch(url, { method: "POST", body: JSON.stringify({ query: "WRITEDATA", contents: { query, data } }) })
+          fetch(url, { method: "POST", body: JSON.stringify({ query: "WRITEDATA", contents: { query, data, type } }) })
             .then(res => res.json())
             .then(res => {
               btnPositive.classList.remove("active");
