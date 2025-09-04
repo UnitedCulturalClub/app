@@ -1024,6 +1024,8 @@
           if (String(myId).length < 8){
             myId = `0${myId}`;
           }
+          
+          
           const date = parseId(myId).toDate();
           const timestamp = new Date(data.timestamp);
           const now = new Date();
