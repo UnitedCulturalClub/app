@@ -1167,7 +1167,7 @@
             }
           })();
           const meta = (() => {
-            if (!user.auth.isLoggedIn) return {};
+            if (!user.auth?.isLoggedIn) return {};
             return {
               author: {
                 account: user.account || "",
