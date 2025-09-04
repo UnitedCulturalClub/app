@@ -1019,7 +1019,11 @@
           card.remove();
         });
         data.forEach(data => {
-          const date = parseId(data.id).toDate();
+          let myId;
+          if (data.id.length < 8){
+            myId = 0 + myId
+          }
+          const date = parseId(myId).toDate();
           const timestamp = new Date(data.timestamp);
           const now = new Date();
           const card = document.createElement("div");
