@@ -1148,8 +1148,17 @@
       })();
       if (user && user.auth?.isLoggedIn) {
         (async () => {
-          const res = await fetchUser(user);
-          console.log(res);
+          try {
+            const res = await fetchUser(user);
+            if (!res.status.isSuccess) return;
+            if (!res.user.session.isValid) {
+              localStorage.removeItem("application.user");
+              window.location.reload();
+              return;
+            }
+            if (!JSON.stringify(localStorage.getItem("application.user")).localeCompare(JSON.stringify(res.getUser))) renderProfile();
+            localStorage.setItem("application.user", JSON.stringify(res.getUser));
+          } catch {}
         })();
       }
       window.addEventListener("DOMContentLoaded", e => {
@@ -1334,7 +1343,7 @@
           const preloader = document.querySelector(".home > .main .coll .preloader");
           try {
             preloader.classList.add("active");
-            const res = await fetch("https://script.google.com/macros/s/AKfycbzcIMuhAkmb1ZWjqc1Mrgpt2zePdFDuiEQtLLjkhFszBaqOPNKBWSDSmWtC8quXLT6J-A/exec");
+            const res = await fetch("https://script.google.com/macros/s/AKfycbzzvCPKVCipQmze4YTP6DcjFCq5yBwYHqyqZHtp0a-iarlF1mZ8ND_TD4orbHy1r2kqOQ/exec?t=coll");
             if (!res.ok) throw new Error();
             const data = await res.json();
             if (!data.data?.length) {
@@ -1376,7 +1385,7 @@
           const preloader = document.querySelector(".home > .main .exp .preloader");
           try {
             preloader.classList.add("active");
-            const res = await fetch("https://script.google.com/macros/s/AKfycbwogEu8bdsMXeRm3VtiG9SytM9gE417eCXJOHxaZyKutCfN6Qb56B1trWoWOzab4E9yFQ/exec");
+            const res = await fetch("https://script.google.com/macros/s/AKfycbzzvCPKVCipQmze4YTP6DcjFCq5yBwYHqyqZHtp0a-iarlF1mZ8ND_TD4orbHy1r2kqOQ/exec?t=exp");
             if (!res.ok) throw new Error();
             const data = await res.json();
             if (!data.data?.length) {
@@ -1589,6 +1598,9 @@
           const profile = document.querySelector(".app > .main > .profile");
           profile.setAttribute("role", "auth");
           return;
+        }
+        if (user.role.canRequest) {
+          const btn = document.createElement("div");
         }
       }
 
