@@ -947,7 +947,7 @@
       };
       const user = (() => {
         try {
-          return JSON.parse(sessionStorage.getItem("application.user")) || {};
+          return JSON.parse(localStorage.getItem("application.user")) || {};
         } catch {
           return {};
         }
@@ -962,7 +962,6 @@
               window.location.reload();
               return;
             }
-            if (!JSON.stringify(localStorage.getItem("application.user")).localeCompare(JSON.stringify(res.getUser))) renderProfile();
             localStorage.setItem("application.user", JSON.stringify(res.getUser));
           } catch {}
         })();
