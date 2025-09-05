@@ -281,7 +281,7 @@
       .dashboard > .main .fragment .preloader {
         width: 100%;
         height: 100%;
-        background-color: var(--color-background);
+        background-color: var(--bg);
         position: absolute;
         top: 0;
         left: 0;
@@ -526,6 +526,7 @@
         background-color: var(--bg);
         outline: none;
         line-height: 1.5em;
+        font-family: GoogleSans;
         font-size: 14px;
       }
       .editor .fields label input.invalid {
@@ -906,18 +907,18 @@
           const preloader = document.querySelector(".dashboard > .main .coll .preloader");
           try {
             preloader.classList.add("active");
-            const res = await fetch("https://script.google.com/macros/s/AKfycbzzvCPKVCipQmze4YTP6DcjFCq5yBwYHqyqZHtp0a-iarlF1mZ8ND_TD4orbHy1r2kqOQ/exec");
+            const res = await fetch("https://script.google.com/macros/s/AKfycbzzvCPKVCipQmze4YTP6DcjFCq5yBwYHqyqZHtp0a-iarlF1mZ8ND_TD4orbHy1r2kqOQ/exec?t=coll");
             if (!res.ok) throw new Error();
             const data = await res.json();
-            if (!data.data[0]?.length) {
+            if (!data.data?.length) {
               preloader.classList.remove("active");
               localStorage.removeItem("application.data.coll");
               //
               return;
             }
             preloader.classList.remove("active");
-            localStorage.setItem("application.data.coll", JSON.stringify(data.data[0]));
-            sessionStorage.setItem("application.data.coll", JSON.stringify(data.data[0]));
+            localStorage.setItem("application.data.coll", JSON.stringify(data.data));
+            sessionStorage.setItem("application.data.coll", JSON.stringify(data.data));
             renderColl();
           } catch {}
         }
@@ -928,18 +929,18 @@
           const preloader = document.querySelector(".dashboard > .main .exp .preloader");
           try {
             preloader.classList.add("active");
-            const res = await fetch("https://script.google.com/macros/s/AKfycbzzvCPKVCipQmze4YTP6DcjFCq5yBwYHqyqZHtp0a-iarlF1mZ8ND_TD4orbHy1r2kqOQ/exec");
+            const res = await fetch("https://script.google.com/macros/s/AKfycbzzvCPKVCipQmze4YTP6DcjFCq5yBwYHqyqZHtp0a-iarlF1mZ8ND_TD4orbHy1r2kqOQ/exec?t=exp");
             if (!res.ok) throw new Error();
             const data = await res.json();
-            if (!data.data[1]?.length) {
+            if (!data.data?.length) {
               preloader.classList.remove("active");
               sessionStorage.removeItem("application.data.exp");
               //
               return;
             }
             preloader.classList.remove("active");
-            localStorage.setItem("application.data.exp", JSON.stringify(data.data[1]));
-            sessionStorage.setItem("application.data.exp", JSON.stringify(data.data[1]));
+            localStorage.setItem("application.data.exp", JSON.stringify(data.data));
+            sessionStorage.setItem("application.data.exp", JSON.stringify(data.data));
             renderExp();
           } catch {}
         }
@@ -957,7 +958,7 @@
             renderColl();
             break;
           case 1:
-            //renderExp();
+            renderExp();
             break;
         }
       }
@@ -1019,14 +1020,7 @@
           card.remove();
         });
         data.forEach(data => {
-          let myId = data.id;
-          console.log(myId)
-          if (String(myId).length < 8){
-            myId = `0${myId}`;
-          }
-          
-          
-          const date = parseId(myId).toDate();
+          const date = parseId(data.id).toDate();
           const timestamp = new Date(data.timestamp);
           const now = new Date();
           const card = document.createElement("div");
