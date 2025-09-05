@@ -1554,7 +1554,9 @@
                 root.insertBefore(card, root.firstChild);
               } else root.appendChild(card);
             } else root.appendChild(card);
-          } catch {}
+          } catch (e) {
+            console.log(e);
+          }
         });
         const dialog = new BottomSheetDialog(document.body);
         function overview(data) {
