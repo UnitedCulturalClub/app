@@ -1536,7 +1536,7 @@
             cardMain.appendChild(cardHeading);
             const cardOverview = document.createElement("div");
             cardOverview.classList.add("card-overview");
-            cardOverview.innerHTML = `<span>${truncate(data.overview, 100)}</span>`;
+            cardOverview.innerHTML = `<span>${truncate(data.overview, 140)}</span>`;
             cardOverview.addEventListener("click", () => {
               overview(data);
             });
