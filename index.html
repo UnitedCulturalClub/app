@@ -1180,6 +1180,7 @@
       const navBtn = document.querySelectorAll(".app > .footer .nav-btn");
       navBtn.forEach((btn, index) => {
         btn.addEventListener("click", e => {
+          if ([1,2].includes(index)) return();
           if (!btn.classList.contains("active")) {
             const fragments = ["home", "search", "updates", "profile"];
             if (navBtn[0].classList.contains("active")) {
